@@ -1,0 +1,64 @@
+
+extend type Mutation {
+    "Входим под user - возвращаем JWT токен"
+    authLogin(input: UserLogin! @spread): AuthToken! @field(resolver: "App\\Modules\\Auth\\Presentation\\Http\\Graphql\\AuthResolver@login")
+
+    "Выходим из авторизации - токены инвалидируются"
+    authLogout: String! @field(resolver: "App\\Modules\\Auth\\Presentation\\Http\\Graphql\\AuthResolver@logout") @guard
+
+    "Обновляем токены - access/refresh"
+    authRefresh: AuthToken! @field(resolver: "App\\Modules\\Auth\\Presentation\\Http\\Graphql\\AuthResolver@refresh")
+
+    "Устанавливаем полезную нагрузку, получаем новый access токен"
+    authSetPayload(organization_id: ID! @spread): AuthToken! @field(resolver: "App\\Modules\\Auth\\Presentation\\Http\\Graphql\\AuthResolver@setPayload") @guard
+}
+
+extend type Query {
+    "Получаем модель User"
+    authMe: User @field(resolver: "App\\Modules\\Auth\\Presentation\\Http\\Graphql\\AuthResolver@user") @guard
+}
+
+
+#Input для authLogin
+input UserLogin @validator(class: "App\\Modules\\Auth\\Domain\\Validators\\UserLoginValidator") {
+
+    #Не обязательный параметр email в запросе должен быть, либо email, либо phone
+    email: String!
+
+    #Не обязательный параметр phone в запросе должен быть, либо email, либо phone
+    phone: String
+
+    #Обязательный параметр пароля
+    password: String!
+}
+
+extend type Query {
+    userById(id: ID! @whereKey): User @find
+}
+
+type User {
+
+    id: ID!
+
+    email: String
+
+    phone: String
+
+}
+
+type AuthToken {
+
+    "Токен JWT"
+    access_token: String
+
+    "Тип токена"
+    token_type: String
+
+    "Время сущестования Access токена в минутах"
+    expires_in_access: String
+
+    "Время сущестования Refresh токена в минутах"
+    expires_in_refresh: String
+
+}
+

@@ -1,0 +1,45 @@
+FROM php:8.3-fpm
+
+# Установка зависимостей для Linux под проект Laravel с PostgreSQL
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    supervisor \
+    curl \
+    apt-utils \
+    libpq-dev \
+    libpng-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    git \
+    postgresql \
+    postgresql-contrib && \
+    docker-php-ext-install pcntl pdo_pgsql bcmath gd zip && \
+    pecl install redis && \
+    docker-php-ext-enable redis && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Копируем php.ini
+COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
+
+# Настройка Supervisor
+# Проверяем, что конфигурация Supervisor добавляется корректно
+COPY ./_docker/app/supervisord.conf /etc/supervisor/supervisord.conf
+
+# Устанавливаем Composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php -r "if (hash_file('sha384', 'composer-setup.php') !== trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer corrupt'; unlink('composer-setup.php'); exit(1); }" && \
+    php composer-setup.php && \
+    php -r "unlink('composer-setup.php');" && \
+    mv composer.phar /usr/local/bin/composer
+
+# Настройки окружения для Composer
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_HOME /composer
+ENV PATH $PATH:/composer/vendor/bin
+
+# Настраиваем Composer
+RUN composer config --global process-timeout 3600
+
+# Установка рабочей директории
+WORKDIR /var/www
