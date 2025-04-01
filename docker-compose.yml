@@ -35,8 +35,6 @@ services:
   db:
     image: postgres:latest
     restart: always
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: lardocker
       POSTGRES_USER: postgres
