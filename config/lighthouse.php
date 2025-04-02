@@ -16,7 +16,8 @@ return [
         /*
          * The URI the endpoint responds to, e.g. mydomain.com/graphql.
          */
-        'uri' => '/graphql',
+        'uri' => 'api/graphql',
+
 
         /*
          * Lighthouse creates a named route for convenient URL generation and redirects.
@@ -28,6 +29,9 @@ return [
          * make sure to return spec-compliant responses in case an error is thrown.
          */
         'middleware' => [
+
+            'api',
+
             // Ensures the request is not vulnerable to cross-site request forgery.
             // Nuwave\Lighthouse\Http\Middleware\EnsureXHR::class,
 

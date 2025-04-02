@@ -3,4 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Nuwave\Lighthouse\Http\GraphQLController;
 
-Route::post('/graphql', GraphQLController::class);
+#P.S Уже указан в config
+// Route::post('/graphql', GraphQLController::class);
+

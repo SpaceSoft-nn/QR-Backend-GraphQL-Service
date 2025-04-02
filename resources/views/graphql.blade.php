@@ -57,6 +57,7 @@
 <script src="{{ DownloadAssetsCommand::jsPath() }}"></script>
 <script src="{{ DownloadAssetsCommand::pluginExplorerPath() }}"></script>
 <script>
+
     const fetcher = GraphiQL.createFetcher({
         url: '{{ $url }}',
         subscriptionUrl: '{{ $subscriptionUrl }}',
