@@ -1,0 +1,19 @@
+
+type PersonalArea {
+
+    id: ID!
+
+    owner: String!
+
+    owner_id: User! @belongsTo(model: "App\\Models\\Author")
+
+    subscription: Subscription! @belongsTo(model: "App\\Models\\Author")
+
+    balance: !Int
+
+}
+
+enum OrganizationTypeEnum {
+    legal,
+    individual,
+}

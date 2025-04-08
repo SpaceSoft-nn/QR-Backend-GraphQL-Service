@@ -1,0 +1,45 @@
+
+type User {
+
+    id: ID!
+
+    password: String!
+
+    first_name: String
+
+    last_name: String
+
+    father_name: String
+
+    role: UserRoleEnum!
+
+    permission: Int!
+
+    active: String!
+
+    auth: String!
+
+    # organizaions: [Organization!]! @belongsToMany(model: "App\\Models\\Organization")
+
+    # personal_areas: PersonalArea! @belongsToMany(model: "App\\Models\\Author")
+
+    # Возвращает личный кабинет, где пользователь является создателям кабинета (Админом)
+    # personal_area_admin: PersonalArea! @hasOne(model: "App\\Models\\Author")
+
+    email: String
+
+    phone: String
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+
+enum UserRoleEnum {
+    admin,
+    manager,
+    cassier,
+}
+
+

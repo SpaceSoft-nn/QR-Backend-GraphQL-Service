@@ -14,6 +14,8 @@ services:
     build:
       context: .
       dockerfile: _docker/app/DockerFile
+    ports:
+         - "9000:9000"
     volumes:
       - ./:/var/www
     container_name: qr_laravel

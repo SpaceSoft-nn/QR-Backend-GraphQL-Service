@@ -1,6 +1,9 @@
 #import auth/*.graphql
+#import user/*.graphql
 
 # scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query
 type Mutation
