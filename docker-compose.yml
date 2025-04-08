@@ -45,4 +45,7 @@ services:
       - 8101:5432
     container_name: qr_postgres
 
+volumes:
+  db_data: {}
+
 
