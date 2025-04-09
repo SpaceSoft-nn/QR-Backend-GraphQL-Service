@@ -8,21 +8,17 @@ return new class extends Migration
 {
 
     public function up(): void
-    {
+    { //таблица нужно для выбора, к примеру банки, или платежные агрегаты, или внешние сервисы, где уже будет выбираться конкретная платежка
         Schema::create('payments', function (Blueprint $table) {
 
             $table->uuid('id')->primary();
 
             $table->boolean('status');
 
-            $table->uuid('number_uuid')->comment('номер payment');
+            // $table->uuid('number_uuid')->comment('номер payment');
             $table->uuid('name')->nullable()->comment('название платежного метода');
-
             $table->string('driver')->nullable()->comment('название драйвера для удобности');
 
-
-            $table->foreignUuid('method_id')
-                ->constrained('payment_methods')->noActionOnDelete(); //способ оплаты у платежа QIWI, YOUCASSA, PAYPAL, BITCOIN
 
 
             $table->timestamps();

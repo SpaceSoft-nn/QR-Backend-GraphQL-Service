@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('payment_methods', function (Blueprint $table) {
@@ -19,15 +17,16 @@ return new class extends Migration
             $table->boolean('active')->default(false);
             $table->string('driver')->comment('Провайдер');
 
+            $table->foreignUuid('payment_id')
+                ->constrained('payments')->noActionOnDelete(); //способ оплаты у платежа QIWI, YOUCASSA, PAYPAL, BITCOIN
+
 
             $table->timestamps();
 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('payment_methods_tabl');

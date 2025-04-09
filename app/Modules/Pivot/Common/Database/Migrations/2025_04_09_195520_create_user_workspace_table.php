@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreignUuid('workspace_id')
                 ->constrained('workspaces')->noActionOnDelete();
 
+            $table->boolean('active_user')->default(false)->comment('Активен ли user на работе в workspace');
+
             $table->unique(['user_id', 'workspace_id']);
 
             $table->timestamps();

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Modules\Payment\Domain\Models;
+namespace App\Modules\Transaction\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class PaymentMethod extends Model
+class QrCode extends Model
 {
     use HasFactory, HasUuids;
 
@@ -15,14 +16,13 @@ class PaymentMethod extends Model
     //     return UserFactory::new();
     // }
 
-    protected $table = 'payment_methods';
+    protected $table = 'qr_codes';
 
     protected $fillable = [
 
-        "name",
-        "active",
-        "driver",
-        "payment_id",
+        "qr_url",
+        "name_product",
+        "amount",
 
     ];
 
@@ -37,4 +37,8 @@ class PaymentMethod extends Model
     ];
 
 
+    public function transaction() : BelongsTo
+    {
+        return $this->belongsTo(Transaction::class);
+    }
 }
