@@ -1,0 +1,33 @@
+
+type Transaction @model(class: "App\\Modules\\Transaction\\Domain\\Models\\Transaction") {
+
+    id: ID!
+
+    nubmer_uuid: String!
+
+    status: TransactionStatusEnum
+
+    amount: Float!
+
+    workspace: Workspace! @belongsTo
+
+    qr_code: QrCode! @belongsTo
+
+    type_product: String!
+
+    count_product: String!
+
+    name_product: String!
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+
+enum TransactionStatusEnum {
+    pending,
+    waiting_for_capture,
+    completed,
+    cancelled,
+}

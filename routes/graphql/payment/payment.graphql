@@ -1,0 +1,21 @@
+
+type Payment @model(class: "App\\Modules\\Payment\\Domain\\Models\\Payment") {
+
+    id: ID!
+
+    status: Boolean!
+
+    number_uuid: String!
+
+    name: String!
+
+    driver: String
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+
+
+

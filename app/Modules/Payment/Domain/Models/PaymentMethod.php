@@ -43,7 +43,7 @@ class PaymentMethod extends Model
         return $this->hasMany(DriverInfo::class, 'payment_method_id', 'id');
     }
 
-    public function payment_id() : BelongsTo
+    public function payment() : BelongsTo
     {
         return $this->belongsTo(Payment::class, 'payment_id', 'id');
     }

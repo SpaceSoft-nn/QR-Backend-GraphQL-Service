@@ -1,0 +1,27 @@
+
+type DriverInfo @model(class: "App\\Modules\\Payment\\Domain\\Models\\DriverInfo") {
+
+    id: ID!
+
+    "Название ключа например API Key или Seecret Key"
+    key: String!
+
+    "Значение ключа"
+    value: String!
+
+    "Пользователь который указал значение"
+    user: String!
+
+    "К какой организации относится этот пользователь"
+    organizaion: Organization!
+
+    payment_method: PaymentMethod @belongsTo
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+
+
+

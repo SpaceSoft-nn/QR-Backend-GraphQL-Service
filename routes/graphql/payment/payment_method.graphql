@@ -1,0 +1,23 @@
+
+type PaymentMethod @model(class: "App\\Modules\\Payment\\Domain\\Models\\PaymentMethod") {
+
+    id: ID!
+
+    active: Boolean!
+
+    name: String!
+
+    driver: String!
+
+    payment: Payment @belongsTo
+
+    driver_infos: DriverInfo @belongsToMany
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+
+
+

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Modules\Transaction\App\Data\Enums\StatusTransactionEnum;
+use App\Modules\Workspace\Domain\Models\Workspace;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
@@ -59,5 +61,10 @@ class Transaction extends Model
     public function qrCode() : HasOne
     {
         return $this->hasOne(QrCode::class, 'qr_code_id', 'id');
+    }
+
+    public function workspace() : BelongsTo
+    {
+        return $this->belongsTo(Workspace::class, 'workspace_id', 'id');
     }
 }

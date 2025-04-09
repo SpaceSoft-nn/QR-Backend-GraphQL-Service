@@ -1,0 +1,27 @@
+
+type Workspace @model(class: "App\\Modules\\Workspace\\Domain\\Models\\Workspace") {
+
+    id: ID!
+
+    name: String!
+
+    description: String!
+
+    is_active: Boolean!
+
+    "Пользователь который работает в данный момент под workspace"
+    user_worker: User!
+
+    user_owner: User!
+
+    organizaion: Organization!
+
+    payment: Payment
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+
+

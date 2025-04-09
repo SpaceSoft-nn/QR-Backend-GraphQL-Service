@@ -16,9 +16,8 @@ return new class extends Migration
             $table->boolean('status');
 
             // $table->uuid('number_uuid')->comment('номер payment');
-            $table->uuid('name')->nullable()->comment('название платежного метода');
+            $table->uuid('name')->index('name_payment')->comment('название платежного метода');
             $table->string('driver')->nullable()->comment('название драйвера для удобности');
-
 
 
             $table->timestamps();

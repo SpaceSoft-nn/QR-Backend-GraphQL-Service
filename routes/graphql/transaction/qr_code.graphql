@@ -1,0 +1,18 @@
+
+type QrCode @model(class: "App\\Modules\\Transaction\\Domain\\Models\\QrCode") {
+
+    id: ID!
+
+    qr_url: String!
+
+    name_product: String
+
+    amount: String
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+
+

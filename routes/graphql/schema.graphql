@@ -7,6 +7,10 @@
 #import personal_area/*.graphql
 #import subscription/*.graphql
 
+#import payment/*.graphql
+#import transaction/*.graphql
+#import workspace/*.graphql
+
 
 
 
