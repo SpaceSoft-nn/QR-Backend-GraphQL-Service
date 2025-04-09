@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Modules\Organizaion\Domain\Models;
+namespace App\Modules\Organization\Domain\Models;
 
-use App\Modules\Organizaion\App\Data\Enums\OrganizationTypeEnum;
+use App\Modules\Organization\App\Data\Enums\OrganizationTypeEnum;
+use Illuminate\Database\Eloquent\Model;
 use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Organizaion extends Model
+class Organization extends Model
 {
     use HasFactory, HasUuids;
 

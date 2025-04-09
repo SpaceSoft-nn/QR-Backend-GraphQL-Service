@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('active')->comment('Активирован ли user');
             $table->integer('auth')->comment('Активирован ли через подтврждения email/phone');
 
-            // $table->foreignUuid('personal_area_id')->constrained('personal_areas');
+            $table->foreignUuid('personal_area_id')->constrained('personal_areas');
             // $table->foreignUuid('email_id')->constrained('personal_areas');
             // $table->foreignUuid('phone_id')->constrained('personal_areas');
 

@@ -1,0 +1,17 @@
+
+type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\\SubscriptionPlan") {
+
+    id: ID!
+
+    plan_name: String!
+
+    price: Int!
+
+    expires_at: Date!
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+

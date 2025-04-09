@@ -1,0 +1,20 @@
+
+type BalanceLog @model(class: "App\\Modules\\PersonalArea\\Domain\\Models\\BalanceLog") {
+
+    id: ID!
+
+    personal_area: PersonalArea! @belongsTo
+
+    balance_before: Float!
+
+    balance_after: Float!
+
+    amount: Float!
+
+    operation: String
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}

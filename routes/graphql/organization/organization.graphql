@@ -1,5 +1,5 @@
 
-type Organization {
+type Organization @model(class: "App\\Modules\\Organization\\Domain\\Models\\Organization") {
 
     id: ID!
 
@@ -25,13 +25,17 @@ type Organization {
 
     inn: String!
 
-    kpp: Date
+    kpp: String
 
-    registration_number: Date!
+    registration_number: String!
 
-    owner: User! @belongsTo(model: "App\\Models\\Author")
+    owner: User! @belongsTo
 
-    users: [Organization!]! @belongsToMany(model: "App\\Models\\Organization")
+    users: [User!]! @belongsToMany
+
+    created_at: Date!
+
+    updated_at: Date!
 
 }
 

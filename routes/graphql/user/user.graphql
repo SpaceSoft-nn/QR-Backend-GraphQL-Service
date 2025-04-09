@@ -1,5 +1,5 @@
 
-type User {
+type User @model(class: "App\\Modules\\User\\Domain\\Models\\User") {
 
     id: ID!
 
@@ -19,9 +19,9 @@ type User {
 
     auth: String!
 
-    # organizaions: [Organization!]! @belongsToMany(model: "App\\Models\\Organization")
+    organizaions: [Organization!]! @belongsToMany
 
-    # personal_areas: PersonalArea! @belongsToMany(model: "App\\Models\\Author")
+    personal_areas: PersonalArea! @belongsToMany
 
     # Возвращает личный кабинет, где пользователь является создателям кабинета (Админом)
     # personal_area_admin: PersonalArea! @hasOne(model: "App\\Models\\Author")

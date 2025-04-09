@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 
-class Subscription extends Model
+class SubscriptionPlan extends Model
 {
     use HasFactory, HasUuids;
 

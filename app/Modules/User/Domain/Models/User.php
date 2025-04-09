@@ -2,12 +2,12 @@
 
 namespace App\Modules\User\Domain\Models;
 
+use App\Modules\Organization\Domain\Models\Organization;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Modules\User\App\Data\Enums\UserRoleEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use App\Modules\Organizaion\Domain\Models\Organizaion;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -64,7 +64,7 @@ class User extends Model
 
     public function organizations() : BelongsToMany
     {
-        return $this->belongsToMany(Organizaion::class, 'user_organization', 'user_id', 'organization_id');
+        return $this->belongsToMany(Organization::class, 'user_organization', 'user_id', 'organization_id');
     }
 
     public function personalAreas() : BelongsToMany

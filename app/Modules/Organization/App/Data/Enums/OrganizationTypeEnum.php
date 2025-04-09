@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Organizaion\App\Data\Enums;
+namespace App\Modules\Organization\App\Data\Enums;
 
 
 enum OrganizationTypeEnum : string

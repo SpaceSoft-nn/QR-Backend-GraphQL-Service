@@ -1,7 +1,14 @@
-#import auth/*.graphql
-#import user/*.graphql
 
-# scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+#import auth/*.graphql
+
+#import user/*.graphql
+#import organization/*.graphql
+
+#import personal_area/*.graphql
+#import subscription/*.graphql
+
+
+
 
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 

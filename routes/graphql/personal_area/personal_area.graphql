@@ -1,19 +1,16 @@
 
-type PersonalArea {
+type PersonalArea @model(class: "App\\Modules\\PersonalArea\\Domain\\Models\\PersonalArea") {
 
     id: ID!
 
-    owner: String!
+    owner: User!
 
-    owner_id: User! @belongsTo(model: "App\\Models\\Author")
+    balance: Float!
 
-    subscription: Subscription! @belongsTo(model: "App\\Models\\Author")
+    subscription: SubscriptionPlan! @belongsTo
 
-    balance: !Int
+    created_at: Date!
 
-}
+    updated_at: Date!
 
-enum OrganizationTypeEnum {
-    legal,
-    individual,
 }

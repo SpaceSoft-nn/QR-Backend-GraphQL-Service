@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Organizaion\Domain\Services;
+namespace App\Modules\Organization\Domain\Services;
 
 use App\Modules\Base\Interface\Service\IService;
 

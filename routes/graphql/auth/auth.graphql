@@ -36,15 +36,6 @@ extend type Query {
     userById(id: ID! @whereKey): User @find
 }
 
-type User {
-
-    id: ID!
-
-    email: String
-
-    phone: String
-
-}
 
 type AuthToken {
 
