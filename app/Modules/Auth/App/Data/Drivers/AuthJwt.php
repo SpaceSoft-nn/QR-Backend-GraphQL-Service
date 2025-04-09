@@ -34,7 +34,6 @@ class AuthJwt implements AuthInterface
     public function attemptUser(BaseDTO $dto) : TokeJwtEntity
     {
 
-
         //получаем акссес токен
         $accessToken = $this->createAccessToken($dto->toArray(), $dto->payload);
 
@@ -190,7 +189,6 @@ class AuthJwt implements AuthInterface
 
         // Время жизни Access токена (например, 15 минут)
         JWTAuth::factory()->setTTL($this->config->timeExpAccessToken);
-
 
         /**
          * Что бы claims не выдавал ошибку инспектора
