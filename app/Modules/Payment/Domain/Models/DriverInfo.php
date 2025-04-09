@@ -5,6 +5,7 @@ namespace App\Modules\Payment\Domain\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DriverInfo extends Model
 {
@@ -35,6 +36,11 @@ class DriverInfo extends Model
     protected $hidden = [
 
     ];
+
+    public function paymentMethod() : BelongsTo
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id', 'id');
+    }
 
 
 }
