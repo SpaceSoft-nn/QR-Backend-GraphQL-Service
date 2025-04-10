@@ -5,7 +5,6 @@ namespace App\Modules\User\Domain\Models;
 use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\Notification\Domain\Models\PhoneList;
 use App\Modules\Organization\Domain\Models\Organization;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Modules\User\App\Data\Enums\UserRoleEnum;
