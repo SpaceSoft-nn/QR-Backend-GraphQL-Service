@@ -34,7 +34,7 @@ class PhoneList extends Model
         return PhoneFactory::new();
     }
 
-    protected $table = 'phone_list';
+    protected $table = 'phone_lists';
 
     protected $fillable = ['value', 'status'];
 

@@ -22,14 +22,18 @@ return new class extends Migration
             $table->string('father_name');
 
             $table->string('role')->comment('Роль user enum: admin, cassier, manager');
-            $table->integer('permission')->comment('Таблица доступа');
+            $table->integer('permission')->default(15)->comment('Таблица доступа');
 
-            $table->integer('active')->comment('Активирован ли user');
-            $table->integer('auth')->comment('Активирован ли через подтврждения email/phone');
+            $table->boolean('active')->default(false)->comment('Активирован ли user');
+            $table->boolean('auth')->default(false)->comment('Активирован ли через подтврждения email/phone');
 
-            $table->foreignUuid('personal_area_id')->constrained('personal_areas');
-            // $table->foreignUuid('email_id')->constrained('personal_areas');
-            // $table->foreignUuid('phone_id')->constrained('personal_areas');
+            $table->foreignUuid('personal_area_id')->nullable()
+                ->constrained('personal_areas');
+
+            $table->foreignUuid('email_id')
+                ->constrained('email_lists');
+            $table->foreignUuid('phone_id')->nullable()
+                ->constrained('phone_lists');
 
 
             $table->rememberToken();

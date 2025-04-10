@@ -36,7 +36,7 @@ class EmailList extends Model
         return EmailFactory::new();
     }
 
-    protected $table = 'email_list';
+    protected $table = 'email_lists';
 
     protected $fillable = ['value', 'status'];
 

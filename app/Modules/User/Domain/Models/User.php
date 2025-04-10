@@ -2,26 +2,27 @@
 
 namespace App\Modules\User\Domain\Models;
 
-use App\Modules\Notification\Domain\Models\EmailList;
-use App\Modules\Notification\Domain\Models\PhoneList;
-use App\Modules\Organization\Domain\Models\Organization;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Modules\User\App\Data\Enums\UserRoleEnum;
+use App\Modules\User\Domain\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use App\Modules\PersonalArea\Domain\Models\PersonalArea;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Modules\Notification\Domain\Models\EmailList;
+use App\Modules\Notification\Domain\Models\PhoneList;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Modules\Organization\Domain\Models\Organization;
+use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Model
 {
     use HasFactory, HasUuids, Notifiable;
 
-    // protected static function newFactory()
-    // {
-    //     return UserFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
 
     protected $table = 'users';
 

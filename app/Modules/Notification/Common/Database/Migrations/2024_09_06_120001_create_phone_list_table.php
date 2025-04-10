@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('phone_list', function (Blueprint $table) {
+        Schema::create('phone_lists', function (Blueprint $table) {
 
             $table->uuid('id')->primary(); // Используем UUID как первичный ключ
             $table->string('value')->unique()->comment('Номер телефона');
