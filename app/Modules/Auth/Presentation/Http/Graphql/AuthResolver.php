@@ -2,10 +2,11 @@
 
 namespace App\Modules\Auth\Presentation\Http\Graphql;
 
+use Illuminate\Database\Eloquent\Model;
+use App\Modules\User\Domain\Models\User;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\App\Data\DTO\UserAttemptDTO;
 use App\Modules\Auth\Domain\Services\AuthService;
-use Illuminate\Database\Eloquent\Model;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 

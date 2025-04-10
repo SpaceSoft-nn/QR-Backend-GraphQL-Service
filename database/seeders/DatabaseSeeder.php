@@ -12,13 +12,16 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        User::factory()->for(
-            EmailList::factory()->create([
-                'value' => 'test@mail.ru',
-                'status' => true,
-            ]) , 'email'
-        )->create([
-            'password' => 'password'
+
+        $email = EmailList::factory()->create([
+            'value' => 'test@mail.ru',
+            'status' => true,
+        ]);
+
+        User::factory()->for($email, 'email')
+        ->create([
+            'password' => 'password',
+            'email' => $email->value,
         ]);
     }
 }

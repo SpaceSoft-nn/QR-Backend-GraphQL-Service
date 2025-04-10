@@ -8,18 +8,20 @@ use App\Modules\Base\Traits\FilterArrayTrait;
 use App\Modules\Auth\App\Data\DTO\Base\BaseDTO;
 use App\Modules\User\App\Data\Enums\UserRoleEnum;
 
-class UserVO  extends BaseDTO implements Arrayable
+readonly class UserVO implements Arrayable
 {
     use FilterArrayTrait;
 
     public function __construct(
-        public readonly string $first_name,
-        public readonly string $last_name,
-        public readonly string $father_name,
-        public readonly string $password,
+        public string $first_name,
+        public string $last_name,
+        public string $father_name,
+        public string $password,
 
-        public readonly UserRoleEnum $role,
+        public UserRoleEnum $role,
 
+        public ?string $email,
+        public ?string $phone,
         public ?string $email_id,
         public ?string $phone_id,
         public ?bool $active,
@@ -37,6 +39,8 @@ class UserVO  extends BaseDTO implements Arrayable
             email_id: $id,
             phone_id: $this->phone_id,
             active: $this->active,
+            email: $this->email,
+            phone: $this->phone,
         );
     }
 
@@ -52,6 +56,8 @@ class UserVO  extends BaseDTO implements Arrayable
             email_id: $this->email_id,
             phone_id: $id,
             active: $this->active,
+            email: $this->email,
+            phone: $this->phone,
         );
     }
 
@@ -66,6 +72,8 @@ class UserVO  extends BaseDTO implements Arrayable
             email_id: $this->email_id,
             phone_id: $this->phone_id,
             active: $this->active,
+            email: $this->email,
+            phone: $this->phone,
         );
     }
 
@@ -80,6 +88,8 @@ class UserVO  extends BaseDTO implements Arrayable
             email_id: $this->email_id,
             phone_id: $this->phone_id,
             active: $active,
+            email: $this->email,
+            phone: $this->phone,
         );
     }
 
@@ -93,6 +103,8 @@ class UserVO  extends BaseDTO implements Arrayable
         UserRoleEnum $role,
         ?string $email_id = null,
         ?string $phone_id = null,
+        ?string $email = null,
+        ?string $phone = null,
         ?bool $active = null,
 
     ) : self {
@@ -106,6 +118,8 @@ class UserVO  extends BaseDTO implements Arrayable
             email_id: $email_id,
             phone_id: $phone_id,
             active: $active,
+            email: $email,
+            phone: $phone,
         );
 
     }
@@ -121,6 +135,8 @@ class UserVO  extends BaseDTO implements Arrayable
             'email_id' =>  $this->email_id,
             'phone_id' =>  $this->phone_id,
             'active' => $this->active,
+            'email' => $this->email,
+            'phone' => $this->phone,
         ];
     }
 

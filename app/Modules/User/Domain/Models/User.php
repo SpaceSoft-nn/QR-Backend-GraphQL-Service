@@ -11,11 +11,13 @@ use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\Notification\Domain\Models\PhoneList;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, HasUuids, Notifiable;
 
@@ -43,6 +45,10 @@ class User extends Model
         'email_id',
         'phone_id',
 
+        //для удоности при связи
+        'email',
+        'phone',
+
     ];
 
     protected $guarded = [
@@ -63,6 +69,17 @@ class User extends Model
             'role' => UserRoleEnum::class,
             'password' => 'hashed',
         ];
+    }
+
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey(); // Обычно это идентификатор пользователя. Используйте поле, которое определяет пользователя уникально
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 
     public function organizations() : BelongsToMany

@@ -1,20 +1,20 @@
 <?php
 namespace App\Modules\Auth\App\Data\Drivers;
 
+use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Modules\Auth\Common\Config\AuthConfig;
 use App\Modules\Auth\App\Data\DTO\Base\BaseDTO;
 use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
-use App\Modules\Auth\Common\Config\AuthConfig;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use App\Modules\Auth\Domain\Interface\AuthInterface;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 use App\Modules\Auth\Domain\Exceptions\Error\LighthouseTokenExpiredException;
 use App\Modules\Auth\Domain\Exceptions\Error\LighthouseTokenBlacklistedException;
-use Illuminate\Database\Eloquent\Model;
-use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthJwt implements AuthInterface
 {
@@ -39,6 +39,7 @@ class AuthJwt implements AuthInterface
 
         //получаем рефрешь токен
         $accessRefresh = $this->createRefreshToken($accessToken);
+
 
         return $this->respondWithToken($accessToken, $accessRefresh);
 

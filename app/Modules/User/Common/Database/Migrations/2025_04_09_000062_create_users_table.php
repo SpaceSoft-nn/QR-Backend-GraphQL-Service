@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('father_name');
 
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+
             $table->string('role')->comment('Роль user enum: admin, cassier, manager');
             $table->integer('permission')->default(15)->comment('Таблица доступа');
 
