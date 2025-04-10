@@ -1,0 +1,24 @@
+
+
+type PhoneList @model(class: "App\\Modules\\Notification\\Domain\\Models\\PhoneList") {
+
+    "Значение сотового"
+    value: String!
+
+    "Активирован ли сотовый"
+    status: Boolean!
+
+}
+
+type EmailList @model(class: "App\\Modules\\Notification\\Domain\\Models\\EmailList") {
+
+    "Значение email"
+    value: String!
+
+    "Активирован ли email"
+    status: Boolean!
+
+}
+
+
+

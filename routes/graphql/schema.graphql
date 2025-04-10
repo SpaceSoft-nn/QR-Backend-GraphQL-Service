@@ -10,6 +10,7 @@
 #import payment/*.graphql
 #import transaction/*.graphql
 #import workspace/*.graphql
+#import notification/*.graphql
 
 
 

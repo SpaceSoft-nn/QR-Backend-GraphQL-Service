@@ -13,9 +13,6 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('owner_id')
-                ->constrained('users');
-
             $table->foreignUuid('subscription_id')
                 ->constrained('subscriptions');
 

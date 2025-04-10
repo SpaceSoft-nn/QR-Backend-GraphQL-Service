@@ -20,7 +20,7 @@ return new class extends Migration
             // $table->foreignUuid('organizaion_id')
             //     ->constrained('organizaions');
 
-            $table->foreignUuid('user_organizaion_id')
+            $table->foreignId('user_organizaion_id')
                 ->constrained('user_organization')->noActionOnDelete(); // делается для того, что бы знать какая организация и user в этой орагнизации создали workspace
 
             $table->string('name')->comment('Название workspace');

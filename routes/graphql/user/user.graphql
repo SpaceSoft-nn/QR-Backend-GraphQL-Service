@@ -26,9 +26,9 @@ type User @model(class: "App\\Modules\\User\\Domain\\Models\\User") {
     # Возвращает личный кабинет, где пользователь является создателям кабинета (Админом)
     # personal_area_admin: PersonalArea! @hasOne(model: "App\\Models\\Author")
 
-    email: String
+    email: EmailList! @belongsToMany
 
-    phone: String
+    phone: PhoneList! @belongsToMany
 
     created_at: Date!
 

@@ -2,6 +2,8 @@
 
 namespace App\Modules\User\Domain\Models;
 
+use App\Modules\Notification\Domain\Models\EmailList;
+use App\Modules\Notification\Domain\Models\PhoneList;
 use App\Modules\Organization\Domain\Models\Organization;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +12,7 @@ use App\Modules\User\App\Data\Enums\UserRoleEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Model
@@ -70,5 +73,15 @@ class User extends Model
     public function personalAreas() : BelongsToMany
     {
         return $this->belongsToMany(PersonalArea::class, 'user_personal_area', 'user_id', 'personal_area_id');
+    }
+
+    public function email() : BelongsTo
+    {
+        return $this->belongsTo(EmailList::class, 'email_id', 'id');
+    }
+
+    public function phone() : BelongsTo
+    {
+        return $this->belongsTo(PhoneList::class, 'phone_id', 'id');
     }
 }
