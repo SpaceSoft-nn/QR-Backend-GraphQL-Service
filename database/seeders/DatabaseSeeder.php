@@ -14,9 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->for(
             EmailList::factory()->create([
-                'value' => 'may@mail.ru',
+                'value' => 'test@mail.ru',
                 'status' => true,
             ]) , 'email'
-        )->create();
+        )->create([
+            'password' => 'password'
+        ]);
     }
 }
