@@ -13,7 +13,7 @@ final readonly class SubscriptionVO implements Arrayable
     public function __construct(
 
         public ?string $plan_name,
-        public ?Money $price, #здесь нужно делать свой кастомный класс для работы с валютами
+        public ?Money $price,
         public ?string $expires_at,
 
     ) {}
@@ -21,8 +21,8 @@ final readonly class SubscriptionVO implements Arrayable
     public static function make(
 
         ?string $plan_name = "basic",
-        int|string|float|null $price,
-        ?string $expires_at,
+        int|string|float|null $price = new Money(0),
+        ?string $expires_at = null,
 
     ) : self {
 

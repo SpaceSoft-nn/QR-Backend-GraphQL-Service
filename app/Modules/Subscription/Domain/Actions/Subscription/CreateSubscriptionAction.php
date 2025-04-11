@@ -4,7 +4,6 @@ namespace App\Modules\Subscription\Domain\Actions\Subscription;
 
 use Exception;
 use function App\Helpers\Mylog;
-use App\Modules\User\Domain\Models\User;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\ValueObject\SubscriptionVO;
 

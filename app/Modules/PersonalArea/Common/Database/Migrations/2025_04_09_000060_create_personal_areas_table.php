@@ -16,8 +16,7 @@ return new class extends Migration
             $table->foreignUuid('subscription_id')
                 ->constrained('subscriptions');
 
-            $table->foreignUuid('balance')
-                ->constrained('subscriptions');
+            $table->decimal('balance', 10, 2);
 
             $table->timestamps();
 

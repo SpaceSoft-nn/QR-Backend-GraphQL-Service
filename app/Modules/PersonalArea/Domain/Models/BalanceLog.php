@@ -2,6 +2,8 @@
 
 namespace App\Modules\PersonalArea\Domain\Models;
 
+use App\Modules\Base\Money\Money;
+use App\Modules\PersonalArea\App\Data\Enums\OperationBalanceEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +38,13 @@ class BalanceLog extends Model
 
     protected $hidden = [
 
+    ];
+
+    protected $casts = [
+        "balance_before" => Money::class,
+        "balance_after" => Money::class,
+        "amount" => Money::class,
+        "operation" => OperationBalanceEnum::class,
     ];
 
     public function personalArea() : BelongsTo

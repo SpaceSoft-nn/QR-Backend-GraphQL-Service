@@ -2,6 +2,7 @@
 
 namespace App\Modules\PersonalArea\App\Data\ValueObject;
 
+use App\Modules\Base\Money\Money;
 use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
 
@@ -13,7 +14,8 @@ readonly class PersonalAreaVO implements Arrayable
     public function __construct(
 
         public string $subscription_id,
-        public string $balance,
+        public string $owner_id,
+        public ?Money $balance,
 
     ) {}
 
@@ -21,13 +23,17 @@ readonly class PersonalAreaVO implements Arrayable
     public static function make(
 
         string $subscription_id,
-        string $balance,
+        string $owner_id,
+        int|string|float|null $balance,
 
 
     ) : self {
 
+        if(is_null($balance)) { $balance = new Money(0); }
+
         return new self(
             subscription_id: $subscription_id,
+            owner_id: $owner_id,
             balance: $balance,
         );
 
@@ -37,6 +43,7 @@ readonly class PersonalAreaVO implements Arrayable
     {
         return [
             "subscription_id" => $this->subscription_id,
+            "owner_id" => $this->owner_id,
             "balance" => $this->balance,
         ];
     }

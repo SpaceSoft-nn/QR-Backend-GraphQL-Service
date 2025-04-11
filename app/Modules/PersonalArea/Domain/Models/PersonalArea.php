@@ -2,13 +2,14 @@
 
 namespace App\Modules\PersonalArea\Domain\Models;
 
-use App\Modules\User\Domain\Models\User;
+use App\Modules\Base\Money\Money;
 use Illuminate\Database\Eloquent\Model;
+use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class PersonalArea extends Model
 {
@@ -37,6 +38,10 @@ class PersonalArea extends Model
 
     protected $hidden = [
 
+    ];
+
+    protected $casts = [
+        "balance" => Money::class,
     ];
 
     public function users() : BelongsToMany
