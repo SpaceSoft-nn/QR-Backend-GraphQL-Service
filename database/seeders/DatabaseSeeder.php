@@ -18,10 +18,9 @@ class DatabaseSeeder extends Seeder
             'status' => true,
         ]);
 
-        User::factory()->for($email, 'email')
+        User::factory()->for($email, 'email_list')
         ->create([
             'password' => 'password',
-            'email' => $email->value,
         ]);
     }
 }

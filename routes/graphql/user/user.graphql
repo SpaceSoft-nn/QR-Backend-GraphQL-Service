@@ -1,9 +1,11 @@
 
+extend type Query {
+    userMe(id: ID! @whereKey): User @find
+}
+
 type User @model(class: "App\\Modules\\User\\Domain\\Models\\User") {
 
     id: ID!
-
-    password: String!
 
     first_name: String
 
@@ -15,20 +17,28 @@ type User @model(class: "App\\Modules\\User\\Domain\\Models\\User") {
 
     permission: Int!
 
-    active: String!
+    active: Boolean!
 
-    auth: String!
+    auth: Boolean!
 
-    organizaions: [Organization!]! @belongsToMany
+    organizations: [Organization] @belongsToMany
 
     personal_areas: PersonalArea! @belongsToMany
 
     # Возвращает личный кабинет, где пользователь является создателям кабинета (Админом)
     # personal_area_admin: PersonalArea! @hasOne(model: "App\\Models\\Author")
 
-    email: EmailList! @belongsToMany
+    "Таблица на email_list где указано значение email и статус нотификации"
+    email_list: EmailList @belongsToMany
 
-    phone: PhoneList! @belongsToMany
+    "Таблица на email_list где указано значение phone и статус нотификации"
+    phone_list: PhoneList @belongsToMany
+
+    "Значение email"
+    email: String @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Field\\UserFieldResolver@email")
+
+    "Значение phone"
+    phone: String @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Field\\UserFieldResolver@phone")
 
     created_at: Date!
 

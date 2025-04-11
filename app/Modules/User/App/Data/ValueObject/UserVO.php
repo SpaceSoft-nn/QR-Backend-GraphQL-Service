@@ -20,8 +20,6 @@ readonly class UserVO implements Arrayable
 
         public UserRoleEnum $role,
 
-        public ?string $email,
-        public ?string $phone,
         public ?string $email_id,
         public ?string $phone_id,
         public ?bool $active,
@@ -39,8 +37,6 @@ readonly class UserVO implements Arrayable
             email_id: $id,
             phone_id: $this->phone_id,
             active: $this->active,
-            email: $this->email,
-            phone: $this->phone,
         );
     }
 
@@ -56,8 +52,6 @@ readonly class UserVO implements Arrayable
             email_id: $this->email_id,
             phone_id: $id,
             active: $this->active,
-            email: $this->email,
-            phone: $this->phone,
         );
     }
 
@@ -72,8 +66,6 @@ readonly class UserVO implements Arrayable
             email_id: $this->email_id,
             phone_id: $this->phone_id,
             active: $this->active,
-            email: $this->email,
-            phone: $this->phone,
         );
     }
 
@@ -88,8 +80,6 @@ readonly class UserVO implements Arrayable
             email_id: $this->email_id,
             phone_id: $this->phone_id,
             active: $active,
-            email: $this->email,
-            phone: $this->phone,
         );
     }
 
@@ -103,8 +93,6 @@ readonly class UserVO implements Arrayable
         UserRoleEnum $role,
         ?string $email_id = null,
         ?string $phone_id = null,
-        ?string $email = null,
-        ?string $phone = null,
         ?bool $active = null,
 
     ) : self {
@@ -118,8 +106,6 @@ readonly class UserVO implements Arrayable
             email_id: $email_id,
             phone_id: $phone_id,
             active: $active,
-            email: $email,
-            phone: $phone,
         );
 
     }
@@ -135,9 +121,35 @@ readonly class UserVO implements Arrayable
             'email_id' =>  $this->email_id,
             'phone_id' =>  $this->phone_id,
             'active' => $this->active,
-            'email' => $this->email,
-            'phone' => $this->phone,
         ];
+    }
+
+    public static function fromArrayToObject(array $data) : self
+    {
+        $first_name = Arr::get($data, 'first_name');
+        $last_name =  Arr::get($data, 'last_name');
+        $father_name =  Arr::get($data, 'father_name');
+        $password =  Arr::get($data, 'password');
+        $role =  UserRoleEnum::from(Arr::get($data, 'role', 'admin'));
+        $email_id = Arr::get($data, 'email_user' , null);
+        $phone_id = Arr::get($data, 'phone_user' , null);
+
+        $active = Arr::get($data, 'active' , true);
+
+        if ($first_name === '' || $last_name === '' || $father_name === '' || $password === '') {
+            throw new \InvalidArgumentException('Обязательные параметры не могут быть пустыми.', 500);
+        }
+
+        return new self(
+            first_name: $first_name,
+            last_name: $last_name,
+            father_name: $father_name,
+            password: $password,
+            role: $role,
+            email_id: $email_id,
+            phone_id: $phone_id,
+            active: $active,
+        );
     }
 
 }

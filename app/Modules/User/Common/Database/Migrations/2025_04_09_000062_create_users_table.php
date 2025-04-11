@@ -21,9 +21,6 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('father_name');
 
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-
             $table->string('role')->comment('Роль user enum: admin, cassier, manager');
             $table->integer('permission')->default(15)->comment('Таблица доступа');
 
@@ -33,7 +30,7 @@ return new class extends Migration
             $table->foreignUuid('personal_area_id')->nullable()
                 ->constrained('personal_areas');
 
-            $table->foreignUuid('email_id')
+            $table->foreignUuid('email_id')->nullable()
                 ->constrained('email_lists');
             $table->foreignUuid('phone_id')->nullable()
                 ->constrained('phone_lists');

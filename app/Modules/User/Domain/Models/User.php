@@ -92,12 +92,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(PersonalArea::class, 'user_personal_area', 'user_id', 'personal_area_id');
     }
 
-    public function email() : BelongsTo
+    public function email_list() : BelongsTo
     {
         return $this->belongsTo(EmailList::class, 'email_id', 'id');
     }
 
-    public function phone() : BelongsTo
+    public function phone_list() : BelongsTo
     {
         return $this->belongsTo(PhoneList::class, 'phone_id', 'id');
     }
