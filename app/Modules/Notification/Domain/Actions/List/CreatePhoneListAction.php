@@ -6,17 +6,20 @@ use App\Modules\Notification\Domain\Models\PhoneList;
 class CreatePhoneListAction
 {
 
-    public static function make(string $phone) : ?PhoneList
+    public static function make(string $phone, ?bool $status = null) : ?PhoneList
     {
        return (new self())->run($phone);
     }
 
-    public function run(string $phone) : ?PhoneList
+    public function run(string $phone, ?bool $status = null) : ?PhoneList
     {
 
         $model = PhoneList::query()
             ->firstOrCreate(
-                ['value' => $phone],
+                [
+                    'value' => $phone,
+                    $status && 'status' => $status
+                ],
                 ['value' => $phone]
             );
 

@@ -8,5 +8,9 @@ use App\Modules\User\Domain\Interface\Repository\Service\IUserService;
 final class UserService implements IUserService
 {
 
+    public function registrationUser()
+    {
+        
+    }
 
 }

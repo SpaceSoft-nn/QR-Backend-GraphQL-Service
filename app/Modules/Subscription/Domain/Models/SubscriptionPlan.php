@@ -2,6 +2,7 @@
 
 namespace App\Modules\Subscription\Domain\Models;
 
+use App\Modules\Base\Money\Money;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,6 +36,10 @@ class SubscriptionPlan extends Model
 
     protected $hidden = [
 
+    ];
+
+    protected $casts = [
+        "price" => Money::class,
     ];
 
     public function PersonalAreas() : HasMany

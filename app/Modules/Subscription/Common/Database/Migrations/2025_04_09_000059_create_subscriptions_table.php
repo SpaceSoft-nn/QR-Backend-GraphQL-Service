@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->decimal('price', 10, 2);
 
-            $table->date('expires_at');
+            $table->date('expires_at')->default('9999-12-31'); //устанавливаем дефолтное недостижмое время для стандартного Subscription
 
             $table->timestamps();
 

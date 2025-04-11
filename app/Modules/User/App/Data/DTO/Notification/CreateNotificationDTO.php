@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Modules\User\App\Data\DTO\User;
+namespace App\Modules\User\App\Data\DTO\Notification;
 
 use App\Modules\Base\DTO\BaseDTO;
-use App\Modules\User\App\Data\ValueObject\UserVO;
+use App\Modules\User\Domain\Models\User;
 use App\Modules\Base\Error\GraphQLBusinessException;
 
-final class CreateUserDTO extends BaseDTO
+final class CreateNotificationDTO extends BaseDTO
 {
     public function __construct(
-        public UserVO $userVO,
+        public User $user,
         public ?string $email,
         public ?string $phone,
     ) {
@@ -22,14 +22,14 @@ final class CreateUserDTO extends BaseDTO
 
     public static function make(
 
-        UserVO $userVO,
+        User $user,
         ?string $email,
         ?string $phone,
 
     ) : self {
 
         return new self(
-            userVO: $userVO,
+            user: $user,
             email: $email,
             phone: $phone,
         );
