@@ -9,6 +9,9 @@ use Illuminate\Validation\ValidationException;
  */
 abstract class BaseValidator
 {
+
+    protected ?array $rules;
+
     //правила валидации laravel
     abstract protected function rules() : array;
 

@@ -2,14 +2,13 @@
 
 namespace App\Modules\User\Presentation\HTTP\Graphql\Response;
 
-use App\Modules\Auth\App\Data\DTO\UserAttemptDTO;
-use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
-use App\Modules\Auth\Domain\Services\AuthService;
-use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 use App\Modules\User\Domain\Models\User;
-use App\Modules\User\Domain\Services\UserService;
-use App\Modules\User\Domain\Validators\Default\UserValidator;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
+use App\Modules\Auth\Domain\Services\AuthService;
+use App\Modules\User\Domain\Services\UserService;
+use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
+use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
+use App\Modules\User\Domain\Validators\UserValidator;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 

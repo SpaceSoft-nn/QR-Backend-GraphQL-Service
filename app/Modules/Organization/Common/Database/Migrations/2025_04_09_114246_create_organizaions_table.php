@@ -31,7 +31,7 @@ return new class extends Migration
 
             $table->string('inn', 12)->comment('Инн у ООО/ИП');
             $table->string('kpp' , 9)->nullable()->comment('КПП - Только у организации');
-            $table->string('registration_number', 15)->unique()->comment('ОГРН и ОГРНИП - Только у организации');
+            $table->string('registration_number', 15)->unique()->comment('ОГРН и ОГРНИП');
 
             $table->timestamps();
 

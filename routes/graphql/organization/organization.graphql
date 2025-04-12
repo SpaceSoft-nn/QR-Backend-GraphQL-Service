@@ -1,4 +1,43 @@
 
+extend type Mutation {
+
+    "Регистрация пользователя"
+    createOrganization(input: OrganizationCreate! @spread): Organization! @field(resolver: "App\\Modules\\Organization\\Presentation\\HTTP\\Graphql\\Response\\OrganizationResolver@store")
+
+}
+
+input OrganizationCreate {
+
+    name: String!
+
+    address: String!
+
+    phone: String
+
+    email: String
+
+    website: String
+
+    type: OrganizationTypeEnum!
+
+    description: String
+
+    "Вид экономической деятельности"
+    okved: String
+
+    founded_date: String
+
+    "Инн"
+    inn: String!
+
+    "КПП - Только у организации"
+    kpp: String
+
+    "ОГРН и ОГРНИП"
+    registration_number: String!
+
+}
+
 type Organization @model(class: "App\\Modules\\Organization\\Domain\\Models\\Organization") {
 
     id: ID!
@@ -11,26 +50,35 @@ type Organization @model(class: "App\\Modules\\Organization\\Domain\\Models\\Org
 
     email: String
 
+    "Статус Закрыт/Открыт"
     remuved: String!
 
     website: Int
 
+    "Тип оргиназции: ООО, ИП и т.д"
     type: OrganizationTypeEnum!
 
     description: String
 
+    "Вид экономической деятельности"
     okved: String
 
+    "Дата основания компании"
     founded_date: String!
 
+    "Инн у ООО/ИП"
     inn: String!
 
+    "КПП - Только у организации"
     kpp: String
 
+    "ОГРН и ОГРНИП"
     registration_number: String!
 
+    "Основатель компании User"
     owner: User! @belongsTo
 
+    "Все user принадлежащей компании"
     users: [User!]! @belongsToMany
 
     created_at: Date!

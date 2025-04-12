@@ -1,6 +1,7 @@
 
 extend type Mutation {
 
+    "Регистрация пользователя"
     registration(input: UserRegistration! @spread): AuthToken! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\AuthResolver@registration")
 
 }
