@@ -8,6 +8,7 @@ use App\Modules\Auth\Domain\Interface\AuthServiceInterface;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Auth\App\Data\DTO\UserAttemptDTO;
 use App\Modules\User\Domain\Models\User;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthService implements AuthServiceInterface
 {
@@ -81,6 +82,11 @@ class AuthService implements AuthServiceInterface
         $service = $this->serviceAuth;
 
         return $service->setPayload($data);
+    }
+
+    public function getUserJWT() : ?User
+    {
+        return JWTAuth::parseToken()->authenticate();
     }
 
 }

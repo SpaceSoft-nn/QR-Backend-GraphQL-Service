@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Organization extends Model
@@ -59,5 +60,10 @@ class Organization extends Model
     public function users() : BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_organization', 'organization_id', 'user_id');
+    }
+
+    public function owner() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
     }
 }

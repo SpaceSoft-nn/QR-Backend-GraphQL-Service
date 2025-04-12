@@ -73,6 +73,7 @@ final class OrganizationVO implements Arrayable
         ?bool $remuved = null,
         ?string $kpp = null,
         ?string $registration_number = null,
+
     ) : self {
 
         return new self(
@@ -103,14 +104,13 @@ final class OrganizationVO implements Arrayable
             phone: Arr::get($data, 'phone_org' , null),
             email: Arr::get($data, 'email_org' , null),
             website: Arr::get($data, 'website' , null),
-            type: Arr::get($data, 'type', null),
+            type: OrganizationTypeEnum::from(Arr::get($data, 'type', null)),
             description: Arr::get($data, 'description' , null),
-            // type_cabinet: Arr::get($data, 'type_cabinet'),
             okved: Arr::get($data, 'okved' , null),
             founded_date: Arr::get($data, 'founded_date' , null),
 
             #TODO Явно при создании органиации установили remuved true
-            remuved: Arr::get($data, 'remuved' , true),
+            remuved: Arr::get($data, 'remuved' , false),
             inn: Arr::get($data, 'inn' , null),
             kpp: Arr::get($data, 'kpp' , null),
             registration_number: Arr::get($data, 'registration_number'),

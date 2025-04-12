@@ -1,8 +1,8 @@
 
 extend type Mutation {
 
-    "Регистрация пользователя"
-    createOrganization(input: OrganizationCreate! @spread): Organization! @field(resolver: "App\\Modules\\Organization\\Presentation\\HTTP\\Graphql\\Response\\OrganizationResolver@store")
+    "Создание организации по авторизированному пользователю"
+    createOrganization(input: OrganizationCreate! @spread): Organization! @field(resolver: "App\\Modules\\Organization\\Presentation\\HTTP\\Graphql\\Response\\OrganizationResolver@store") @guard
 
 }
 
@@ -53,7 +53,7 @@ type Organization @model(class: "App\\Modules\\Organization\\Domain\\Models\\Org
     "Статус Закрыт/Открыт"
     remuved: String!
 
-    website: Int
+    website: String
 
     "Тип оргиназции: ООО, ИП и т.д"
     type: OrganizationTypeEnum!
@@ -64,7 +64,7 @@ type Organization @model(class: "App\\Modules\\Organization\\Domain\\Models\\Org
     okved: String
 
     "Дата основания компании"
-    founded_date: String!
+    founded_date: String
 
     "Инн у ООО/ИП"
     inn: String!

@@ -16,7 +16,7 @@ use App\Modules\PersonalArea\Domain\Services\PersonalAreaService;
 use App\Modules\User\App\Data\DTO\Notification\CreateNotificationDTO;
 
 
-class RegistrationInteractor extends BaseInteractor implements IInteractor
+class RegistrationInteractor extends BaseInteractor
 {
 
     public function __construct(

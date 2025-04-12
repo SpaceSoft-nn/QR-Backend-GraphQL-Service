@@ -18,7 +18,7 @@ return new class extends Migration
 
 
             $table->foreignUuid('organization_id')
-                ->constrained('users')->noActionOnDelete();
+                ->constrained('organizations')->noActionOnDelete();
 
             $table->unique(['user_id', 'organization_id']);
 

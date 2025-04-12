@@ -7,12 +7,14 @@ use App\Modules\Base\Validator\BaseValidator;
 use App\Modules\Organization\Domain\Rules\OgrnRule;
 use App\Modules\Organization\Domain\Rules\OgrnepRule;
 use App\Modules\Organization\App\Data\Enums\OrganizationTypeEnum;
+use App\Modules\Organization\App\Data\ValueObject\OrganizationVO;
 
 class OrganizationValidator extends BaseValidator
 {
     public function rules() : array
     {
         $this->rules = array_merge($this->rules, [
+
             'name' => ['required' , 'string' , 'max:101' , 'min:2'],
             'address' => ['required' , 'string' , 'max:255' , 'min:12'],
             'phone' => ['nullable' , 'string'],
@@ -23,6 +25,7 @@ class OrganizationValidator extends BaseValidator
             'okved' => ['nullable', 'string'],
             'founded_date' => ['nullable', 'date'],
             'inn' => ['required' , 'numeric', 'regex:/^(([0-9]{12})|([0-9]{10}))?$/'],
+
         ]);
 
         return $this->rules;
@@ -45,12 +48,8 @@ class OrganizationValidator extends BaseValidator
         return true;
     }
 
-    // public function createUserDTO($args)
-    // {
-    //     return CreateUserDTO::make(
-    //         userVO: UserVO::fromArrayToObject($args),
-    //         email: $args['email'] ?? null,
-    //         phone: $args['phone'] ?? null,
-    //     );
-    // }
+    public function createOrganizaionVO(array $args) : OrganizationVO
+    {
+        return OrganizationVO::fromArrayToObject($args);
+    }
 }
