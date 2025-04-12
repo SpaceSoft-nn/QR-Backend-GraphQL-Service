@@ -8,15 +8,16 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
+use App\Modules\Subscription\Domain\Factories\SubscriptionPlanFactory;
 
 class SubscriptionPlan extends Model
 {
     use HasFactory, HasUuids;
 
-    // protected static function newFactory()
-    // {
-    //     return UserFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return SubscriptionPlanFactory::new();
+    }
 
     protected $table = 'subscriptions';
 

@@ -41,5 +41,18 @@ class OrganizationResolver
         return $organization;
     }
 
+    public function index(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : array
+    {
+        /** @var User */
+        $user = $this->authService->getUserJWT();
+
+        /** @var Organization[] */
+        $organizations = $user->organizations;
+
+        return $organizations;
+    }
+
+
+
 }
 

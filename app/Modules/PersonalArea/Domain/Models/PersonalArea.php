@@ -3,6 +3,7 @@
 namespace App\Modules\PersonalArea\Domain\Models;
 
 use App\Modules\Base\Money\Money;
+use App\Modules\PersonalArea\Domain\Factories\PersonalAreaFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -15,10 +16,10 @@ class PersonalArea extends Model
 {
     use HasFactory, HasUuids;
 
-    // protected static function newFactory()
-    // {
-    //     return UserFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return PersonalAreaFactory::new();
+    }
 
     protected $table = 'personal_areas';
 

@@ -6,6 +6,13 @@ extend type Mutation {
 
 }
 
+extend type Query {
+
+    organizations(): [Organization] @field(resolver: "App\\Modules\\Organization\\Presentation\\HTTP\\Graphql\\Response\\OrganizationResolver@index") @guard
+    organization(id: ID! @whereKey): Organization @find @field(resolver: "App\\Modules\\Organization\\Presentation\\HTTP\\Graphql\\Response\\OrganizationResolver@show") @guard
+
+}
+
 input OrganizationCreate {
 
     name: String!
