@@ -49,6 +49,11 @@ class PersonalArea extends Model
         return $this->belongsToMany(User::class, 'user_personal_area', 'personal_area_id', 'user_id');
     }
 
+    public function owner() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+
     public function subscription() : BelongsTo
     {
         return $this->belongsTo(User::class, 'subscription_id', 'id');

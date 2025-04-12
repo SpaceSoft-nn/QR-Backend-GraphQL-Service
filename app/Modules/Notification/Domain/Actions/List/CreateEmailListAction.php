@@ -13,14 +13,14 @@ class CreateEmailListAction
 
     public function run(string $email, ?bool $status = null) : EmailList
     {
+
         $model = EmailList::query()
-                ->firstOrCreate(
-                    [
-                        'value' => $email,
-                        $status && 'status' => $status
-                    ],
-                    ['value' => $email]
-                );
+            ->firstOrCreate(
+                [
+                    'value' => $email,
+                ],
+                [$status && 'status' => $status]
+            );
 
         return $model;
     }

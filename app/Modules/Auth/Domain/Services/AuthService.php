@@ -7,6 +7,7 @@ use App\Modules\Auth\Domain\Interface\AuthInterface;
 use App\Modules\Auth\Domain\Interface\AuthServiceInterface;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Auth\App\Data\DTO\UserAttemptDTO;
+use App\Modules\User\Domain\Models\User;
 
 class AuthService implements AuthServiceInterface
 {
@@ -20,6 +21,11 @@ class AuthService implements AuthServiceInterface
         $this->serviceAuth = $serviceAuth;
     }
 
+    public function loginUser(User $user) : TokeJwtEntity
+    {
+        return $this->serviceAuth->login($user);
+    }
+
     /**
      * Вернуть юзера по Bearer токену
      *
@@ -31,7 +37,7 @@ class AuthService implements AuthServiceInterface
     }
 
     /**
-     * Найти user по данным email/phone/password
+     * Найти user по данным email/phone/password и вернуть JWT Token
      *
      * @param UserAttemptDTO $dto
      *

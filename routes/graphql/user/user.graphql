@@ -15,24 +15,29 @@ type User @model(class: "App\\Modules\\User\\Domain\\Models\\User") {
 
     role: UserRoleEnum!
 
+    "Права user, возможно фронту это не надо"
     permission: Int!
 
+    "Активирован ли user"
     active: Boolean!
 
+    "Прошёл ли user нотификацию"
     auth: Boolean!
 
+    "Вернуть все организации к которым принадлежит пользователь"
     organizations: [Organization] @belongsToMany
 
-    personal_areas: PersonalArea! @belongsToMany
+    "Вернуть все личные кабинеты к которым принадлежит пользователь"
+    personalAreas: [PersonalArea!]! @belongsToMany
 
     # Возвращает личный кабинет, где пользователь является создателям кабинета (Админом)
     # personal_area_admin: PersonalArea! @hasOne(model: "App\\Models\\Author")
 
     "Таблица на email_list где указано значение email и статус нотификации"
-    email_list: EmailList @belongsToMany
+    emailList: EmailList @belongsToMany
 
     "Таблица на email_list где указано значение phone и статус нотификации"
-    phone_list: PhoneList @belongsToMany
+    phoneList: PhoneList @belongsToMany
 
     "Значение email"
     email: String @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Field\\UserFieldResolver@email")

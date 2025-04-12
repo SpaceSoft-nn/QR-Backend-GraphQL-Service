@@ -2,7 +2,12 @@
 
 namespace App\Modules\User\Presentation\HTTP\Graphql\Response;
 
+use App\Modules\Auth\App\Data\DTO\UserAttemptDTO;
+use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
+use App\Modules\Auth\Domain\Services\AuthService;
 use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
+use App\Modules\User\Domain\Models\User;
+use App\Modules\User\Domain\Services\UserService;
 use App\Modules\User\Domain\Validators\Default\UserValidator;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -13,8 +18,9 @@ class AuthResolver
 
     public function __construct(
         private UserValidator $userValidator,
+        private UserService $userService,
+        private AuthService $authService,
     ) {}
-
 
     public function registration(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : array
     {
@@ -24,10 +30,13 @@ class AuthResolver
         /** @var CreateUserDTO */
         $createUserDTO = $this->userValidator->createUserDTO($date);
 
-        dd($createUserDTO);
+        /** @var User */
+        $user = $this->userService->registrationUser($createUserDTO);
 
-        return [];
+        /** @var TokeJwtEntity  */
+        $tokeJwtEntity  = $this->authService->loginUser($user);
 
+        return $tokeJwtEntity->toArray();
     }
 
 }

@@ -2,12 +2,12 @@
 
 namespace App\Modules\Notification\Domain\Models;
 
-use App\Modules\Notification\Domain\Factories\EmailFactory;
+use Illuminate\Database\Eloquent\Model;
 use App\Modules\User\Domain\Models\User;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Modules\Notification\Domain\Factories\EmailFactory;
 
 /**
  *

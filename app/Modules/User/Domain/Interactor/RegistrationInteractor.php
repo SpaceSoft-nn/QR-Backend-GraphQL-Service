@@ -9,8 +9,11 @@ use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\User\App\Data\ValueObject\UserVO;
 use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 use App\Modules\Base\Interface\Interactor\IInteractor;
-use App\Modules\User\App\Data\DTO\Notification\CreateNotificationDTO;
+use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\User\Domain\Actions\User\CreateUserAction;
+use App\Modules\PersonalArea\App\Data\DTO\CreatePersonalAreaDTO;
+use App\Modules\PersonalArea\Domain\Services\PersonalAreaService;
+use App\Modules\User\App\Data\DTO\Notification\CreateNotificationDTO;
 
 
 class RegistrationInteractor extends BaseInteractor implements IInteractor
@@ -18,6 +21,7 @@ class RegistrationInteractor extends BaseInteractor implements IInteractor
 
     public function __construct(
         private NotificationInteractor $notificationInteractor,
+        private PersonalAreaService $personalAreaService,
     ) { }
 
 
@@ -39,20 +43,27 @@ class RegistrationInteractor extends BaseInteractor implements IInteractor
     protected function run(BaseDTO $dto) : User
     {
         /** @var User */
-        $user = DB::transaction(function (CreateUserDTO $dto) {
+        $user = DB::transaction(function ($pdo) use ($dto) {
 
             /** @var User */
             $user = $this->createUser($dto->userVO);
 
-            //устанавливаем email_list/phone_list - временно без нотификации
+            //устанавливаем emailList/phoneList - временно без нотификации
             $user = $this->notificationInteractor->make(CreateNotificationDTO::make(
                 user: $user,
                 email: $dto->email,
                 phone: $dto->phone,
             ));
 
-                
+            /** @var PersonalArea */
+            $personalArea = $this->personalAreaService->createPersonalArea(
+                CreatePersonalAreaDTO::make(
+                    personalAreaVO: null,
+                    user: $user,
+                )
+            );
 
+            return $user->refresh();
         });
 
         return $user;

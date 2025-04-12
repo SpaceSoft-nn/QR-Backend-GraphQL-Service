@@ -21,11 +21,12 @@ class CreateSubscriptionAction
         try {
 
             $model = SubscriptionPlan::query()->firstOrCreate(
-                ['name' => 'Basic']
-                []
+                ['plan_name' => $vo->plan_name],
+                ['price' => $vo->price]
             );
 
         } catch (\Throwable $th) {
+
             $nameClass = self::class;
 
             Mylog("Ошибка в {$nameClass} при создании записи: " . $th);

@@ -26,7 +26,7 @@ final class UserRepository extends CoreRepository implements IUserRepository
      */
     public function email(User $user) : ?string
     {
-        return $user->email_list?->value ?? null;
+        return $user->emailList?->value ?? null;
     }
 
     /**
@@ -37,6 +37,6 @@ final class UserRepository extends CoreRepository implements IUserRepository
      */
     public function phone(User $user) : ?string
     {
-        return $user->phone_list?->value ?? null;
+        return $user->phoneList?->value ?? null;
     }
 }

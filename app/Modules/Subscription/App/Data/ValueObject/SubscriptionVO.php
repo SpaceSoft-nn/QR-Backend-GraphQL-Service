@@ -21,17 +21,18 @@ final readonly class SubscriptionVO implements Arrayable
     public static function make(
 
         ?string $plan_name = "basic",
-        int|string|float|null $price = new Money(0),
+        int|string|float|null $price = null,
         ?string $expires_at = null,
 
     ) : self {
 
         if(is_null($price)) { $price = new Money(0); }
 
+
         return new self(
 
             plan_name: $plan_name,
-            price: $price,
+            price: new Money($price),
             expires_at: $expires_at,
 
         );

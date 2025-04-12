@@ -33,7 +33,7 @@ class NotificationInteractor extends BaseInteractor
     protected function run(BaseDTO $dto) : User
     {
         /** @var User */
-        $user = DB::transaction(function (CreateNotificationDTO $dto) {
+        $user = DB::transaction(function ($pdo) use ($dto) {
 
             /** @var User */
             $user = $dto->user;
@@ -43,14 +43,18 @@ class NotificationInteractor extends BaseInteractor
                 /** @var EmailList */
                 $emailList = $this->createEmailList($dto);
 
-                $user->email_list()->save($emailList);
+                $user->emailList()->associate($emailList);
+
+                $user->save();
 
             } else {
 
                 /** @var PhoneList */
                 $phoneList = $this->createEmailList($dto);
 
-                $user->phone_list()->save($phoneList);
+                $user->phonelist()->associate($phoneList);
+
+                $user->save();
             }
 
             return $user;

@@ -24,7 +24,7 @@ readonly class PersonalAreaVO implements Arrayable
 
         string $subscription_id,
         string $owner_id,
-        int|string|float|null $balance,
+        int|string|float|null $balance = null,
 
 
     ) : self {
@@ -34,7 +34,7 @@ readonly class PersonalAreaVO implements Arrayable
         return new self(
             subscription_id: $subscription_id,
             owner_id: $owner_id,
-            balance: $balance,
+            balance: new Money($balance),
         );
 
     }
@@ -44,7 +44,7 @@ readonly class PersonalAreaVO implements Arrayable
         return [
             "subscription_id" => $this->subscription_id,
             "owner_id" => $this->owner_id,
-            "balance" => $this->balance,
+            "balance" => (string) $this->balance,
         ];
     }
 

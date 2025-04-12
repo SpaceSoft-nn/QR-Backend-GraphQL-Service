@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Modules\Auth\Common\Config\AuthConfig;
 use App\Modules\Auth\App\Data\DTO\Base\BaseDTO;
+use App\Modules\Auth\App\Data\DTO\UserAttemptDTO;
 use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -24,6 +25,15 @@ class AuthJwt implements AuthInterface
         AuthConfig $config
     ) {
         $this->config = $config;
+    }
+
+    public function login(Model $model) : TokeJwtEntity
+    {
+        $accessToken = JWTAuth::fromUser($model);
+
+        $accessRefresh = $this->createRefreshToken($accessToken);
+
+        return $this->respondWithToken($accessToken, $accessRefresh);
     }
 
     /**

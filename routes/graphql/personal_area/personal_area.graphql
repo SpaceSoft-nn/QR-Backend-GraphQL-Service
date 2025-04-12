@@ -3,7 +3,7 @@ type PersonalArea @model(class: "App\\Modules\\PersonalArea\\Domain\\Models\\Per
 
     id: ID!
 
-    owner: User!
+    owner: User! @belongsTo
 
     balance: Float!
 

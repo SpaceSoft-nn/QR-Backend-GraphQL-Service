@@ -18,9 +18,8 @@ class CreatePhoneListAction
             ->firstOrCreate(
                 [
                     'value' => $phone,
-                    $status && 'status' => $status
                 ],
-                ['value' => $phone]
+                [$status && 'status' => $status]
             );
 
         return $model;

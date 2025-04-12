@@ -10,14 +10,14 @@ final class CreatePersonalAreaDTO extends BaseDTO
 {
     public function __construct(
 
-        public PersonalAreaVO $personalAreaVO,
+        public ?PersonalAreaVO $personalAreaVO,
         public User $user,
 
     ) {}
 
     public static function make(
 
-        PersonalAreaVO $personalAreaVO,
+        ?PersonalAreaVO $personalAreaVO = null,
         User $user,
 
     ) : self {
