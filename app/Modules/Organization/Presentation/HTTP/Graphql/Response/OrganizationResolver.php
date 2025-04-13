@@ -11,6 +11,7 @@ use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\Organization\Domain\Services\OrganizationService;
 use App\Modules\Organization\Domain\Validators\OrganizationValidator;
 use App\Modules\User\Domain\Models\User;
+use Illuminate\Support\Collection;
 
 class OrganizationResolver
 {
@@ -46,10 +47,10 @@ class OrganizationResolver
         /** @var User */
         $user = $this->authService->getUserJWT();
 
-        /** @var Organization[] */
+        /** @var Collection */
         $organizations = $user->organizations;
 
-        return $organizations;
+        return $organizations->toArray();
     }
 
 

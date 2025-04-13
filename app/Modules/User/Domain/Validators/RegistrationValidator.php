@@ -12,7 +12,7 @@ use App\Modules\Notification\Domain\Rule\EmailRule;
 use App\Modules\Notification\Domain\Rule\PhoneRule;
 use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 
-class UserValidator extends BaseValidator
+class RegistrationValidator extends BaseValidator
 {
     public function rules() : array
     {

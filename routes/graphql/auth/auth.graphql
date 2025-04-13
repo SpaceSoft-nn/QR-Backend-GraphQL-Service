@@ -3,11 +3,10 @@ extend type Mutation {
 
     "Регистрация пользователя"
     registration(input: UserRegistration! @spread): AuthToken! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\AuthResolver@registration")
+    login(input: UserLogin! @spread): AuthToken! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\AuthResolver@login")
 
 }
 
-# extend type Query {
-# }
 
 input UserRegistration {
 
@@ -37,4 +36,17 @@ input UserRegistration {
 
     #Пользовательское соглашения
     agreement: Boolean!
+}
+
+input UserLogin  @validator(class: "App\\Modules\\Auth\\Domain\\Validators\\UserLoginValidator") {
+
+    #В запросе должен быть обязательно либо email, либо phone
+    email: String!
+
+    #В запросе должен быть обязательно либо email, либо phone
+    phone: String
+
+    #Обязательный параметр пароля
+    password: String!
+
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Modules\Notification\Domain\Models\EmailList;
+use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\User\App\Data\Enums\UserRoleEnum;
 use App\Modules\User\Domain\Models\User;
@@ -20,7 +21,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-
         $user = User::factory()
             ->afterCreating(function ($user) {
 
@@ -34,7 +34,10 @@ class DatabaseSeeder extends Seeder
 
                 //создаём организацию
                 {
-
+                    $organization = Organization::factory()->create([
+                        'owner_id' => $user->id,
+                    ]);
+                    $user->organizations()->attach($organization->id);
                 }
 
 

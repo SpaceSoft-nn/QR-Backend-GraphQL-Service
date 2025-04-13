@@ -14,7 +14,6 @@
 
 
 
-
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query

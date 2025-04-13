@@ -3,6 +3,7 @@
 namespace App\Modules\Organization\Domain\Models;
 
 use App\Modules\Organization\App\Data\Enums\OrganizationTypeEnum;
+use App\Modules\Organization\Domain\Factories\OrganizationFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -16,10 +17,10 @@ class Organization extends Model
 
     protected $table = 'organizations';
 
-    // protected static function newFactory()
-    // {
-    //     return OrganizationFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return OrganizationFactory::new();
+    }
 
     protected $fillable = [
 
