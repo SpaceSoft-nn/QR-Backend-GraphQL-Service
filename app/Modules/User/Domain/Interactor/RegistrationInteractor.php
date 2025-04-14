@@ -7,14 +7,12 @@ use Illuminate\Support\Facades\DB;
 use App\Modules\User\Domain\Models\User;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\User\App\Data\ValueObject\UserVO;
-use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
-use App\Modules\Base\Interface\Interactor\IInteractor;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\User\Domain\Actions\User\CreateUserAction;
+use App\Modules\User\App\Data\DTO\User\RegistrationUserDTO;
 use App\Modules\PersonalArea\App\Data\DTO\CreatePersonalAreaDTO;
 use App\Modules\PersonalArea\Domain\Services\PersonalAreaService;
 use App\Modules\User\App\Data\DTO\Notification\CreateNotificationDTO;
-
 
 class RegistrationInteractor extends BaseInteractor
 {
@@ -26,7 +24,7 @@ class RegistrationInteractor extends BaseInteractor
 
 
     /**
-     * @param CreateUserDTO
+     * @param RegistrationUserDTO
      *
      * @return User
     */
@@ -36,7 +34,7 @@ class RegistrationInteractor extends BaseInteractor
     }
 
     /**
-     * @param CreateUserDTO $dto
+     * @param RegistrationUserDTO $dto
      *
      * @return User
      */

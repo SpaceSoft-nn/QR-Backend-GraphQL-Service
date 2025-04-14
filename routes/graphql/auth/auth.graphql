@@ -7,7 +7,6 @@ extend type Mutation {
 
 }
 
-
 input UserRegistration {
 
     #В запросе должен быть обязательно либо email, либо phone
@@ -31,14 +30,11 @@ input UserRegistration {
     #Отчество
     father_name: String!
 
-    #Роль user: admin, cassier, manager
-    role: UserRoleEnum!
-
     #Пользовательское соглашения
     agreement: Boolean!
 }
 
-input UserLogin  @validator(class: "App\\Modules\\Auth\\Domain\\Validators\\UserLoginValidator") {
+input UserLogin @validator(class: "App\\Modules\\Auth\\Domain\\Validators\\UserLoginValidator") {
 
     #В запросе должен быть обязательно либо email, либо phone
     email: String!

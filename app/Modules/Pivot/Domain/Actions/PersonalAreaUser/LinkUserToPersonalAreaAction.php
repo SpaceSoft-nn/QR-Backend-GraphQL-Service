@@ -19,7 +19,11 @@ class LinkUserToPersonalAreaAction
         try {
 
             //Сохраняем связь от user к personal area
-            $user->personalAreas()->syncWithoutDetaching([$personalArea->id]);
+            $user->personalAreas()->syncWithoutDetaching([$personalArea->id => [
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]
+            ]);
 
             return true;
 

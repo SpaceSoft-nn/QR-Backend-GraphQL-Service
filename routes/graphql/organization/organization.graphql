@@ -9,7 +9,7 @@ extend type Mutation {
 
     "Создание организации по авторизированному пользователю"
     createOrganization(input: OrganizationCreate! @spread): Organization! @field(resolver: "App\\Modules\\Organization\\Presentation\\HTTP\\Graphql\\Response\\OrganizationResolver@store") @guard
-
+    
 }
 
 
@@ -17,7 +17,7 @@ input OrganizationCreate {
 
     name: String!
 
-    address: String!
+    address: String!    
 
     phone: String
 

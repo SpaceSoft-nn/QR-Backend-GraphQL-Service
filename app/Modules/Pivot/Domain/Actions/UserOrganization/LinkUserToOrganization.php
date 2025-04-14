@@ -19,7 +19,11 @@ class LinkUserToOrganization
         try {
 
             //Сохраняем связь от user к personal area
-            $user->organizations()->syncWithoutDetaching([$organization->id]);
+            $user->organizations()->syncWithoutDetaching([$organization->id => [
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            ]);
 
             return true;
 

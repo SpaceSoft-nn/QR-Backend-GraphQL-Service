@@ -8,8 +8,8 @@ use App\Modules\Auth\Domain\Services\AuthService;
 use App\Modules\User\Domain\Services\UserService;
 use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
 use App\Modules\Auth\Domain\Resources\JwtResoruce;
-use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 use App\Modules\User\App\Data\DTO\User\LoginUserDTO;
+use App\Modules\User\App\Data\DTO\User\RegistrationUserDTO;
 use App\Modules\User\Domain\Validators\RegistrationValidator;
 use App\Modules\User\Domain\Validators\UserValidator;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -29,7 +29,7 @@ class AuthResolver
         //Валидируем
         $date = $this->userValidator->validate($args);
 
-        /** @var CreateUserDTO */
+        /** @var RegistrationUserDTO */
         $createUserDTO = $this->userValidator->createUserDTO($date);
 
         /** @var User */
