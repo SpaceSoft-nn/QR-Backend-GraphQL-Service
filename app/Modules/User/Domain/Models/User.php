@@ -2,7 +2,7 @@
 
 namespace App\Modules\User\Domain\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use App\Modules\User\App\Data\Enums\UserRoleEnum;
 use App\Modules\User\Domain\Factories\UserFactory;
@@ -15,7 +15,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -85,6 +84,11 @@ class User extends Authenticatable implements JWTSubject
     public function organizations() : BelongsToMany
     {
         return $this->belongsToMany(Organization::class, 'user_organization', 'user_id', 'organization_id');
+    }
+
+    public function workspaces() : BelongsToMany
+    {
+        return $this->belongsToMany(Organization::class, 'user_workspaces', 'user_id', 'workspace_id')->withPivot('active_user');
     }
 
     public function personalAreas() : BelongsToMany

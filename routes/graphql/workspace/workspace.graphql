@@ -1,3 +1,24 @@
+extend type Mutation {
+
+    "Создание организации по авторизированному пользователю"
+    createWorkspace(input: WorkspaceCreate! @spread): Workspace! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@store") @guard
+
+}
+
+input WorkspaceCreate @validator(class: "App\\Modules\\Workspace\\Domain\\Validators\\CreateWorkspaceValidator") {
+
+    organization_id: String!
+
+    name: String!
+
+    description: String
+
+    is_active: Boolean
+
+    payment_id: String
+
+}
+
 
 type Workspace @model(class: "App\\Modules\\Workspace\\Domain\\Models\\Workspace") {
 
