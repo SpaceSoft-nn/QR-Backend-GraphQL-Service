@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('personal_areas', function (Blueprint $table) {
-            $table->foreignUuid('owner_id')
+            $table->foreignUuid('owner_id')->index()
                 ->constrained('users');
         });
     }

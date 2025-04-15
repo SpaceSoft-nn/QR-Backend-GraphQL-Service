@@ -13,7 +13,7 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('owner_id')
+            $table->foreignUuid('owner_id')->index()
                 ->constrained('users')->noActionOnDelete();
 
             $table->string('name');

@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
+
     public function up(): void
     {
         Schema::create('confirm_phone_notification', function (Blueprint $table) {
             $table->uuid('id')->primary(); // Используем UUID как первичный ключ
 
-            $table->uuid('uuid_send') // Добавляем столбец uuid_active
+            $table->uuid('uuid_send')->index() // Добавляем столбец uuid_active
                 ->constrained('send_phone_notification', 'id');
 
             $table->integer('code')->index()->comment('Введённый код пользователем');

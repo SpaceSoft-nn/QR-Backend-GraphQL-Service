@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
 
-            $table->foreignId('user_organization_id')
+            $table->foreignId('user_organization_id')->index()
                 ->constrained('user_organization')->noActionOnDelete(); // делается для того, что бы знать какая организация и user в этой орагнизации создали workspace
 
             $table->string('name', 255)->unique()->index()->comment('Название workspace');
@@ -25,8 +25,8 @@ return new class extends Migration
             $table->boolean('is_active');
 
 
-            $table->foreignUuid('payment_id')->nullable()
-                ->constrained('payments')->comment('Какую платежную систему использует workspace');
+            $table->foreignUuid('payment_id')->index()
+                ->nullable()->constrained('payments')->comment('Какую платежную систему использует workspace');
 
             $table->timestamps();
 

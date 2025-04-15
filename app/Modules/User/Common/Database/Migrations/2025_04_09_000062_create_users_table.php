@@ -27,12 +27,12 @@ return new class extends Migration
             $table->boolean('active')->default(false)->comment('Активирован ли user');
             $table->boolean('auth')->default(false)->comment('Активирован ли через подтврждения email/phone');
 
-            $table->foreignUuid('personal_area_id')->nullable()
+            $table->foreignUuid('personal_area_id')->index()->nullable()
                 ->constrained('personal_areas')->onDelete('cascade');;
 
-            $table->foreignUuid('email_id')->nullable()
+            $table->foreignUuid('email_id')->index()->nullable()
                 ->constrained('email_lists');
-            $table->foreignUuid('phone_id')->nullable()
+            $table->foreignUuid('phone_id')->index()->nullable()
                 ->constrained('phone_lists');
 
 

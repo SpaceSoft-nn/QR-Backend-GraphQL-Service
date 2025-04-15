@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('confirm_email_notification', function (Blueprint $table) {
             $table->uuid('id')->primary(); // Используем UUID как первичный ключ
 
-            $table->uuid('uuid_send') // Добавляем столбец uuid_active
+            $table->uuid('uuid_send')->index() // Добавляем столбец uuid_active
                 ->constrained('send_email_notification', 'id');
 
             $table->integer('code')->index()->comment('Введённый код пользователем');

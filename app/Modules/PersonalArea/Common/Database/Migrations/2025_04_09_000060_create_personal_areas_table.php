@@ -13,7 +13,7 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('subscription_id')
+            $table->foreignUuid('subscription_id')->index()
                 ->constrained('subscriptions');
 
             $table->decimal('balance', 10, 2);

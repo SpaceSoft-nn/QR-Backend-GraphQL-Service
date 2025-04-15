@@ -20,9 +20,9 @@ return new class extends Migration
             $table->boolean('status')->comment('статус транзакции panding, close и т.д');
             $table->decimal('amount', 10,2);
 
-            $table->foreignUuid('workspace_id')
+            $table->foreignUuid('workspace_id')->index()
                 ->constrained('workspaces')->noActionOnDelete();
-            $table->foreignUuid('qr_code_id')
+            $table->foreignUuid('qr_code_id')->index()
                 ->constrained('qr_codes')->noActionOnDelete();
 
             $table->string('type_product')->nullable()

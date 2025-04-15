@@ -12,7 +12,7 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('personal_area_id')
+            $table->foreignUuid('personal_area_id')->index()
                 ->constrained('personal_areas');
 
             $table->decimal('balance_before', 10, 2)->comment('баланс до совершения операции');

@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('value')->comment('Значение ключа');
 
 
-            $table->foreignUuid('payment_method_id')
+            $table->foreignUuid('payment_method_id')->index()
                 ->constrained('payment_methods')->noActionOnDelete();
 
-            $table->foreignId('user_organizaion_id')
+            $table->foreignId('user_organizaion_id')->index()
                 ->constrained('user_organization')->noActionOnDelete();
 
             $table->timestamps();

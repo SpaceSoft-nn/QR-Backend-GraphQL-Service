@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->uuid('id')->primary(); // Используем UUID как первичный ключ
 
-            $table->uuid('uuid_list')
+            $table->uuid('uuid_list')->index()
                 ->constrained('phone_list', 'id');
 
             $table->string('driver')->comment('Драйвер отправки');

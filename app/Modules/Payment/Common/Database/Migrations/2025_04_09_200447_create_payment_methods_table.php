@@ -17,7 +17,7 @@ return new class extends Migration
             $table->boolean('active')->default(false);
             $table->string('driver')->comment('Провайдер');
 
-            $table->foreignUuid('payment_id')
+            $table->foreignUuid('payment_id')->index()
                 ->constrained('payments')->noActionOnDelete(); //способ оплаты у платежа QIWI, YOUCASSA, PAYPAL, BITCOIN
 
 
