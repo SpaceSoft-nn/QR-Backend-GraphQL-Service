@@ -2,10 +2,12 @@
 
 namespace App\Modules\Pivot\Domain\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Modules\User\Domain\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class UserPersonalArea extends Model
+class UserWorkspace extends Model
 {
     use HasFactory;
 
@@ -20,6 +22,8 @@ class UserPersonalArea extends Model
 
         "user_id",
         "workspace_id",
+        "active_user",
+        "is_owner",
 
     ];
 
@@ -32,5 +36,10 @@ class UserPersonalArea extends Model
     protected $hidden = [
 
     ];
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
 }

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
+use App\Modules\Workspace\Domain\Models\Workspace;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements JWTSubject
@@ -88,7 +89,10 @@ class User extends Authenticatable implements JWTSubject
 
     public function workspaces() : BelongsToMany
     {
-        return $this->belongsToMany(Organization::class, 'user_workspaces', 'user_id', 'workspace_id')->withPivot('active_user');
+        return $this->belongsToMany(Workspace::class, 'user_workspaces', 'user_id', 'workspace_id')->withPivot([
+            'active_user',
+            'is_owner',
+        ]);
     }
 
     public function personalAreas() : BelongsToMany

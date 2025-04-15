@@ -42,7 +42,7 @@ class CreateWorkspaceInteractor extends BaseInteractor
             $workspace = $this->createWorkspace($dto->workspaceVO);
 
             //привязываем user к worksapce через промежуточную таблицу
-            $status = LinkUserToWorkspace::run($user, $workspace);
+            $status = LinkUserToWorkspace::run($user, $workspace, true);
 
             // return $workspace;
             return $workspace;

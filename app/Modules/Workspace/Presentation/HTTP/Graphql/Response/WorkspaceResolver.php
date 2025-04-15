@@ -2,6 +2,7 @@
 
 namespace App\Modules\Workspace\Presentation\HTTP\Graphql\Response;
 
+use Illuminate\Support\Collection;
 use App\Modules\User\Domain\Models\User;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
@@ -21,13 +22,11 @@ class WorkspaceResolver
 
 
     /**
-     * Создание user (manager/cassier)
-     *
-     * @return array
+     * Создание Workspace
+     * @return Workspace
      */
     public function store(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : Workspace
     {
-
         /**
          * Получаем User по токену
          * @var User
@@ -45,6 +44,27 @@ class WorkspaceResolver
         $workspace = $this->workspaceService->createWorkspace($createWorkspaceDTO);
 
         return $workspace;
+    }
+
+    /**
+     * Создание user (manager/cassier)
+     *
+     * @return array
+     */
+    public function index(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : Collection
+    {
+
+        /**
+         * Получаем User по токену
+         * @var User
+         *
+        */
+        $user = $this->authService->getUserAuth();
+
+        /** @var Collection */
+        $workspaces = $user->workspaces;
+
+        return $workspaces;
     }
 
 }

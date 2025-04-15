@@ -5,6 +5,13 @@ extend type Mutation {
 
 }
 
+extend type Query {
+
+    workspaces: [Workspace]! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@index") @guard
+    workspace(id: ID! @whereKey): Workspace @find @guard
+
+}
+
 input WorkspaceCreate @validator(class: "App\\Modules\\Workspace\\Domain\\Validators\\CreateWorkspaceValidator") {
 
     organization_id: String!
@@ -24,20 +31,20 @@ type Workspace @model(class: "App\\Modules\\Workspace\\Domain\\Models\\Workspace
 
     id: ID!
 
-    name: String!
+    organization: Organization! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Field\\WorkspaceFieldResolver@organization")
 
-    description: String!
+    name: String!
 
     is_active: Boolean!
 
+    description: String
+
     "Пользователь который работает в данный момент под workspace"
-    user_worker: User!
+    user_worker: User @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Field\\WorkspaceFieldResolver@user_worker")
 
-    user_owner: User!
+    user_owner: User! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Field\\WorkspaceFieldResolver@user_owner")
 
-    organizaion: Organization!
-
-    payment: Payment
+    payment: Payment @belongsTo
 
     created_at: Date!
 

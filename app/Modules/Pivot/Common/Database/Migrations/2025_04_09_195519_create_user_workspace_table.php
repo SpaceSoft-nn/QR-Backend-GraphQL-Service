@@ -23,6 +23,8 @@ return new class extends Migration
                 ->constrained('workspaces')->noActionOnDelete();
 
             $table->boolean('active_user')->default(false)->comment('Активен ли user в работе в workspace');
+            $table->boolean('is_owner')->default(false)->comment('Является ли user создателем workspace');
+
 
             $table->unique(['user_id', 'workspace_id']);
 
