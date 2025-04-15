@@ -6,13 +6,12 @@ use App\Modules\User\Domain\Models\User;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
 use App\Modules\User\Domain\Services\UserService;
-use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
 use App\Modules\Auth\Domain\Resources\JwtResoruce;
+use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
 use App\Modules\User\App\Data\DTO\User\LoginUserDTO;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\User\App\Data\DTO\User\RegistrationUserDTO;
 use App\Modules\User\Domain\Validators\RegistrationValidator;
-use App\Modules\User\Domain\Validators\UserValidator;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 
 class AuthResolver

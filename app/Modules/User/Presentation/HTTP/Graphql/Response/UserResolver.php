@@ -6,12 +6,10 @@ use App\Modules\User\Domain\Models\User;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
 use App\Modules\User\Domain\Services\UserService;
-use App\Modules\Auth\Domain\Resources\JwtResoruce;
-use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
-use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
-use App\Modules\User\Domain\Validators\CreateUserValidator;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use App\Modules\PersonalArea\Domain\Models\PersonalArea;
+use App\Modules\User\Domain\Validators\CreateUserValidator;
 
 
 class UserResolver
@@ -22,6 +20,7 @@ class UserResolver
         private UserService $userService,
         private AuthService $authService,
     ) {}
+
 
     /**
      * Создание user (manager/cassier)

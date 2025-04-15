@@ -33,7 +33,7 @@ final class UserService implements IUserService
 
         if(!is_null($loginUserDTO->phone)){
 
-            /** @var EmailList */
+            /** @var PhoneList */
             $phone = PhoneList::query()->where('value', $loginUserDTO->phone)->first();
 
             /** @var User */

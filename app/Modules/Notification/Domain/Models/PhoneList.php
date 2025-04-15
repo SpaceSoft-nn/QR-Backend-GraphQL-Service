@@ -41,7 +41,7 @@ class PhoneList extends Model
 
     public function user(): HasOne
     {
-        return $this->hasOne(User::class, 'phone_id');
+        return $this->hasOne(User::class, 'phone_id', 'id');
     }
 
 }

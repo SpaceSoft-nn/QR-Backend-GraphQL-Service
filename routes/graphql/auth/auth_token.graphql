@@ -1,7 +1,8 @@
 
 extend type Mutation {
+    
     "Входим под user - возвращаем JWT токен"
-    authLogin(input: UserLogin! @spread): AuthToken! @field(resolver: "App\\Modules\\Auth\\Presentation\\Http\\Graphql\\AuthResolver@login")
+    # authLogin(input: UserLogin! @spread): AuthToken! @field(resolver: "App\\Modules\\Auth\\Presentation\\Http\\Graphql\\AuthResolver@login")
 
     "Выходим из авторизации - токены инвалидируются"
     authLogout: String! @field(resolver: "App\\Modules\\Auth\\Presentation\\Http\\Graphql\\AuthResolver@logout") @guard
