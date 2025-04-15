@@ -9,6 +9,7 @@ use App\Modules\Auth\Domain\Services\AuthService;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\Workspace\App\Data\DTO\CreateWorkspaceDTO;
+use App\Modules\Workspace\App\Data\DTO\AddUserWorkspaceDTO;
 use App\Modules\Workspace\App\Data\ValueObject\WorkspaceVO;
 use App\Modules\Workspace\Domain\Services\WorkspaceService;
 
@@ -65,6 +66,38 @@ class WorkspaceResolver
         $workspaces = $user->workspaces;
 
         return $workspaces;
+    }
+
+    /**
+     * Добавление User к workspace
+     * @param mixed $root
+     * @param array $args
+     * @param GraphQLContext $context
+     * @param ResolveInfo $resolveInfo
+     *
+     * @return bool
+     */
+    public function addUserWorkspace(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : User
+    {
+
+        /**
+         * Получаем User по токену
+         * @var User
+         *
+        */
+        $user = $this->authService->getUserAuth();
+
+        /** @var AddUserWorkspaceDTO */
+        $addUserWorkspaceDTO = AddUserWorkspaceDTO::make(
+            userOwner: $user,
+            user: User::find($args['user_id']),
+            workspace: Workspace::find($args['workspace_id']),
+        );
+
+        /** @var User */
+        $user = $this->workspaceService->addUserWorkspace($addUserWorkspaceDTO);
+
+        return $user;
     }
 
 }

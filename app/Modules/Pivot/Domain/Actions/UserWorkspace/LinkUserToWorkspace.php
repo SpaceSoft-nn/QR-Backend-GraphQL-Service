@@ -16,10 +16,13 @@ class LinkUserToWorkspace
      * @return bool
      */
     public static function run(
+
         User $user,
         Workspace $model,
         ?bool $is_owner = false,
+
     ) : bool {
+        
         try {
 
             //Сохраняем связь от user к personal area

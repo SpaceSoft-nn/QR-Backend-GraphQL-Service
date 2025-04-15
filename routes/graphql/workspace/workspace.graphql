@@ -1,7 +1,10 @@
 extend type Mutation {
 
-    "Создание организации по авторизированному пользователю"
-    createWorkspace(input: WorkspaceCreate! @spread): Workspace! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@store") @guard
+    "Создание рабочего места по авторизированному пользователю"
+    createWorkspace(input: WorkspaceCreateInput! @spread): Workspace! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@store") @guard
+
+    "Добавление Пользователя к workspace"
+    addUserWorkspace(input: AddUserWorkspaceInput! @spread): User! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@addUserWorkspace") @guard
 
 }
 
@@ -12,7 +15,7 @@ extend type Query {
 
 }
 
-input WorkspaceCreate @validator(class: "App\\Modules\\Workspace\\Domain\\Validators\\CreateWorkspaceValidator") {
+input WorkspaceCreateInput @validator(class: "App\\Modules\\Workspace\\Domain\\Validators\\CreateWorkspaceValidator") {
 
     organization_id: String!
 
@@ -23,6 +26,16 @@ input WorkspaceCreate @validator(class: "App\\Modules\\Workspace\\Domain\\Valida
     is_active: Boolean
 
     payment_id: String
+
+}
+
+input AddUserWorkspaceInput @validator(class: "App\\Modules\\Workspace\\Domain\\Validators\\AddUserWorkspaceValidator") {
+
+    "пользователь который добавляется к workspace"
+    user_id: String!
+
+    "worksapce к которому добавляется пользователь"
+    workspace_id: String!
 
 }
 
