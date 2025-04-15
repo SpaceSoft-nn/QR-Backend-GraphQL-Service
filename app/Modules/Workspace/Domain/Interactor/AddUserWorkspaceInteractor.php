@@ -59,7 +59,8 @@ class AddUserWorkspaceInteractor extends BaseInteractor
 
         $this->hasUserRole($dto->userOwner);
         $this->existsUserOwner($dto->userOwner, $dto->user);
-        $this->exestsUserWorkspace($dto->user, $dto->workspace);
+        $this->existsUserWorkspace($dto->user, $dto->workspace);
+        $this->userDontUserOwner($dto->userOwner, $dto->user);
     }
 
     /**
@@ -100,19 +101,35 @@ class AddUserWorkspaceInteractor extends BaseInteractor
         if(!$hasCommon) { throw new GraphQLBusinessException('Вы не имеете прав для добавления пользователя в этот workspace.' , 403); }
     }
 
-    /** 
+    /**
      * Проверяем добавлен ли пользователь
      * @param User $user
      * @param Workspace $workspace
      * @throws \GraphQLBusinessException Если пользователь уже добавлен в workspace.
      * @return void
      */
-    private function exestsUserWorkspace(User $user, Workspace $workspace)
+    private function existsUserWorkspace(User $user, Workspace $workspace)
     {
         $hasCommon = $user->workspaces()->where('workspace_id', $workspace->id)
             ->exists();
 
         if($hasCommon) { throw new GraphQLBusinessException('Пользователь уже был добавлен в данный workspace.' , 400); }
+    }
+
+    /**
+     * Проверяем что авторизированный пользователь не добавляет самого себя
+     * @param User $user
+     * @param Workspace $workspace
+     * @throws \GraphQLBusinessException Авторизированный пользователь не может добавлять самого себя в workspace.
+     * @return void
+     */
+    private function userDontUserOwner(User $userOwner, User $user)
+    {
+
+        if($userOwner->id === $user->id) {
+            #TODO Формально manager может себя добавлять? временно сделали
+            throw new GraphQLBusinessException('Авторизированный пользователь не может добавлять самого себя в workspace.' , 400);
+        }
     }
 
 }
