@@ -6,6 +6,12 @@ extend type Mutation {
     "Добавление Пользователя к workspace"
     addUserWorkspace(input: AddUserWorkspaceInput! @spread): User! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@addUserWorkspace") @guard
 
+    "Удаляем пользователя из workspace"
+    deleteUserWorkspace(input: DeleteUserWorkspaceInput! @spread): DeleteUserResponse! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@deleteUserWorkspace") @guard
+
+    "Указание user в работу (устаналиваем кто будет работать за workspace)"
+    setWorkUserWorkspace(input: SetWorkUserWorkspaceInput! @spread): User! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@setWorkUserWorkspace") @guard
+
 }
 
 extend type Query {
@@ -39,6 +45,36 @@ input AddUserWorkspaceInput @validator(class: "App\\Modules\\Workspace\\Domain\\
 
 }
 
+input SetWorkUserWorkspaceInput @validator(class: "App\\Modules\\Workspace\\Domain\\Validators\\SetWorkUserWorkspaceValidator") {
+
+    "пользователь который добавляется к workspace"
+    user_id: String!
+
+    "worksapce к которому добавляется пользователь"
+    workspace_id: String!
+
+}
+
+input DeleteUserWorkspaceInput @validator(class: "App\\Modules\\Workspace\\Domain\\Validators\\DeleteUserWorkspaceValidator") {
+
+    "пользователь который добавляется к workspace"
+    user_id: String!
+
+    "worksapce к которому добавляется пользователь"
+    workspace_id: String!
+
+}
+
+
+type DeleteUserResponse {
+
+    "uuid удаленного user"
+    user_id: String!
+
+    "статус удаления"
+    status: Boolean!
+
+}
 
 type Workspace @model(class: "App\\Modules\\Workspace\\Domain\\Models\\Workspace") {
 

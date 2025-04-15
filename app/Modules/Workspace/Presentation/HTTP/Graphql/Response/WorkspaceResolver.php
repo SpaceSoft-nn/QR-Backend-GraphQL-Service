@@ -10,6 +10,8 @@ use App\Modules\Workspace\Domain\Models\Workspace;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\Workspace\App\Data\DTO\CreateWorkspaceDTO;
 use App\Modules\Workspace\App\Data\DTO\AddUserWorkspaceDTO;
+use App\Modules\Workspace\App\Data\DTO\DeleteUserWorkspaceDTO;
+use App\Modules\Workspace\App\Data\DTO\SetWorkUserWorkspaceDTO;
 use App\Modules\Workspace\App\Data\ValueObject\WorkspaceVO;
 use App\Modules\Workspace\Domain\Services\WorkspaceService;
 
@@ -99,6 +101,54 @@ class WorkspaceResolver
 
         return $user;
     }
+
+    public function setWorkUserWorkspace(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : User
+    {
+
+        /**
+         * Получаем User по токену
+         * @var User
+         *
+        */
+        $user = $this->authService->getUserAuth();
+
+        /** @var SetWorkUserWorkspaceDTO */
+        $addUserWorkspaceDTO = SetWorkUserWorkspaceDTO::make(
+            userOwner: $user,
+            user: User::find($args['user_id']),
+            workspace: Workspace::find($args['workspace_id']),
+        );
+
+        /** @var User */
+        $user = $this->workspaceService->setWorkUserWorkspace($addUserWorkspaceDTO);
+
+        return $user;
+    }
+
+    public function deleteUserWorkspace(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : array
+    {
+
+        /**
+         * Получаем User по токену
+         * @var User
+         *
+        */
+        $user = $this->authService->getUserAuth();
+
+        /** @var DeleteUserWorkspaceDTO */
+        $deleteUserWorkspaceDTO = DeleteUserWorkspaceDTO::make(
+            userOwner: $user,
+            user: User::find($args['user_id']),
+            workspace: Workspace::find($args['workspace_id']),
+        );
+
+        /** @var array */
+        $arrayStatus = $this->workspaceService->deleteUserWorkspace($deleteUserWorkspaceDTO);
+
+        return $arrayStatus;
+    }
+
+
 
 }
 

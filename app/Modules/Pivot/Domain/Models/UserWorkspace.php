@@ -22,7 +22,7 @@ class UserWorkspace extends Model
 
         "user_id",
         "workspace_id",
-        "active_user",
+        "active_user", //находится ли данный пользователь в работе в workspace
         "is_owner",
 
     ];
