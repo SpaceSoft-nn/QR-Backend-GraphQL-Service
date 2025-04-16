@@ -5,6 +5,7 @@ namespace App\Modules\Workspace\Domain\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\User\Domain\Models\User;
 use App\Modules\Payment\Domain\Models\Payment;
+use App\Modules\Workspace\Domain\Factories\WorkspaceFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,10 +15,10 @@ class Workspace extends Model
 {
     use HasFactory, HasUuids;
 
-    // protected static function newFactory()
-    // {
-    //     return UserFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return WorkspaceFactory::new();
+    }
 
     protected $table = 'workspaces';
 

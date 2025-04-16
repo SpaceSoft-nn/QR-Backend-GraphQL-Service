@@ -84,7 +84,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function organizations() : BelongsToMany
     {
-        return $this->belongsToMany(Organization::class, 'user_organization', 'user_id', 'organization_id');
+        return $this->belongsToMany(Organization::class, 'user_organization', 'user_id', 'organization_id')->withPivot(['id']);
     }
 
     public function workspaces() : BelongsToMany
@@ -92,6 +92,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Workspace::class, 'user_workspace', 'user_id', 'workspace_id')->withPivot([
             'active_user',
             'is_owner',
+            'id'
         ]);
     }
 

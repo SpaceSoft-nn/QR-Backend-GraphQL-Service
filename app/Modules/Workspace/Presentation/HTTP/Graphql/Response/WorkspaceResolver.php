@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use App\Modules\User\Domain\Models\User;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
+use App\Modules\Base\Entity\PaginatorCustom;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\Workspace\App\Data\DTO\CreateWorkspaceDTO;
@@ -14,6 +15,7 @@ use App\Modules\Workspace\App\Data\DTO\DeleteUserWorkspaceDTO;
 use App\Modules\Workspace\App\Data\DTO\SetWorkUserWorkspaceDTO;
 use App\Modules\Workspace\App\Data\ValueObject\WorkspaceVO;
 use App\Modules\Workspace\Domain\Services\WorkspaceService;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class WorkspaceResolver
 {
@@ -54,7 +56,7 @@ class WorkspaceResolver
      *
      * @return array
      */
-    public function index(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : Collection
+    public function index(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : array
     {
 
         /**
@@ -64,10 +66,16 @@ class WorkspaceResolver
         */
         $user = $this->authService->getUserAuth();
 
-        /** @var Collection */
-        $workspaces = $user->workspaces;
+        $page = $args['page'] ?? 1;
+        $count = $args['count'] ?? 10;
 
-        return $workspaces;
+        $workspacesPagination = $user->workspaces()->paginate(
+            perPage: $count,
+            page: $page,
+        );
+
+        return PaginatorCustom::make($workspacesPagination)->toArray();
+
     }
 
     /**

@@ -10,6 +10,7 @@ use App\Modules\Pivot\Domain\Actions\UserOrganization\LinkUserToOrganization;
 use App\Modules\Pivot\Domain\Actions\UserWorkspace\LinkUserToWorkspace;
 use App\Modules\User\App\Data\Enums\UserRoleEnum;
 use App\Modules\User\Domain\Models\User;
+use App\Modules\Workspace\Domain\Models\Workspace;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,11 +19,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
+        $this->call([
+            \App\Modules\Payment\Common\Database\Seeders\PaymentSeed::class,
+        ]);
+
+
         $email = EmailList::factory()->create([
             'value' => 'test@mail.ru',
             'status' => true,
         ]);
-
 
         $user = User::factory()
             ->afterCreating(function ($user) {
@@ -65,6 +70,17 @@ class DatabaseSeeder extends Seeder
                     $status = LinkUserToOrganization::run($user_new, $org);
                 }
 
+                { // создаём рабочие места
+
+                    $workspaces = Workspace::factory()
+                        ->count(30)
+                        ->withUserOrganization($user)
+                        ->create();
+
+                    foreach ($workspaces as $workspace) {
+                        LinkUserToWorkspace::run($user, $workspace, true);
+                    }
+                }
 
             })
             ->for($email, 'emailList')

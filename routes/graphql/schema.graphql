@@ -13,9 +13,26 @@
 #import notification/*.graphql
 
 
-
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query
 type Mutation
+
+type PaginatorInfo {
+
+    "Всего элементов"
+    total: Int!
+
+    "Элементов на странице"
+    limit: Int!
+
+    "Номер текущей страницы"
+    currentPage: Int!
+
+    "Сколько всего страниц"
+    totalPages: Int!
+
+}
+
+
 

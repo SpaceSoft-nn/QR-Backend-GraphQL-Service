@@ -16,9 +16,14 @@ extend type Mutation {
 
 extend type Query {
 
-    workspaces: [Workspace]! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@index") @guard
+    workspaces(page: Int, count: Int): WorkspacePaginator! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@index") @guard
     workspace(id: ID! @whereKey): Workspace @find @guard
 
+}
+
+type WorkspacePaginator {
+    data: [Workspace]!
+    paginatorInfo: PaginatorInfo!
 }
 
 input WorkspaceCreateInput @validator(class: "App\\Modules\\Workspace\\Domain\\Validators\\CreateWorkspaceValidator") {

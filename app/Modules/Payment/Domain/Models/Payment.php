@@ -2,6 +2,7 @@
 
 namespace App\Modules\Payment\Domain\Models;
 
+use App\Modules\Payment\Domain\Factories\PaymentFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,10 +12,10 @@ class Payment extends Model
 {
     use HasFactory, HasUuids;
 
-    // protected static function newFactory()
-    // {
-    //     return UserFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return PaymentFactory::new();
+    }
 
     protected $table = 'payments';
 
