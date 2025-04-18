@@ -4,12 +4,12 @@ namespace App\Modules\Workspace\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\User\Domain\Models\User;
-use App\Modules\Payment\Domain\Models\Payment;
-use App\Modules\Workspace\Domain\Factories\WorkspaceFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use App\Modules\Payment\Domain\Models\PaymentMethod;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Modules\Workspace\Domain\Factories\WorkspaceFactory;
 
 class Workspace extends Model
 {
@@ -28,7 +28,7 @@ class Workspace extends Model
         "name",
         "description",
         "is_active",
-        "payment_id",
+        "payment_method_id",
 
     ];
 
@@ -42,9 +42,9 @@ class Workspace extends Model
 
     ];
 
-    public function payment() : BelongsTo
+    public function paymentMethod() : BelongsTo
     {
-        return $this->belongsTo(Payment::class, 'payment_id', 'id');
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id', 'id');
     }
 
 

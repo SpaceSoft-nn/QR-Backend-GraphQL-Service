@@ -2,18 +2,18 @@
 
 namespace App\Modules\User\Domain\Validators;
 
+use Illuminate\Validation\Rule;
+use App\Modules\User\Domain\Models\User;
 use Illuminate\Validation\Rules\Password;
 use App\Modules\Base\Validator\BaseValidator;
 use Illuminate\Validation\ValidationException;
+use App\Modules\User\App\Data\Enums\UserRoleEnum;
 use App\Modules\User\App\Data\ValueObject\UserVO;
 use App\Modules\Notification\Domain\Rule\EmailRule;
 use App\Modules\Notification\Domain\Rule\PhoneRule;
+use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
-use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
-use App\Modules\User\App\Data\Enums\UserRoleEnum;
-use App\Modules\User\Domain\Models\User;
-use Illuminate\Validation\Rule;
 
 class CreateUserValidator extends BaseValidator
 {

@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
                 'user_organization_id' => null,
                 'name'                 => $this->faker->company,
                 'is_active'            => $this->faker->boolean,
-                'payment_id'           => null,
+                'payment_method_id'           => null,
                 'description'          => $this->faker->text(100),
             ];
         }

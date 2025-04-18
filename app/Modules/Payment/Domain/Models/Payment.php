@@ -22,17 +22,19 @@ class Payment extends Model
     protected $fillable = [
 
         "status",
-        "number_uuid",
         "name",
-        "driver",
 
     ];
 
     protected $guarded = [
         'id',
+        "number_id",
         'created_at',
         'updated_at',
     ];
+
+
+
 
     protected $hidden = [
 
@@ -41,5 +43,10 @@ class Payment extends Model
     public function driverInfos() : HasMany
     {
         return $this->hasMany(PaymentMethod::class, 'payment_method_id', 'id');
+    }
+
+    public function paymentMethods() : HasMany
+    {
+        return $this->hasMany(PaymentMethod::class, 'payment_id', 'id');
     }
 }

@@ -4,18 +4,19 @@ namespace App\Modules\Workspace\Presentation\HTTP\Graphql\Response;
 
 use Illuminate\Support\Collection;
 use App\Modules\User\Domain\Models\User;
+use App\Modules\Base\Entity\PaginatorCustom;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
-use App\Modules\Base\Entity\PaginatorCustom;
+use App\Modules\Workspace\App\Data\DTO\AddPaymentWorkspaceDTO;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\Workspace\App\Data\DTO\CreateWorkspaceDTO;
 use App\Modules\Workspace\App\Data\DTO\AddUserWorkspaceDTO;
-use App\Modules\Workspace\App\Data\DTO\DeleteUserWorkspaceDTO;
-use App\Modules\Workspace\App\Data\DTO\SetWorkUserWorkspaceDTO;
 use App\Modules\Workspace\App\Data\ValueObject\WorkspaceVO;
 use App\Modules\Workspace\Domain\Services\WorkspaceService;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Modules\Workspace\App\Data\DTO\DeleteUserWorkspaceDTO;
+use App\Modules\Workspace\App\Data\DTO\SetWorkUserWorkspaceDTO;
+use Illuminate\Support\Arr;
 
 class WorkspaceResolver
 {
@@ -156,7 +157,26 @@ class WorkspaceResolver
         return $arrayStatus;
     }
 
+    public function addPaymentWorkspace(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : Workspace
+    {
+        $args = Arr::get($args, 'input');
 
+        /**
+         * Получаем User по токену
+         * @var User
+         *
+        */
+        $user = $this->authService->getUserAuth();
+
+        /** @var Workspace */
+        $workspace = $this->workspaceService->addPaymentWorkspace(AddPaymentWorkspaceDTO::make(
+            payment_method_id: $args['payment_method_id'],
+            worksapce_id: $args['worksapce_id'],
+            user: $user,
+        ));
+
+        return $workspace;
+    }
 
 }
 

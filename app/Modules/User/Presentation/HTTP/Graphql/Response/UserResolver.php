@@ -8,7 +8,6 @@ use App\Modules\Auth\Domain\Services\AuthService;
 use App\Modules\User\Domain\Services\UserService;
 use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\User\Domain\Validators\CreateUserValidator;
 
 

@@ -3,12 +3,14 @@
 namespace App\Modules\Workspace\Domain\Services;
 
 use App\Modules\User\Domain\Models\User;
+use App\Modules\Workspace\App\Data\DTO\AddPaymentWorkspaceDTO;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use App\Modules\Workspace\App\Data\DTO\CreateWorkspaceDTO;
 use App\Modules\Workspace\App\Data\DTO\AddUserWorkspaceDTO;
-use App\Modules\Workspace\App\Data\DTO\DeleteUserWorkspaceDTO;
 use App\Modules\Workspace\Domain\Interface\IWorkspaceService;
+use App\Modules\Workspace\App\Data\DTO\DeleteUserWorkspaceDTO;
 use App\Modules\Workspace\App\Data\DTO\SetWorkUserWorkspaceDTO;
+use App\Modules\Workspace\Domain\Interactor\AddPaymentWorkspaceInteractor;
 use App\Modules\Workspace\Domain\Interactor\SetWorkUserWorkspace;
 use App\Modules\Workspace\Domain\Interactor\CreateWorkspaceInteractor;
 use App\Modules\Workspace\Domain\Interactor\AddUserWorkspaceInteractor;
@@ -22,6 +24,7 @@ final class WorkspaceService implements IWorkspaceService
         private AddUserWorkspaceInteractor $addUserWorkspaceInteractor,
         private SetWorkUserWorkspace $setWorkUserWorkspace,
         private DeleteUserWorkspaceInteractor $deleteUserWorkspaceInteractor,
+        private AddPaymentWorkspaceInteractor $addPaymentWorkspaceInteractor,
     ) { }
 
 
@@ -43,6 +46,11 @@ final class WorkspaceService implements IWorkspaceService
     public function deleteUserWorkspace(DeleteUserWorkspaceDTO $dto) : array
     {
         return $this->deleteUserWorkspaceInteractor->make($dto);
+    }
+
+    public function addPaymentWorkspace(AddPaymentWorkspaceDTO $dto) : Workspace
+    {
+        return $this->addPaymentWorkspaceInteractor->make($dto);
     }
 
 }

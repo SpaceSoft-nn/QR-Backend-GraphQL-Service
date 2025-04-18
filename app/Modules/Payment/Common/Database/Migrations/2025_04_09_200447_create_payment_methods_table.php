@@ -13,9 +13,10 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
 
-            $table->string('name');
+            $table->increments('number_id')->unique()->comment('Номер payment_method для удобности');
+
             $table->boolean('active')->default(false);
-            $table->string('driver')->comment('Провайдер');
+            $table->string('driver_name')->comment('Провайдер');
 
             $table->foreignUuid('payment_id')->index()
                 ->constrained('payments')->noActionOnDelete(); //способ оплаты у платежа QIWI, YOUCASSA, PAYPAL, BITCOIN

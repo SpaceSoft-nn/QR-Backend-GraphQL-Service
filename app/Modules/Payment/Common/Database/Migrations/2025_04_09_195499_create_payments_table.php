@@ -12,12 +12,12 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
 
             $table->uuid('id')->primary();
+            $table->increments('number_id')->unique()->comment('Номер payment для удобности');
+
 
             $table->boolean('status');
 
-            // $table->uuid('number_uuid')->comment('номер payment');
             $table->string('name')->index('name_payment')->comment('название платежного метода');
-            // $table->string('driver')->nullable()->comment('название драйвера для удобности');
 
 
             $table->timestamps();

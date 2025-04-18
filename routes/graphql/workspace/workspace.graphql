@@ -6,6 +6,9 @@ extend type Mutation {
     "Добавление Пользователя к workspace"
     addUserWorkspace(input: AddUserWorkspaceInput! @spread): User! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@addUserWorkspace") @guard
 
+    "Добавление Payment к workspace"
+    addPaymentWorkspace(input: AddPaymentWorkspaceInput): Workspace! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@addPaymentWorkspace") @guard
+
     "Удаляем пользователя из workspace"
     deleteUserWorkspace(input: DeleteUserWorkspaceInput! @spread): DeleteUserResponse! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@deleteUserWorkspace") @guard
 
@@ -26,6 +29,14 @@ type WorkspacePaginator {
     paginatorInfo: PaginatorInfo!
 }
 
+input AddPaymentWorkspaceInput {
+
+    payment_method_id: ID! @rules(apply: ["exists:payment_methods,id"])
+
+    worksapce_id: ID! @rules(apply: ["exists:workspaces,id"])
+
+}
+
 input WorkspaceCreateInput @validator(class: "App\\Modules\\Workspace\\Domain\\Validators\\CreateWorkspaceValidator") {
 
     organization_id: String!
@@ -36,7 +47,8 @@ input WorkspaceCreateInput @validator(class: "App\\Modules\\Workspace\\Domain\\V
 
     is_active: Boolean
 
-    payment_id: String
+    "Драйвер оплаты: Тинькофф, Сберабанк, Точка"
+    payment_method_id: String
 
 }
 
@@ -98,7 +110,7 @@ type Workspace @model(class: "App\\Modules\\Workspace\\Domain\\Models\\Workspace
 
     user_owner: User! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Field\\WorkspaceFieldResolver@user_owner")
 
-    payment: Payment @belongsTo
+    paymentMethod: PaymentMethod @belongsTo
 
     created_at: Date!
 

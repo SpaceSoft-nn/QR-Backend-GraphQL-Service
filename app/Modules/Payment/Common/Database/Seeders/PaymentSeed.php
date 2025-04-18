@@ -4,7 +4,7 @@ namespace App\Modules\Payment\Common\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Modules\Payment\Domain\Models\Payment;
-
+use App\Modules\Payment\Domain\Models\PaymentMethod;
 
 class PaymentSeed extends Seeder
 {
@@ -16,7 +16,12 @@ class PaymentSeed extends Seeder
 
     private function createPayment()
     {
-        Payment::factory()->create();
+        /** @var Payment */
+        $payment = Payment::factory()->create();
+
+        PaymentMethod::factory()
+            ->withPayment($payment)
+            ->create();
     }
 
 }

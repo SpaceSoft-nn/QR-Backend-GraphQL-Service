@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Seeder;
+use App\Modules\User\Domain\Models\User;
+use App\Modules\User\App\Data\Enums\UserRoleEnum;
+use App\Modules\Workspace\Domain\Models\Workspace;
 use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
-use App\Modules\Pivot\Domain\Actions\PersonalAreaUser\LinkUserToPersonalAreaAction;
-use App\Modules\Pivot\Domain\Actions\UserOrganization\LinkUserToOrganization;
 use App\Modules\Pivot\Domain\Actions\UserWorkspace\LinkUserToWorkspace;
-use App\Modules\User\App\Data\Enums\UserRoleEnum;
-use App\Modules\User\Domain\Models\User;
-use App\Modules\Workspace\Domain\Models\Workspace;
-use Illuminate\Database\Seeder;
+use App\Modules\Pivot\Domain\Actions\UserOrganization\LinkUserToOrganization;
+use App\Modules\Pivot\Domain\Actions\PersonalAreaUser\LinkUserToPersonalAreaAction;
 
 class DatabaseSeeder extends Seeder
 {

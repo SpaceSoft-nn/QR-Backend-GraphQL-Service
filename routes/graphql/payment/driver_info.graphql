@@ -1,4 +1,28 @@
+extend type Mutation {
 
+    "Создание организации по авторизированному пользователю"
+    createDriverInfo(input: DriverInfoInput! @spread): DriverInfo! @field(resolver: "App\\Modules\\Payment\\Presentation\\HTTP\\Graphql\\Response\\DriverInfoResolver@createDriverInfo") @guard
+
+}
+
+input DriverInfoInput @validator(class: "App\\Modules\\Payment\\Domain\\Validators\\CreateDriverInfoValidator") {
+
+    "Название ключа например API Key или Seecret Key"
+    key: String!
+
+    "Значение ключа"
+    value: String!
+
+    "К какой организации относится этот пользователь"
+    organizaion_id: ID!
+
+    "Driver платежа"
+    payment_method_id: ID!
+
+}
+
+
+"Таблица 'значения => ключь' для подключения к внешнему сервису"
 type DriverInfo @model(class: "App\\Modules\\Payment\\Domain\\Models\\DriverInfo") {
 
     id: ID!

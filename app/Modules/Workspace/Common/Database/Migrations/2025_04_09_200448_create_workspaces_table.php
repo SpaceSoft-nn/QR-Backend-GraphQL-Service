@@ -25,8 +25,8 @@ return new class extends Migration
             $table->boolean('is_active');
 
 
-            $table->foreignUuid('payment_id')->index()
-                ->nullable()->constrained('payments')->comment('Какую платежную систему использует workspace');
+            $table->foreignUuid('payment_method_id')->index()
+                ->nullable()->constrained('payment_methods')->comment('Какую платежную систему использует workspace');
 
             $table->timestamps();
 

@@ -1,15 +1,32 @@
+extend type Query {
 
+    payments: [Payment]! @all @guard
+
+    "Найти по id"
+    paymentById(id: ID! @whereKey): Payment @find @guard
+
+    "Найти по автоинкрементированному-уникальному ключу id"
+    paymentByNumberId(number_id: Int @where): Payment @find @guard
+
+
+}
+
+"Подразумевает некий выбор категории платежей пример: Банки, Внешние интеграции, API - просто названия категорий"
 type Payment @model(class: "App\\Modules\\Payment\\Domain\\Models\\Payment") {
 
+    "Uuid"
     id: ID!
 
+    "Автоинкриментированный id - сделан для удобности обращения"
+    number_id: ID!
+
+    payment_methods: [PaymentMethod]! @hasMany(relation: "paymentMethods")
+
+    "Статус Активена ли категория Payment ()"
     status: Boolean!
 
-    number_uuid: String!
-
+    "Название платежного метода"
     name: String!
-
-    driver: String
 
     created_at: Date!
 

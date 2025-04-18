@@ -8,16 +8,16 @@ extend type Query {
 extend type Mutation {
 
     "Создание организации по авторизированному пользователю"
-    createOrganization(input: OrganizationCreate! @spread): Organization! @field(resolver: "App\\Modules\\Organization\\Presentation\\HTTP\\Graphql\\Response\\OrganizationResolver@store") @guard
-    
+    createOrganization(input: OrganizationCreateInput! @spread): Organization! @field(resolver: "App\\Modules\\Organization\\Presentation\\HTTP\\Graphql\\Response\\OrganizationResolver@store") @guard
+
 }
 
 
-input OrganizationCreate {
+input OrganizationCreateInput {
 
     name: String!
 
-    address: String!    
+    address: String!
 
     phone: String
 

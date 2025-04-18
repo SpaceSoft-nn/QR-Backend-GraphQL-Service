@@ -1,13 +1,23 @@
+extend type Query {
+
+    paymentMethods: [PaymentMethod]! @all @guard
+    paymentMethodByNumberId(number_id: Int! @where): PaymentMethod @find @guard
+    paymentMethodById(id: ID! @whereKey): PaymentMethod! @find @guard
+
+}
 
 type PaymentMethod @model(class: "App\\Modules\\Payment\\Domain\\Models\\PaymentMethod") {
 
+    "Uuid"
     id: ID!
+
+    "Автоинкриментированный id - сделан для удобности обращения"
+    number_id: Int!
 
     active: Boolean!
 
-    name: String!
-
-    driver: String!
+    "Название драйвера например: Сбербанк, Точка банк"
+    driver_name: String!
 
     payment: Payment @belongsTo
 
