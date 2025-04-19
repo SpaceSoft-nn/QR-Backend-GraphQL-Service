@@ -14,7 +14,7 @@ class TransactionFieldResolver
         /** @var Transaction */
         $transaction = $root;
 
-        return $transaction->amount->value;
+        return $transaction->amount;
     }
 
 }

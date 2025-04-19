@@ -19,7 +19,10 @@ extend type Mutation {
 
 extend type Query {
 
+    "Вернуть все workspaces"
     workspaces(page: Int, count: Int): WorkspacePaginator! @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Response\\WorkspaceResolver@index") @guard
+
+    "Вернуть workspace по id"
     workspace(id: ID! @whereKey): Workspace @find @guard
 
 }
@@ -104,6 +107,8 @@ type Workspace @model(class: "App\\Modules\\Workspace\\Domain\\Models\\Workspace
     is_active: Boolean!
 
     description: String
+
+    transactions: [Transaction]! @hasMany
 
     "Пользователь который работает в данный момент под workspace"
     user_worker: User @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Field\\WorkspaceFieldResolver@user_worker")

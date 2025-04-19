@@ -2,6 +2,7 @@
 
 namespace App\Modules\Transaction\Domain\Models;
 
+use App\Modules\Base\Money\Money;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,7 +35,7 @@ class QrCode extends Model
     ];
 
     protected $hidden = [
-
+        "amount" => Money::class,
     ];
 
 

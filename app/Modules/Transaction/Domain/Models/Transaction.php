@@ -2,6 +2,7 @@
 
 namespace App\Modules\Transaction\Domain\Models;
 
+use App\Modules\Base\Money\Money;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Workspace\Domain\Models\Workspace;
@@ -45,7 +46,7 @@ class Transaction extends Model
     ];
 
     protected $hidden = [
-
+        "amount" => Money::class,
     ];
 
     protected $cast = [

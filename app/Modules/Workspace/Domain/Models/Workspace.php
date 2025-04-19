@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use App\Modules\Payment\Domain\Models\PaymentMethod;
+use App\Modules\Transaction\Domain\Models\Transaction;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Modules\Workspace\Domain\Factories\WorkspaceFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Workspace extends Model
 {
@@ -47,6 +49,10 @@ class Workspace extends Model
         return $this->belongsTo(PaymentMethod::class, 'payment_method_id', 'id');
     }
 
+    public function transactions() : HasMany
+    {
+        return $this->hasMany(Transaction::class, 'workspace_id', 'id');
+    }
 
     public function users() : BelongsToMany
     {

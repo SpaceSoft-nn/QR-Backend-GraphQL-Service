@@ -5,6 +5,14 @@ extend type Mutation {
 
 }
 
+extend type Query {
+
+
+    "Вернуть транзакцию по ID"
+    transaction(id: ID! @whereKey): Transaction @find @guard
+
+}
+
 input CreateTransactionInput @validator(class: "App\\Modules\\Transaction\\Domain\\Validators\\CreateTransactionValidator"){
 
     workspace_id: ID!
