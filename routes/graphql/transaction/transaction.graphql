@@ -1,7 +1,7 @@
 extend type Mutation {
 
     "Создание организации по авторизированному пользователю"
-    createTransaction(input: DriverInfoInput! @spread): Transaction! @field(resolver: "App\\Modules\\Transaction\\Presentation\\HTTP\\Graphql\\Response\\TransactionResolver@store") @guard
+    createTransaction(input: CreateTransactionInput! @spread): Transaction! @field(resolver: "App\\Modules\\Transaction\\Presentation\\HTTP\\Graphql\\Response\\TransactionResolver@store") @guard
 
 }
 
