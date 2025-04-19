@@ -1,3 +1,28 @@
+extend type Mutation {
+
+    "Создание организации по авторизированному пользователю"
+    createTransaction(input: DriverInfoInput! @spread): Transaction! @field(resolver: "App\\Modules\\Transaction\\Presentation\\HTTP\\Graphql\\Response\\TransactionResolver@store") @guard
+
+}
+
+input CreateTransactionInput @validator(class: "App\\Modules\\Transaction\\Domain\\Validators\\CreateTransactionValidator"){
+
+    workspace_id: ID!
+
+    "Сумма для оплаты"
+    amount: String!
+
+    "Тип продукта, услуга/товар и т.д... "
+    type_product: String
+
+    "Количество товара"
+    count_product: String
+
+    "Название продукта"
+    name_product: String
+
+}
+
 
 type Transaction @model(class: "App\\Modules\\Transaction\\Domain\\Models\\Transaction") {
 

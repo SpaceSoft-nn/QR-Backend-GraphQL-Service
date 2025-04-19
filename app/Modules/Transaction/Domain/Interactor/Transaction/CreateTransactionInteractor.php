@@ -37,10 +37,24 @@ class CreateTransactionInteractor extends BaseInteractor
         /** @var Transaction */
         $model = DB::transaction(function ($pdo) use ($dto) {
 
-            $
+            /**
+             * Временно создаём qrCode - тут будет запрос к платежному шлюзу для формирование qr кода
+             * @var QrCode
+             *
+            */
+            $qrCode = $this->createQrCode(
+                QrCodeVO::make()
+            );
 
+            /** @var TransactionVO */
+            $transactionVO = $dto->transaction->setQrCodeId($qrCode->id);
 
-            return new Transaction();
+            dd($transactionVO);
+
+            /** @var Transaction */
+            $transaction = $this->createTransaction($transactionVO);
+
+            return $transaction;
         });
 
         return $model;

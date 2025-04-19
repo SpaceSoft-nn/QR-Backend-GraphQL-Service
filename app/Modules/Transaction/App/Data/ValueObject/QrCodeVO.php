@@ -12,7 +12,7 @@ readonly class QrCodeVO implements Arrayable
 
     public function __construct(
 
-        public string $qr_url = 'https://dev.by/storage/images/44/14/12/03/derived/9f1b0cc0fc7967986851e3d3f38e2575.jpg',
+        public ?string $qr_url,
         public ?string $name_product,
         public ?Money $amount,
 
@@ -21,9 +21,9 @@ readonly class QrCodeVO implements Arrayable
 
     public static function make(
 
-        string $qr_url,
-        ?string $name_product,
-        ?Money $amount,
+        ?string $qr_url = 'https://dev.by/storage/images/44/14/12/03/derived/9f1b0cc0fc7967986851e3d3f38e2575.jpg',
+        ?string $name_product = null,
+        ?Money $amount = null,
 
 
     ) : self {

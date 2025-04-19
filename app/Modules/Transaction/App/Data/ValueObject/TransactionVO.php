@@ -6,6 +6,7 @@ use Illuminate\Support\Arr;
 use App\Modules\Base\Money\Money;
 use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
+use App\Modules\Transaction\App\Data\Enums\StatusTransactionEnum;
 
 readonly class TransactionVO implements Arrayable
 {
@@ -13,7 +14,7 @@ readonly class TransactionVO implements Arrayable
 
     public function __construct(
 
-        public bool $status,
+        public StatusTransactionEnum $status,
         public Money $amount,
 
         public string $workspace_id,
@@ -25,10 +26,25 @@ readonly class TransactionVO implements Arrayable
 
     ) {}
 
+    public function setQrCodeId(string $qrCodeId) : self
+    {
+        return self::make(
+            status: $this->status,
+            amount: new Money($this->amount),
+
+            workspace_id: $this->workspace_id,
+            qr_code_id: $qrCodeId,
+
+            type_product: $this->type_product,
+            count_product: $this->count_product,
+            name_product: $this->name_product,
+        );
+    }
+
 
     public static function make(
 
-        bool $status,
+        StatusTransactionEnum $status,
         Money $amount,
 
         string $workspace_id,

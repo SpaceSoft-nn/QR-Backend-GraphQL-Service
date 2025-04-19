@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('nubmer_uuid')->comment('значение транзакции');
 
 
-            $table->boolean('status')->comment('статус транзакции panding, close и т.д');
+            $table->string('status')->default('panding')->comment('статус транзакции panding, close и т.д');
             $table->decimal('amount', 10,2);
 
             $table->foreignUuid('workspace_id')->index()
