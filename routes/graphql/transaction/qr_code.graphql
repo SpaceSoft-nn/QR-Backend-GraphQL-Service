@@ -1,9 +1,18 @@
+extend type Query {
+
+
+    "Вернуть qrCode по ID"
+    qrCode(id: ID! @whereKey): QrCode @find @guard
+
+}
 
 type QrCode @model(class: "App\\Modules\\Transaction\\Domain\\Models\\QrCode") {
 
     id: ID!
 
     qr_url: String!
+
+    transaction: Transaction! @belongsTo
 
     name_product: String
 
