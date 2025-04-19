@@ -17,11 +17,15 @@ return new class extends Migration
 
             $table->string('qr_url');
             $table->string('name_product')->nullable();
+
+            $table->foreignUuid('transaction_id')->index()
+                ->constrained('transactions')->noActionOnDelete();
+
             $table->decimal('amount')->nullable();
 
 
             $table->timestamps();
-            
+
         });
     }
 

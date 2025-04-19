@@ -28,21 +28,21 @@ type Transaction @model(class: "App\\Modules\\Transaction\\Domain\\Models\\Trans
 
     id: ID!
 
-    nubmer_uuid: String!
+    number_uuid: String!
 
-    status: TransactionStatusEnum
+    status: TransactionStatusEnum!
 
-    amount: Float!
+    amount: String! @field(resolver: "App\\Modules\\Transaction\\Presentation\\HTTP\\Graphql\\Field\\TransactionFieldResolver@amount")
 
     workspace: Workspace! @belongsTo
 
-    qr_code: QrCode! @belongsTo
+    qr_code: QrCode! @belongsTo(relation: "qrCode")
 
-    type_product: String!
+    type_product: String
 
-    count_product: String!
+    count_product: String
 
-    name_product: String!
+    name_product: String
 
     created_at: Date!
 

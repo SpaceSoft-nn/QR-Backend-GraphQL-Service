@@ -9,8 +9,8 @@ final class CreateTransactionValidator extends Validator
     public function rules(): array
     {
         return [
-            "workspace_id" => ['required', 'uuid', 'exists:worspaces,id'],
-            "amount" => ['required', 'decimal:10,2'],
+            "workspace_id" => ['required', 'uuid', 'exists:workspaces,id'],
+            "amount" => ['required', 'numeric'],
             "type_product" => ['nullable', 'string'],
             "count_product" => ['nullable', 'integer'],
             "name_product" => ['nullable', 'string'],

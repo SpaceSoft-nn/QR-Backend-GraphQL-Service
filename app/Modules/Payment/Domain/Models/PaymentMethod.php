@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Modules\Payment\Domain\Factories\PaymentMethodFactory;
+use App\Modules\Transaction\Domain\Models\Transaction;
+use App\Modules\Workspace\Domain\Models\Workspace;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class PaymentMethod extends Model
 {
@@ -48,5 +51,6 @@ class PaymentMethod extends Model
     {
         return $this->belongsTo(Payment::class, 'payment_id', 'id');
     }
+
 
 }

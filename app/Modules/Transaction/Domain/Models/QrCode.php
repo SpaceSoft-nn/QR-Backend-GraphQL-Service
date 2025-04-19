@@ -22,6 +22,7 @@ class QrCode extends Model
 
         "qr_url",
         "name_product",
+        "transaction_id",
         "amount",
 
     ];

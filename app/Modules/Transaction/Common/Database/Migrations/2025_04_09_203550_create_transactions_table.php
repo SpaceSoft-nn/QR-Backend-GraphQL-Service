@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
 
             $table->uuid('id')->primary();
-            $table->uuid('nubmer_uuid')->comment('значение транзакции');
+            $table->uuid('number_uuid')->unique()->comment('значение транзакции');
 
 
             $table->string('status')->default('panding')->comment('статус транзакции panding, close и т.д');
@@ -20,8 +20,7 @@ return new class extends Migration
 
             $table->foreignUuid('workspace_id')->index()
                 ->constrained('workspaces')->noActionOnDelete();
-            $table->foreignUuid('qr_code_id')->index()
-                ->constrained('qr_codes')->noActionOnDelete();
+
 
             $table->string('type_product')->nullable()
                 ->comment('необязательное поле - типа продукта (услуга, товар) ');

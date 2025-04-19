@@ -18,6 +18,8 @@ class CreateQrCodeAction
     private function run(QrCodeVO $vo) : QrCode
     {
 
+
+
         try {
 
             $model = QrCode::query()->create($vo->toArrayNotNull());
