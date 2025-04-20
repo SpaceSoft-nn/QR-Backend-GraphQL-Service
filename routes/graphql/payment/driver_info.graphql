@@ -5,6 +5,24 @@ extend type Mutation {
 
 }
 
+extend type Query {
+
+    "Возвратить DriverInfo по id"
+    driverInfoById(id: ID! @whereKey): DriverInfo! @find @guard
+
+    "Возвратить DriverInfo по organization_id и payment_id"
+    driverInfoByOrganizationId(input: driverInfoByOrganizationIdInput): DriverInfo @field(resolver: "App\\Modules\\Payment\\Presentation\\HTTP\\Graphql\\Response\\DriverInfoResolver@driverInfoByOrganizationId") @guard
+
+}
+
+input driverInfoByOrganizationIdInput{
+
+    organization_id: ID! @rules(apply: ["exists:organizations,id"])
+
+    payment_method_id: ID! @rules(apply: ["exists:payment_methods,id"])
+
+}
+
 input DriverInfoInput @validator(class: "App\\Modules\\Payment\\Domain\\Validators\\CreateDriverInfoValidator") {
 
     "Название ключа например API Key или Seecret Key"
