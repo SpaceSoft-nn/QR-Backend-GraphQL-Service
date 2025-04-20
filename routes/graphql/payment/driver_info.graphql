@@ -1,6 +1,6 @@
 extend type Mutation {
 
-    "Создание организации по авторизированному пользователю"
+    "Создание записи апи ключей: key => value"
     createDriverInfo(input: DriverInfoInput! @spread): DriverInfo! @field(resolver: "App\\Modules\\Payment\\Presentation\\HTTP\\Graphql\\Response\\DriverInfoResolver@createDriverInfo") @guard
 
 }
@@ -8,16 +8,16 @@ extend type Mutation {
 input DriverInfoInput @validator(class: "App\\Modules\\Payment\\Domain\\Validators\\CreateDriverInfoValidator") {
 
     "Название ключа например API Key или Seecret Key"
-    key: String!
+    key: String! @rules(apply: ["string"])
 
     "Значение ключа"
-    value: String!
+    value: String! @rules(apply: ["string"])
 
     "К какой организации относится этот пользователь"
-    organization_id: ID!
+    organization_id: ID! @rules(apply: ["exists:organizations,id"])
 
     "Driver платежа"
-    payment_method_id: ID!
+    payment_method_id: ID! @rules(apply: ["exists:payment_methods,id"])
 
 }
 
@@ -37,7 +37,7 @@ type DriverInfo @model(class: "App\\Modules\\Payment\\Domain\\Models\\DriverInfo
     user: String!
 
     "К какой организации относится этот пользователь"
-    organizaion: Organization!
+    organization: Organization!
 
     payment_method: PaymentMethod @belongsTo
 

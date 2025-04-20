@@ -14,13 +14,13 @@ class DriverInfoResolver
 
 
     /**
-     * Создание записи апи ключей
+     * Создание записи апи ключей: key => value
      * @return DriverInfo
      */
     public function createDriverInfo(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : DriverInfo
     {
 
-        dd(55);
+        dd($args);
         return new DriverInfo();
     }
 

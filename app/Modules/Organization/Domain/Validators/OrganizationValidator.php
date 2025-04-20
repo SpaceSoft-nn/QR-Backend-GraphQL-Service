@@ -48,7 +48,7 @@ class OrganizationValidator extends BaseValidator
         return true;
     }
 
-    public function createOrganizaionVO(array $args) : OrganizationVO
+    public function createOrganizationsVO(array $args) : OrganizationVO
     {
         return OrganizationVO::fromArrayToObject($args);
     }

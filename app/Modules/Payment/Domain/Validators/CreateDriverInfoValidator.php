@@ -11,7 +11,7 @@ final class CreateDriverInfoValidator extends Validator
         return [
             "key" => ['required', 'string'],
             "value" => ['required', 'string'],
-            "organizaion_id" => ['required', 'uuid', 'exists:organizations,id'],
+            "organization_id" => ['required', 'uuid', 'exists:organizations,id'],
             "payment_method_id" => ['required', 'uuid', 'exists:payment_methods,id'],
         ];
     }

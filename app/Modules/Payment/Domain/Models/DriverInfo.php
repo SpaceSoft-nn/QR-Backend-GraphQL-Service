@@ -23,7 +23,7 @@ class DriverInfo extends Model
         "key",
         "value",
         "payment_method_id",
-        "user_organizaion_id",
+        "user_organization_id",
 
     ];
 

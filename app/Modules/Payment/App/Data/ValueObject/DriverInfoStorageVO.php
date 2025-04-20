@@ -15,7 +15,7 @@ readonly class DriverInfoStorageVO implements Arrayable
         public string $key,
         public string $value,
         public string $payment_method_id,
-        public string $user_organizaion_id,
+        public string $user_organization_id,
 
     ) {}
 
@@ -25,7 +25,7 @@ readonly class DriverInfoStorageVO implements Arrayable
         string $key,
         string $value,
         string $payment_method_id,
-        string $user_organizaion_id,
+        string $user_organization_id,
 
 
     ) : self {
@@ -35,7 +35,7 @@ readonly class DriverInfoStorageVO implements Arrayable
             key: $key,
             value: $value,
             payment_method_id: $payment_method_id,
-            user_organizaion_id: $user_organizaion_id,
+            user_organization_id: $user_organization_id,
 
         );
 
@@ -47,7 +47,7 @@ readonly class DriverInfoStorageVO implements Arrayable
             "key" => $this->key,
             "value" => $this->value,
             "payment_method_id" => $this->payment_method_id,
-            "user_organizaion_id" => $this->user_organizaion_id,
+            "user_organization_id" => $this->user_organization_id,
         ];
     }
 
@@ -56,13 +56,13 @@ readonly class DriverInfoStorageVO implements Arrayable
         $key = Arr::get($data, 'key');
         $value = Arr::get($data, 'value');
         $payment_method_id = Arr::get($data, 'payment_method_id');
-        $user_organizaion_id = Arr::get($data, 'user_organizaion_id');
+        $user_organization_id = Arr::get($data, 'user_organization_id');
 
         return new self(
             key: $key,
             value: $value,
             payment_method_id: $payment_method_id,
-            user_organizaion_id: $user_organizaion_id,
+            user_organization_id: $user_organization_id,
         );
     }
 

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignUuid('payment_method_id')->index()
                 ->constrained('payment_methods')->noActionOnDelete();
 
-            $table->foreignId('user_organizaion_id')->index()
+            $table->foreignId('user_organization_id')->index()
                 ->constrained('user_organization')->noActionOnDelete();
 
             $table->timestamps();

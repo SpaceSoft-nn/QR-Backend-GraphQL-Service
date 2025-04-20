@@ -28,7 +28,7 @@ class OrganizationResolver
         $date = $this->organizationValidator->validate($args);
 
         /** @var OrganizationVO */
-        $organizationVO = $this->organizationValidator->createOrganizaionVO($date);
+        $organizationVO = $this->organizationValidator->createOrganizationsVO($date);
 
         /** @var User */
         $user = $this->authService->getUserJWT();
