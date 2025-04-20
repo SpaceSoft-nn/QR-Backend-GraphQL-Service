@@ -36,7 +36,7 @@ input AddPaymentWorkspaceInput {
 
     payment_method_id: ID! @rules(apply: ["exists:payment_methods,id"])
 
-    worksapce_id: ID! @rules(apply: ["exists:workspaces,id"])
+    workspace_id: ID! @rules(apply: ["exists:workspaces,id"])
 
 }
 

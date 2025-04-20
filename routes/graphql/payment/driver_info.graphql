@@ -14,7 +14,7 @@ input DriverInfoInput @validator(class: "App\\Modules\\Payment\\Domain\\Validato
     value: String!
 
     "К какой организации относится этот пользователь"
-    organizaion_id: ID!
+    organization_id: ID!
 
     "Driver платежа"
     payment_method_id: ID!

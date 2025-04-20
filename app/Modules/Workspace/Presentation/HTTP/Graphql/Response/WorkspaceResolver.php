@@ -70,7 +70,7 @@ class WorkspaceResolver
         $page = $args['page'] ?? 1;
         $count = $args['count'] ?? 10;
 
-        $workspacesPagination = $user->workspaces()->paginate(
+        $workspacesPagination = $user->workspaces()->orderBy('created_at', 'desc')->paginate(
             perPage: $count,
             page: $page,
         );

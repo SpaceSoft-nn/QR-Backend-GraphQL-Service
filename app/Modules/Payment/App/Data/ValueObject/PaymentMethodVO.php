@@ -14,6 +14,7 @@ readonly class PaymentMethodVO implements Arrayable
         public bool $active,
         public string $driver_name,
         public string $payment_id,
+        public ?string $png_url,
 
     ) {}
 
@@ -23,6 +24,7 @@ readonly class PaymentMethodVO implements Arrayable
         bool $active,
         string $driver_name,
         string $payment_id,
+        ?string $png_url = null,
 
 
     ) : self {
@@ -32,6 +34,7 @@ readonly class PaymentMethodVO implements Arrayable
             active: $active,
             driver_name: $driver_name,
             payment_id: $payment_id,
+            png_url: $png_url,
 
         );
 
@@ -43,6 +46,7 @@ readonly class PaymentMethodVO implements Arrayable
             "active" => $this->active,
             "driver_name" => $this->driver_name,
             "payment_id" => $this->payment_id,
+            "png_url" => $this->png_url,
         ];
     }
 

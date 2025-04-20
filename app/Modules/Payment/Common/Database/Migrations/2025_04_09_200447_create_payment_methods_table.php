@@ -18,6 +18,8 @@ return new class extends Migration
             $table->boolean('active')->default(false);
             $table->string('driver_name')->comment('Провайдер');
 
+            $table->string('png_url')->nullable()->comment('Провайдер');
+
             $table->foreignUuid('payment_id')->index()
                 ->constrained('payments')->noActionOnDelete(); //способ оплаты у платежа QIWI, YOUCASSA, PAYPAL, BITCOIN
 
