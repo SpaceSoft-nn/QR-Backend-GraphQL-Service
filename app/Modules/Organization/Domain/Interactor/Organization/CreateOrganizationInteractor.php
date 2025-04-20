@@ -25,7 +25,7 @@ class CreateOrganizationInteractor extends BaseInteractor
      *
      * @return Organization
     */
-    public function make(BaseDTO $dto) : Organization
+    public function execute(BaseDTO $dto) : Organization
     {
         return $this->run($dto);
     }

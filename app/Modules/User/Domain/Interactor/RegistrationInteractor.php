@@ -28,7 +28,7 @@ class RegistrationInteractor extends BaseInteractor
      *
      * @return User
     */
-    public function make(BaseDTO $dto) : User
+    public function execute(BaseDTO $dto) : User
     {
         return $this->run($dto);
     }
@@ -47,7 +47,7 @@ class RegistrationInteractor extends BaseInteractor
             $user = $this->createUser($dto->userVO);
 
             //устанавливаем emailList/phoneList - временно без нотификации
-            $user = $this->notificationInteractor->make(CreateNotificationDTO::make(
+            $user = $this->notificationInteractor->execute(CreateNotificationDTO::make(
                 user: $user,
                 email: $dto->email,
                 phone: $dto->phone,

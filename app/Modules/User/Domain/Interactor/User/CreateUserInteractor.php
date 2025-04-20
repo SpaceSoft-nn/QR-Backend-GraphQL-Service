@@ -31,7 +31,7 @@ class CreateUserInteractor extends BaseInteractor
      *
      * @return User
      */
-    public function make(BaseDTO $dto) : User
+    public function execute(BaseDTO $dto) : User
     {
         return $this->run($dto);
     }
@@ -88,7 +88,7 @@ class CreateUserInteractor extends BaseInteractor
     {
         /** @var User */
         $user = CreateUserAction::make($dto->userVO);
-        
+
         return $this->linkNotification($dto, $user);
     }
 
@@ -101,7 +101,7 @@ class CreateUserInteractor extends BaseInteractor
     private function linkNotification(CreateUserDTO $dto, User $user) : User
     {
         //устанавливаем emailList/phoneList - временно без нотификации
-        return $this->notificationInteractor->make(CreateNotificationDTO::make(
+        return $this->notificationInteractor->execute(CreateNotificationDTO::make(
             user: $user,
             email: $dto->email,
             phone: $dto->phone,

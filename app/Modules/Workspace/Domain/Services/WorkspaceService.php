@@ -30,27 +30,27 @@ final class WorkspaceService implements IWorkspaceService
 
     public function createWorkspace(CreateWorkspaceDTO $dto) : Workspace
     {
-        return $this->createWorkspaceInteractor->make($dto);
+        return $this->createWorkspaceInteractor->execute($dto);
     }
 
     public function addUserWorkspace(AddUserWorkspaceDTO $dto) : User
     {
-        return $this->addUserWorkspaceInteractor->make($dto);
+        return $this->addUserWorkspaceInteractor->execute($dto);
     }
 
     public function setWorkUserWorkspace(SetWorkUserWorkspaceDTO $dto) : User
     {
-        return $this->setWorkUserWorkspace->make($dto);
+        return $this->setWorkUserWorkspace->execute($dto);
     }
 
     public function deleteUserWorkspace(DeleteUserWorkspaceDTO $dto) : array
     {
-        return $this->deleteUserWorkspaceInteractor->make($dto);
+        return $this->deleteUserWorkspaceInteractor->execute($dto);
     }
 
     public function addPaymentWorkspace(AddPaymentWorkspaceDTO $dto) : Workspace
     {
-        return $this->addPaymentWorkspaceInteractor->make($dto);
+        return $this->addPaymentWorkspaceInteractor->execute($dto);
     }
 
 }

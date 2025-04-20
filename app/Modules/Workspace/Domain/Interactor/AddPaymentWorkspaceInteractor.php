@@ -19,7 +19,7 @@ final class AddPaymentWorkspaceInteractor extends BaseInteractor
      *
      * @return Workspace
      */
-    public function make(BaseDTO $dto) : Workspace
+    public function execute(BaseDTO $dto) : Workspace
     {
         $this->checkFilter($dto);
 

@@ -3,13 +3,13 @@
 namespace App\Modules\Workspace\Domain\Interactor;
 
 use App\Modules\Base\DTO\BaseDTO;
-use App\Modules\Base\Error\GraphQLBusinessException;
 use Illuminate\Support\Facades\DB;
 use App\Modules\User\Domain\Models\User;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Pivot\Domain\Models\UserWorkspace;
-use App\Modules\Workspace\App\Data\DTO\SetWorkUserWorkspaceDTO;
 use App\Modules\Workspace\Domain\Models\Workspace;
+use App\Modules\Base\Error\GraphQLBusinessException;
+use App\Modules\Workspace\App\Data\DTO\SetWorkUserWorkspaceDTO;
 
 class SetWorkUserWorkspace extends BaseInteractor
 {
@@ -19,7 +19,7 @@ class SetWorkUserWorkspace extends BaseInteractor
      *
      * @return User
      */
-    public function make(BaseDTO $dto) : User
+    public function execute(BaseDTO $dto) : User
     {
 
         //проводим фильтрацию

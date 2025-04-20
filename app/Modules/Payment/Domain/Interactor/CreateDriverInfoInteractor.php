@@ -22,7 +22,7 @@ class CreateDriverInfoInteractor extends BaseInteractor
      *
      * @return DriverInfo
      */
-    public function make(BaseDTO $dto) : DriverInfo
+    public function execute(BaseDTO $dto) : DriverInfo
     {
         return $this->run($dto);
     }

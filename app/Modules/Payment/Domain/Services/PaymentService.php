@@ -18,6 +18,6 @@ class PaymentService implements IPaymentService
 
     public function createDriverInfo(CreateDriverInfoDTO $dto) : DriverInfo
     {
-        return $this->createDriverInfoInteractor->make($dto);
+        return $this->createDriverInfoInteractor->execute($dto);
     }
 }

@@ -25,7 +25,7 @@ final class UserService implements IUserService
 
     public function registrationUser(RegistrationUserDTO $dto) : User
     {
-        return $this->registrationInteractor->make($dto);
+        return $this->registrationInteractor->execute($dto);
     }
 
     public function loginUser(LoginUserDTO $loginUserDTO) : User
@@ -69,7 +69,7 @@ final class UserService implements IUserService
      */
     public function createUser(CreateUserDTO $dto) : User
     {
-        return $this->createUserInteractor->make($dto);
+        return $this->createUserInteractor->execute($dto);
     }
 
 }

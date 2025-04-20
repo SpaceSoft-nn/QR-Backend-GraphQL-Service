@@ -20,7 +20,7 @@ class NotificationInteractor extends BaseInteractor
      *
      * @return User
      */
-    public function make(BaseDTO $dto) : User
+    public function execute(BaseDTO $dto) : User
     {
         return $this->run($dto);
     }

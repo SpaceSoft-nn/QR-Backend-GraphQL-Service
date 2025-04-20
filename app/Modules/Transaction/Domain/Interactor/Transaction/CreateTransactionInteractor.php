@@ -21,7 +21,7 @@ class CreateTransactionInteractor extends BaseInteractor
      *
      * @return Transaction
      */
-    public function make(BaseDTO $dto) : Transaction
+    public function execute(BaseDTO $dto) : Transaction
     {
         return $this->run($dto);
     }

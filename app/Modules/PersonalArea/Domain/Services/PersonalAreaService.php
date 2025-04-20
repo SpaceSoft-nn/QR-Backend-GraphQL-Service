@@ -16,7 +16,7 @@ final class PersonalAreaService implements IPersonalAreaService
 
     public function createPersonalArea(CreatePersonalAreaDTO $dto) : PersonalArea
     {
-        return $this->createPersonalAreaInteractor->make($dto);
+        return $this->createPersonalAreaInteractor->execute($dto);
     }
 
 }

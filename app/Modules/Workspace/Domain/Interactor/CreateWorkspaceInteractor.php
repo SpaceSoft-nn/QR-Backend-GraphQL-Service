@@ -20,7 +20,7 @@ class CreateWorkspaceInteractor extends BaseInteractor
      *
      * @return Workspace
      */
-    public function make(BaseDTO $dto) : Workspace
+    public function execute(BaseDTO $dto) : Workspace
     {
         return $this->run($dto);
     }

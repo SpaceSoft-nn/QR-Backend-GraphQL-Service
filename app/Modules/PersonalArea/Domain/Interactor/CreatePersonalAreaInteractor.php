@@ -6,7 +6,6 @@ use App\Modules\Base\DTO\BaseDTO;
 use Illuminate\Support\Facades\DB;
 use App\Modules\User\Domain\Models\User;
 use App\Modules\Base\Interactor\BaseInteractor;
-use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 use App\Modules\PersonalArea\Domain\Models\BalanceLog;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
@@ -23,17 +22,12 @@ use App\Modules\Subscription\Domain\Actions\Subscription\CreateSubscriptionActio
 class CreatePersonalAreaInteractor extends BaseInteractor
 {
 
-    public function __construct(
-
-    ) { }
-
-
     /**
      * @param CreatePersonalAreaDTO $dto
      *
      * @return PersonalArea
      */
-    public function make(BaseDTO $dto) : PersonalArea
+    public function execute(BaseDTO $dto) : PersonalArea
     {
         return $this->run($dto);
     }

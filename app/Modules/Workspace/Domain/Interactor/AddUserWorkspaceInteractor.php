@@ -20,7 +20,7 @@ class AddUserWorkspaceInteractor extends BaseInteractor
      *
      * @return User
      */
-    public function make(BaseDTO $dto) : User
+    public function execute(BaseDTO $dto) : User
     {
 
         //проводим фильтрацию

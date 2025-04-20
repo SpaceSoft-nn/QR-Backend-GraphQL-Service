@@ -17,6 +17,6 @@ final class OrganizationService implements IService
 
     public function createOrganization(CreateOrganizationDTO $dto) : Organization
     {
-        return $this->createOrganizationInteractor->make($dto);
+        return $this->createOrganizationInteractor->execute($dto);
     }
 }

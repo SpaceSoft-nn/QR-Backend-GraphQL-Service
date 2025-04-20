@@ -20,7 +20,7 @@ class DeleteUserWorkspaceInteractor extends BaseInteractor
      *
      * @return array
      */
-    public function make(BaseDTO $dto) : array
+    public function execute(BaseDTO $dto) : array
     {
 
         //проводим фильтрацию

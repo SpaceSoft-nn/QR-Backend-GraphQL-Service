@@ -23,7 +23,7 @@ final class TransactionService implements IWorkspaceService
      */
     public function createTransaction(TransactionDTO $dto) : Transaction
     {
-        return $this->createTransactionInteractor->make($dto);
+        return $this->createTransactionInteractor->execute($dto);
     }
 
 
