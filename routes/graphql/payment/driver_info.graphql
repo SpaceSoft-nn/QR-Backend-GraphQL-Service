@@ -34,12 +34,12 @@ type DriverInfo @model(class: "App\\Modules\\Payment\\Domain\\Models\\DriverInfo
     value: String!
 
     "Пользователь который указал значение"
-    user: String!
+    user: User!
 
     "К какой организации относится этот пользователь"
     organization: Organization!
 
-    payment_method: PaymentMethod @belongsTo
+    payment_method: PaymentMethod! @belongsTo(relation: "paymentMethod")
 
     created_at: Date!
 
