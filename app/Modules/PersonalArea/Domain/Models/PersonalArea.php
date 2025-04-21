@@ -4,6 +4,7 @@ namespace App\Modules\PersonalArea\Domain\Models;
 
 use App\Modules\Base\Money\Money;
 use App\Modules\PersonalArea\Domain\Factories\PersonalAreaFactory;
+use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -57,7 +58,7 @@ class PersonalArea extends Model
 
     public function subscription() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'subscription_id', 'id');
+        return $this->belongsTo(SubscriptionPlan::class, 'subscription_id', 'id');
     }
 
     public function balanceLogs() : HasMany

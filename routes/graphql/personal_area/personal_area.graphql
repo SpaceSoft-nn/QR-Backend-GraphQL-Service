@@ -5,7 +5,7 @@ type PersonalArea @model(class: "App\\Modules\\PersonalArea\\Domain\\Models\\Per
 
     owner: User! @belongsTo
 
-    balance: Float!
+    balance: String!
 
     subscription: SubscriptionPlan! @belongsTo
 

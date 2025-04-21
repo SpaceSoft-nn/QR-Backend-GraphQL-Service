@@ -40,7 +40,7 @@ class UserResolver
 
         /** @var CreateUserDTO */
         $createUserDTO = $this->userValidator->createUserDTO($date, $user);
-
+        
         /** @var User */
         $user = $this->userService->createUser($createUserDTO);
 
