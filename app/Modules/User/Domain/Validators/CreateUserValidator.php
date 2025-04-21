@@ -29,7 +29,6 @@ class CreateUserValidator extends BaseValidator
             'last_name' => ['required', 'string', "max:130", 'min:2', 'alpha'],
             'father_name' => ['required', 'string', "max:130", 'min:2', 'alpha'],
             'role' => ['required', 'string', Rule::enum(UserRoleEnum::class)->only([UserRoleEnum::cassier, UserRoleEnum::manager])],
-            'agreement' => ['required', 'boolean', 'accepted'],
         ];
     }
 
