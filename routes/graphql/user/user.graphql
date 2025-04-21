@@ -3,6 +3,40 @@ extend type Mutation {
     userCreate(input: UserCreate! @spread): User! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@store") @guard
 }
 
+input UserCreate {
+
+    "В запросе должен быть обязательно либо email, либо phone"
+    email: String!
+
+    "В запросе должен быть обязательно либо email, либо phone"
+    phone: String
+
+    "Обязательный параметр пароля"
+    password: String!
+
+    "Повтор пароля"
+    password_confirmation: String!
+
+    "manager/cassier"
+    role: UserRoleEnum!
+
+    "Имя"
+    first_name: String!
+
+    "Фамилия"
+    last_name: String!
+
+    "Отчество"
+    father_name: String!
+
+    "ID личного кабинета пользователя авторизированного через токен - в который будет добавляться user"
+    personalarea_id: ID!
+
+    "ID организации, куда будет добавлен пользователь"
+    organization_id: ID!
+
+}
+
 
 type User @model(class: "App\\Modules\\User\\Domain\\Models\\User") {
 
@@ -55,42 +89,7 @@ type User @model(class: "App\\Modules\\User\\Domain\\Models\\User") {
 
 }
 
-input UserCreate {
 
-    "В запросе должен быть обязательно либо email, либо phone"
-    email: String!
-
-    "В запросе должен быть обязательно либо email, либо phone"
-    phone: String
-
-    "Обязательный параметр пароля"
-    password: String!
-
-    "Повтор пароля"
-    password_confirmation: String!
-
-    "manager/cassier"
-    role: UserRoleEnum!
-
-    "Имя"
-    first_name: String!
-
-    "Фамилия"
-    last_name: String!
-
-    "Отчество"
-    father_name: String!
-
-    #Пользовательское соглашения
-    agreement: Boolean!
-
-    "ID личного кабинета пользователя авторизированного через токен - в который будет добавляться user"
-    personalarea_id: ID!
-
-    "ID организации, куда будет добавлен пользователь"
-    organization_id: ID!
-
-}
 
 enum UserRoleEnum {
     manager,
