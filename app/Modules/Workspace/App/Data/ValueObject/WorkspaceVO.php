@@ -17,7 +17,7 @@ readonly class WorkspaceVO implements Arrayable
         public int $user_organization_id,
         public string $name,
         public ?bool $is_active,
-        public ?string $payment_id,
+        public ?string $payment_method_id,
         public ?string $description,
 
 
@@ -27,8 +27,8 @@ readonly class WorkspaceVO implements Arrayable
 
         int $user_organization_id,
         string $name,
-        ?bool $is_active = false,   
-        ?string $payment_id = null,
+        ?bool $is_active = false,
+        ?string $payment_method_id = null,
         ?string $description = null,
 
 
@@ -39,7 +39,7 @@ readonly class WorkspaceVO implements Arrayable
             name: $name,
             description: $description,
             is_active: $is_active,
-            payment_id: $payment_id,
+            payment_method_id: $payment_method_id,
         );
 
     }
@@ -51,7 +51,7 @@ readonly class WorkspaceVO implements Arrayable
             "name"  => $this->name,
             "description"  => $this->description,
             "is_active"  => $this->is_active,
-            "payment_id"  => $this->payment_id,
+            "payment_method_id"  => $this->payment_method_id,
         ];
     }
 
@@ -65,7 +65,7 @@ readonly class WorkspaceVO implements Arrayable
         $name = Arr::get($data, 'name');
         $description = Arr::get($data, 'description', null);
         $is_active = Arr::get($data, 'is_active', false);
-        $payment_id = Arr::get($data, 'payment_id', null);
+        $payment_method_id = Arr::get($data, 'payment_method_id', null);
 
 
         return new self(
@@ -73,7 +73,7 @@ readonly class WorkspaceVO implements Arrayable
             name: $name,
             description: $description,
             is_active: $is_active,
-            payment_id: $payment_id,
+            payment_method_id: $payment_method_id,
         );
     }
 
