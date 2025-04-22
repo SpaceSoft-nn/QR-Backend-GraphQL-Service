@@ -66,7 +66,7 @@ class CreateWorkspaceInteractor extends BaseInteractor
             return true;
         }
 
-        throw new GraphQLBusinessException('У этого User не достаточно прав, на совершения этого действия' , 403);
+        throw new GraphQLBusinessException('У вас недостаточно прав, для выполнения этого действия' , 403);
     }
 
 }

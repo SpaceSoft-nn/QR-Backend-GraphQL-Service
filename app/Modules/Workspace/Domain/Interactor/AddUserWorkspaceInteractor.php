@@ -72,14 +72,13 @@ class AddUserWorkspaceInteractor extends BaseInteractor
      * @return void
      * throw
     */
-    private function hasUserRole(User $userOwner)
+    private function hasUserRole(User $userOwner) : bool
     {
-        if(
-            !($userOwner->role === UserRoleEnum::admin) || ($userOwner->role === UserRoleEnum::manager) &&
-            !($userOwner->role === UserRoleEnum::manager) || !($userOwner->role === UserRoleEnum::admin)
-        ) {
-            throw new GraphQLBusinessException('У вас недостаточно прав для выполнения этого действия.' , 403);
+        if(UserRoleEnum::isManager($userOwner->role) || UserRoleEnum::isAdmin($userOwner->role)) {
+            return true;
         }
+
+        throw new GraphQLBusinessException('У вас недостаточно прав, для выполнения этого действия' , 403);
     }
 
     /**
