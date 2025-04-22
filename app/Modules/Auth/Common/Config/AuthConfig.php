@@ -15,19 +15,23 @@ class AuthConfig
 
         public string $guard,
 
-        public int $timeExpAccessToken,
+        public ?int $timeExpAccessToken = null,
 
-        public int $timeExpRefreshToken,
+        public ?int $timeExpRefreshToken = null,
 
-    ) { }
+    ) {
+        $this->$timeExpAccessToken = $timeExpAccessToken ?? env("TIME_EXP_ACCESS_TOKEN" , 60);
+        $this->$timeExpRefreshToken = $timeExpRefreshToken ?? env("TIME_EXP_REFRESH_TOKEN" , 60 * 24 * 30);
+    }
 
     public static function make(
 
         string $guard = 'api',
-        int $timeExpAccessToken = 15,
-        int $timeExpRefreshToken = 60 * 24 * 30,
+        ?int $timeExpAccessToken = null,
+        ?int $timeExpRefreshToken = null,
 
     ) : self {
+
         return new self(
             guard: $guard,
             timeExpAccessToken: $timeExpAccessToken,
