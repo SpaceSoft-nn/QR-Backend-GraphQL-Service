@@ -111,7 +111,7 @@ type Workspace @model(class: "App\\Modules\\Workspace\\Domain\\Models\\Workspace
     transactions: [Transaction]! @hasMany
 
     "Вернуть пользователей относящийся к workspace"
-    users: User @belongsToMany (relation: "users")
+    users: [User]! @belongsToMany (relation: "users")
 
     "Пользователь который работает в данный момент под workspace"
     user_worker: User @field(resolver: "App\\Modules\\Workspace\\Presentation\\HTTP\\Graphql\\Field\\WorkspaceFieldResolver@user_worker")
