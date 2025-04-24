@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('subscriptions', function (Blueprint $table) {
@@ -19,7 +17,7 @@ return new class extends Migration
 
             $table->decimal('price', 10, 2);
 
-            $table->date('expires_at')->default('9999-12-31'); //устанавливаем дефолтное недостижмое время для стандартного Subscription
+            $table->date('expires_at')->nullable(); //устанавливаем дефолтное недостижмое время для стандартного Subscription
 
             $table->timestamps();
 

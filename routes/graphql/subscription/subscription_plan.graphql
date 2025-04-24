@@ -7,7 +7,8 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
 
     price: String!
 
-    expires_at: Date!
+    "Дата окончания подписки, если null - подписка не ограничена"
+    expires_at: Date
 
     created_at: Date!
 

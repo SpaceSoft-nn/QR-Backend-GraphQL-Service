@@ -19,11 +19,6 @@ class SubscriptionPlanFactory extends Factory
         return $subscriptionVO->toArrayNotNull();
     }
 
-    public function addAuthActiveByUser(array $user)
-    {
-        $user['auth'] = true;
-        return $user;
-    }
 }
 
 
