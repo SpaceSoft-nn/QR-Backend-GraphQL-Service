@@ -5,7 +5,7 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
 
     plan_name: String!
 
-    price: Int!
+    price: String!
 
     expires_at: Date!
 
