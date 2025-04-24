@@ -24,7 +24,7 @@ input CreateTransactionInput @validator(class: "App\\Modules\\Transaction\\Domai
     type_product: String
 
     "Количество товара"
-    count_product: String
+    count_product: Int
 
     "Название продукта"
     name_product: String

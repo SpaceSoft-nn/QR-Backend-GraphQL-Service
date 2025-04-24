@@ -15,9 +15,7 @@ class GoCommand extends Command
     public function handle()
     {
 
-       
 
     }
-
 
 }
