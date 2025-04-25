@@ -10,7 +10,7 @@ final class AddPaymentWorkspaceDTO extends BaseDTO
     public function __construct(
 
         public string $payment_method_id,
-        public string $worksapce_id,
+        public string $workspace_id,
         public User $user,
 
     ) { }
@@ -18,7 +18,7 @@ final class AddPaymentWorkspaceDTO extends BaseDTO
     public static function make(
 
         string $payment_method_id,
-        string $worksapce_id,
+        string $workspace_id,
         User $user,
 
     ) : self {
@@ -26,7 +26,7 @@ final class AddPaymentWorkspaceDTO extends BaseDTO
         return new self(
 
             payment_method_id: $payment_method_id,
-            worksapce_id: $worksapce_id,
+            workspace_id: $workspace_id,
             user: $user,
 
         );

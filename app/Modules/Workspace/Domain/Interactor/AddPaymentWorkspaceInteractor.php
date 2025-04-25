@@ -40,7 +40,7 @@ final class AddPaymentWorkspaceInteractor extends BaseInteractor
             $paymentMethod = $this->findPaymentMethodId($dto->payment_method_id);
 
             /** @var Workspace */
-            $workspace = $this->findWorkspaceId($dto->worksapce_id);
+            $workspace = $this->findWorkspaceId($dto->workspace_id);
 
             $workspace->payment_method_id = $paymentMethod->id;
 
@@ -64,9 +64,9 @@ final class AddPaymentWorkspaceInteractor extends BaseInteractor
         return $paymentMethod;
     }
 
-    private function findWorkspaceId(string $worksapce_id) : Workspace
+    private function findWorkspaceId(string $workspace_id) : Workspace
     {
-        $workspace = Workspace::find($worksapce_id);
+        $workspace = Workspace::find($workspace_id);
 
         if(is_null($workspace)){
             throw new GraphQLBusinessException('Записи Workspace по id не существует.', 404);
@@ -80,7 +80,7 @@ final class AddPaymentWorkspaceInteractor extends BaseInteractor
         /** @var User */
         $user = $dto->user;
 
-        $status = $user->workspaces()->wherePivot('workspace_id', $dto->worksapce_id)->first();
+        $status = $user->workspaces()->wherePivot('workspace_id', $dto->workspace_id)->first();
 
         if(is_null($status)) {
             throw new GraphQLBusinessException('Данный пользователь не относится к этому workspace.', 403);

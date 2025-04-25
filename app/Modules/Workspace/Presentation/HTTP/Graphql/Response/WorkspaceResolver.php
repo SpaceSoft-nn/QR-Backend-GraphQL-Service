@@ -171,7 +171,7 @@ class WorkspaceResolver
         /** @var Workspace */
         $workspace = $this->workspaceService->addPaymentWorkspace(AddPaymentWorkspaceDTO::make(
             payment_method_id: $args['payment_method_id'],
-            worksapce_id: $args['worksapce_id'],
+            workspace_id: $args['workspace_id'],
             user: $user,
         ));
 
