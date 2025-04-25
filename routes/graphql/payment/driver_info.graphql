@@ -13,6 +13,9 @@ extend type Query {
     "Возвратить DriverInfo по organization_id и payment_id"
     driverInfoByOrganizationId(input: driverInfoByOrganizationIdInput): DriverInfo @field(resolver: "App\\Modules\\Payment\\Presentation\\HTTP\\Graphql\\Response\\DriverInfoResolver@driverInfoByOrganizationId") @guard
 
+    "Вернуть все значение интеграций у авторизированного User"
+    driverInfosByUser: [DriverInfo]! @field(resolver: "App\\Modules\\Payment\\Presentation\\HTTP\\Graphql\\Response\\DriverInfoResolver@driverInfosByUser") @guard
+
 }
 
 input driverInfoByOrganizationIdInput{

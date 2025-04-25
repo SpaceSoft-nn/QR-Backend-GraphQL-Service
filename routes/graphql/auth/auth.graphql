@@ -45,4 +45,4 @@ input UserLoginInput @validator(class: "App\\Modules\\Auth\\Domain\\Validators\\
     #Обязательный параметр пароля
     password: String!
 
-}
+} 

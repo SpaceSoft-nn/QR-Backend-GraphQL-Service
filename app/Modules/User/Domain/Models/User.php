@@ -14,8 +14,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Modules\Organization\Domain\Models\Organization;
+use App\Modules\Payment\Domain\Models\DriverInfo;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
+use App\Modules\Pivot\Domain\Models\UserOrganization;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -110,4 +114,25 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(PhoneList::class, 'phone_id', 'id');
     }
+
+    public function userOrganization() : HasMany
+    {
+        return $this->hasMany(UserOrganization::class, 'user_id');
+    }
+
+    /**
+     * Вернуть все значения DriverInfos - через промежуточную таблицу
+     */
+    public function driverInfos() : HasManyThrough
+    {
+        return $this->hasManyThrough(
+            DriverInfo::class,          // конечная модель
+            UserOrganization::class,    // промежуточная модель
+            'user_id',                  // поле в UserOrganization, связывающееся с User
+            'user_organization_id',     // поле в DriverInfo, связывающееся с UserOrganization
+            'id',                       // поле в User для связи с UserOrganization
+            'id'                        // поле в UserOrganization для связи с DriverInfo
+        );
+    }
+
 }

@@ -2,21 +2,23 @@
 
 namespace App\Modules\Payment\Domain\Models;
 
-use App\Modules\Organization\Domain\Models\Organization;
-use App\Modules\Pivot\Domain\Models\UserOrganization;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Modules\Pivot\Domain\Models\UserOrganization;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Modules\Organization\Domain\Models\Organization;
+use App\Modules\Payment\Domain\Factories\DriverInfoFactory;
 
 class DriverInfo extends Model
 {
     use HasFactory, HasUuids;
 
-    // protected static function newFactory()
-    // {
-    //     return UserFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return DriverInfoFactory::new();
+    }
 
     protected $table = 'driver_info_storages';
 
@@ -44,6 +46,11 @@ class DriverInfo extends Model
         return $this->belongsTo(PaymentMethod::class, 'payment_method_id', 'id');
     }
 
+    public function userOrganization() : HasMany
+    {
+        return $this->hasMany(UserOrganization::class);
+    }
+
     public function organization()
     {
         return $this->hasOneThrough(
@@ -67,4 +74,6 @@ class DriverInfo extends Model
             'organization_id'              // локальный ключ в таблице user_organization
         );
     }
+
+
 }

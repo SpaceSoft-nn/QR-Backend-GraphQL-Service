@@ -2,6 +2,8 @@
 
 namespace App\Modules\Payment\App\Repositories;
 
+use App\Modules\User\Domain\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use App\Modules\Payment\Domain\Models\DriverInfo;
 use App\Modules\Base\Error\GraphQLBusinessException;
 use App\Modules\Pivot\Domain\Models\UserOrganization;
@@ -20,6 +22,14 @@ final class DriverInfoRepository extends CoreRepository implements IDriverInfoRe
         return $this->startConditions()->query();
     }
 
+    /**
+     * Вернуть 1 значение
+     * @param string $organization_id
+     * @param string $payment_method_id
+     * @param string $user_id
+     *
+     * @return ?DriverInfo
+     */
     public function driverInfoByOrganizationId(string $organization_id, string $payment_method_id, string $user_id) : ?DriverInfo
     {
         /** @var UserOrganization */
@@ -31,4 +41,12 @@ final class DriverInfoRepository extends CoreRepository implements IDriverInfoRe
 
         return $this->query()->where('payment_method_id', $payment_method_id)->where('user_organization_id', $user_organization->id)->first();
     }
+
+    public function driverInfosByUser(User $user) : Collection
+    {
+        return $user->driverInfos;
+    }
+
+
+
 }

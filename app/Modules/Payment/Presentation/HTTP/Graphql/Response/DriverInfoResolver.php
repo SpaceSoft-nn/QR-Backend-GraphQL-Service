@@ -8,6 +8,7 @@ use App\Modules\Payment\App\Repositories\DriverInfoRepository;
 use App\Modules\Payment\Domain\Models\DriverInfo;
 use App\Modules\Payment\Domain\Services\PaymentService;
 use App\Modules\User\Domain\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
@@ -63,6 +64,22 @@ class DriverInfoResolver
         $user = $this->authService->getUserAuth();
 
         return $this->driverInfoRepository->driverInfoByOrganizationId($args['organization_id'], $args['payment_method_id'], $user->id);
+    }
+
+
+
+    public function driverInfosByUser(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : Collection
+    {
+        /**
+         * Получаем User по токену
+         * @var User
+         *
+        */
+        $user = $this->authService->getUserAuth();
+
+        $drivers = $this->driverInfoRepository->driverInfosByUser($user);
+
+        return $drivers;
     }
 
 }

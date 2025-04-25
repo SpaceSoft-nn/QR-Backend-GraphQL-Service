@@ -88,5 +88,9 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
         ]);
 
+        $this->call([
+            \App\Modules\Payment\Common\Database\Seeders\DriverInfoSeed::class,
+        ]);
+
     }
 }
