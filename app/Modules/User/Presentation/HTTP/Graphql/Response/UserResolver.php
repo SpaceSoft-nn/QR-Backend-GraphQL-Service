@@ -7,6 +7,7 @@ use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
 use App\Modules\User\Domain\Services\UserService;
 use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
+use App\Modules\User\App\Data\DTO\User\UpdateUserDTO;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\User\Domain\Validators\CreateUserValidator;
 
@@ -40,11 +41,35 @@ class UserResolver
 
         /** @var CreateUserDTO */
         $createUserDTO = $this->userValidator->createUserDTO($date, $user);
-        
+
         /** @var User */
         $user = $this->userService->createUser($createUserDTO);
 
         return $user;
+    }
+
+    public function update(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)  : User
+    {
+
+        /**
+         * Получаем User по токену
+         * @var User
+         *
+        */
+        $user = $this->authService->getUserAuth();
+
+        /** @var UpdateUserDTO */
+        $updateUserDTO = UpdateUserDTO::make(
+            user: User::findOrFail($args['user_id']),
+            userOwner: $user,
+            role: $args['role'],
+        );
+
+        /** @var User */
+        $user = $this->userService->updateUser($updateUserDTO);
+
+        return $user;
+
     }
 
 }

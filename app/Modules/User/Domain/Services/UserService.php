@@ -10,8 +10,10 @@ use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\Notification\Domain\Models\PhoneList;
 use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 use App\Modules\User\App\Data\DTO\User\RegistrationUserDTO;
+use App\Modules\User\App\Data\DTO\User\UpdateUserDTO;
 use App\Modules\User\Domain\Interactor\RegistrationInteractor;
 use App\Modules\User\Domain\Interactor\User\CreateUserInteractor;
+use App\Modules\User\Domain\Interactor\User\UpdateUserInteractor;
 use App\Modules\User\Domain\Interface\Repository\Service\IUserService;
 
 final class UserService implements IUserService
@@ -20,6 +22,7 @@ final class UserService implements IUserService
     public function __construct(
         private RegistrationInteractor $registrationInteractor,
         private CreateUserInteractor $createUserInteractor,
+        private UpdateUserInteractor $updateUserInteractor,
     ) { }
 
 
@@ -70,6 +73,11 @@ final class UserService implements IUserService
     public function createUser(CreateUserDTO $dto) : User
     {
         return $this->createUserInteractor->execute($dto);
+    }
+
+    public function updateUser(UpdateUserDTO $dto) : User
+    {
+        return $this->updateUserInteractor->execute($dto);
     }
 
 }

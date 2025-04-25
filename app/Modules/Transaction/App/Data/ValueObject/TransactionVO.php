@@ -14,14 +14,13 @@ readonly class TransactionVO implements Arrayable
 
     public function __construct(
 
-
         public Money $amount,
 
         public string $workspace_id,
 
         public ?StatusTransactionEnum $status,
         public ?string $type_product,
-        public ?string $count_product,
+        public ?int $count_product,
         public ?string $name_product,
 
     ) {}
@@ -35,7 +34,7 @@ readonly class TransactionVO implements Arrayable
 
         ?StatusTransactionEnum $status = StatusTransactionEnum::pending,
         ?string $type_product = null,
-        ?string $count_product = null,
+        ?int $count_product = null,
         ?string $name_product = null,
 
     ) : self {

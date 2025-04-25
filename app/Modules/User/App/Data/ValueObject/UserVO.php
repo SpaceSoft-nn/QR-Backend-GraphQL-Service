@@ -5,8 +5,8 @@ namespace App\Modules\User\App\Data\ValueObject;
 use Illuminate\Support\Arr;
 use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
-use App\Modules\Auth\App\Data\DTO\Base\BaseDTO;
 use App\Modules\User\App\Data\Enums\UserRoleEnum;
+use App\Modules\User\Domain\Models\User;
 
 readonly class UserVO implements Arrayable
 {
@@ -149,6 +149,20 @@ readonly class UserVO implements Arrayable
             email_id: $email_id,
             phone_id: $phone_id,
             active: $active,
+        );
+    }
+
+    public static function toValueObject(User $user) : self
+    {
+        return self::make(
+            first_name: $user->first_name,
+            last_name: $user->last_name,
+            father_name: $user->father_name,
+            password: $user->password,
+            role: $user->role,
+            email_id: $user->email_id,
+            phone_id: $user->phone_id,
+            active: $user->active,
         );
     }
 

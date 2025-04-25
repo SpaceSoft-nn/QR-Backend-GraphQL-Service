@@ -2,21 +2,20 @@
 
 namespace App\Modules\Workspace\Presentation\HTTP\Graphql\Response;
 
-use Illuminate\Support\Collection;
+use Illuminate\Support\Arr;
 use App\Modules\User\Domain\Models\User;
 use App\Modules\Base\Entity\PaginatorCustom;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
-use App\Modules\Workspace\App\Data\DTO\AddPaymentWorkspaceDTO;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\Workspace\App\Data\DTO\CreateWorkspaceDTO;
 use App\Modules\Workspace\App\Data\DTO\AddUserWorkspaceDTO;
 use App\Modules\Workspace\App\Data\ValueObject\WorkspaceVO;
 use App\Modules\Workspace\Domain\Services\WorkspaceService;
+use App\Modules\Workspace\App\Data\DTO\AddPaymentWorkspaceDTO;
 use App\Modules\Workspace\App\Data\DTO\DeleteUserWorkspaceDTO;
 use App\Modules\Workspace\App\Data\DTO\SetWorkUserWorkspaceDTO;
-use Illuminate\Support\Arr;
 
 class WorkspaceResolver
 {
@@ -177,6 +176,7 @@ class WorkspaceResolver
 
         return $workspace;
     }
+
 
 }
 

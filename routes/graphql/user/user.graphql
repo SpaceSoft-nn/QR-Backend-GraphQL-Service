@@ -1,9 +1,18 @@
 extend type Mutation {
     "Создание пользователя cassier/manager"
     userCreate(input: UserCreate! @spread): User! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@store") @guard
+    updateUser(input: UpdateUserInput! @spread): User! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@update") @guard
 }
 
-input UserCreate {
+input UpdateUserInput @validator(class: "App\\Modules\\User\\Domain\\Validators\\СhangeRoleUserValidation") {
+
+    user_id: String!
+
+    role: UserRoleEnum!
+
+}
+
+input UserCreate  {
 
     "В запросе должен быть обязательно либо email, либо phone"
     email: String!

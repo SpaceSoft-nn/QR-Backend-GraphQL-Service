@@ -27,6 +27,11 @@ extend type Query {
 
 }
 
+type deleteUserWorkspace {
+    worksapce: Workspace!
+    status: Boolean!
+}
+
 type WorkspacePaginator {
     data: [Workspace]!
     paginatorInfo: PaginatorInfo!
