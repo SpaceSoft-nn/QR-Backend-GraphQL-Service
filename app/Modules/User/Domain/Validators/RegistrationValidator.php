@@ -21,7 +21,7 @@ class RegistrationValidator extends BaseValidator
             'first_name' => ['required', 'string', "max:130", 'min:2', 'alpha'],
             'last_name' => ['required', 'string', "max:130", 'min:2', 'alpha'],
             'father_name' => ['required', 'string', "max:130", 'min:2', 'alpha'],
-            // 'role' => ['required', 'string', Rule::enum(UserRoleEnum::class)->only([UserRoleEnum::admin, UserRoleEnum::cassier, UserRoleEnum::manager])],
+            // 'role' => ['required', 'string', Rule::enum(UserRoleEnum::class)->only([UserRoleEnum::ADMIN, UserRoleEnum::CASSIER, UserRoleEnum::MANAGER])],
             'agreement' => ['required', 'boolean', 'accepted'],
         ];
     }

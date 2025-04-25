@@ -32,7 +32,7 @@ readonly class TransactionVO implements Arrayable
 
         string $workspace_id,
 
-        ?StatusTransactionEnum $status = StatusTransactionEnum::pending,
+        ?StatusTransactionEnum $status = StatusTransactionEnum::PENDING,
         ?string $type_product = null,
         ?int $count_product = null,
         ?string $name_product = null,
@@ -74,7 +74,7 @@ readonly class TransactionVO implements Arrayable
     public static function fromArrayToObject(array $data) : self
     {
         return self::make(
-            status: Arr::get($data, 'status', StatusTransactionEnum::pending),
+            status: Arr::get($data, 'status', StatusTransactionEnum::PENDING),
             amount: Arr::get($data, 'amount'),
 
             workspace_id: Arr::get($data, 'workspace_id'),

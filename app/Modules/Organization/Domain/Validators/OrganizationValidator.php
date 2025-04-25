@@ -20,7 +20,7 @@ class OrganizationValidator extends BaseValidator
             'phone' => ['nullable' , 'string'],
             'email' => ['nullable', "string", "email:filter", "max:100"],
             'website' => ['nullable', "string"],
-            'type' =>  ['required', 'string' , Rule::in(OrganizationTypeEnum::legal, OrganizationTypeEnum::individual)],
+            'type' =>  ['required', 'string' , Rule::in(OrganizationTypeEnum::LEGAL, OrganizationTypeEnum::INDIVIDUAL)],
             'description' => ['nullable', 'string'],
             'okved' => ['nullable', 'string'],
             'founded_date' => ['nullable', 'date'],
@@ -34,13 +34,13 @@ class OrganizationValidator extends BaseValidator
     protected function beforeValidation($args) : bool
     {
         // Если тип ооо, добавляем к правилам валидации kpp и ogrn
-        if (OrganizationTypeEnum::from($args['type']) == OrganizationTypeEnum::legal) {
+        if (OrganizationTypeEnum::from($args['type']) == OrganizationTypeEnum::LEGAL) {
             $this->rules['kpp'] = ['required', 'numeric' , 'regex:/^([0-9]{9})?$/'];
             $this->rules['registration_number'] = ['required' , 'numeric' , 'regex:/^([0-9]{13})?$/' , (new OgrnRule)];
         }
 
         // если ИП, добавляем огрнип
-        if(OrganizationTypeEnum::from($args['type']) == OrganizationTypeEnum::individual )
+        if(OrganizationTypeEnum::from($args['type']) == OrganizationTypeEnum::INDIVIDUAL )
         {
             $this->rules['registration_number'] = ['required' , 'numeric' , 'regex:/^\d{15}$/', (new OgrnepRule)];
         }

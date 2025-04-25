@@ -95,8 +95,8 @@ type Organization @model(class: "App\\Modules\\Organization\\Domain\\Models\\Org
 }
 
 enum OrganizationTypeEnum {
-    legal,
-    individual,
+    LEGAL,
+    INDIVIDUAL,
 }
 
 

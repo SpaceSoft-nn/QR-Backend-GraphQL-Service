@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
 
                     $user_new = User::factory()->for($email_new, 'emailList')->create([
 
-                        'role' => UserRoleEnum::cassier
+                        'role' => UserRoleEnum::CASSIER
                     ]);
 
                     $personalArea = $user->personalAreas()->first();

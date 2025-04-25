@@ -4,17 +4,17 @@ namespace App\Modules\User\App\Data\Enums;
 
 enum UserRoleEnum : string
 {
-    case admin = 'admin';
-    case cassier = 'cassier';
-    case manager = 'manager';
+    case ADMIN = 'ADMIN';
+    case CASSIER = 'CASSIER';
+    case MANAGER = 'MANAGER';
 
     public static function isManager(UserRoleEnum $enum) : bool
     {
-        return self::manager === $enum;
+        return self::MANAGER === $enum;
     }
 
     public static function isAdmin(UserRoleEnum $enum) : bool
     {
-        return self::admin === $enum;
+        return self::ADMIN === $enum;
     }
 }

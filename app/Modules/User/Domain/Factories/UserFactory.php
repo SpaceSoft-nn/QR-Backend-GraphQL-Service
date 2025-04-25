@@ -28,7 +28,7 @@ class UserFactory extends Factory
             last_name: $this->faker->name,
             father_name: $this->faker->name,
             password: 'password',
-            role: UserRoleEnum::admin,
+            role: UserRoleEnum::ADMIN,
             active: true
         );
 

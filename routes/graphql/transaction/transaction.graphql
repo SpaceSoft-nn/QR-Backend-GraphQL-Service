@@ -59,8 +59,8 @@ type Transaction @model(class: "App\\Modules\\Transaction\\Domain\\Models\\Trans
 }
 
 enum TransactionStatusEnum {
-    pending,
-    waiting_for_capture,
-    completed,
-    cancelled,
+    PENDING,
+    WAITING_FOR_CAPTURE,
+    COMPLETED,
+    CANCELLED,
 }

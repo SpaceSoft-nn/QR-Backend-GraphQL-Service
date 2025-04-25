@@ -100,12 +100,10 @@ type User @model(class: "App\\Modules\\User\\Domain\\Models\\User") {
 
 }
 
-
-
 enum UserRoleEnum {
-    admin
-    manager,
-    cassier,
+    ADMIN
+    MANAGER,
+    CASSIER,
 }
 
 

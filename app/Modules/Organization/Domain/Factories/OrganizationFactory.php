@@ -2,11 +2,11 @@
 
 namespace App\Modules\Organization\Domain\Factories;
 
-use App\Modules\Organization\App\Data\Enums\OrganizationTypeEnum;
-use App\Modules\Organization\App\Data\ValueObject\OrganizationVO;
-use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Modules\Organization\Domain\Models\Organization;
+use App\Modules\Organization\App\Data\Enums\OrganizationTypeEnum;
+use App\Modules\Organization\App\Data\ValueObject\OrganizationVO;
 
 
 class OrganizationFactory extends Factory
@@ -29,15 +29,15 @@ class OrganizationFactory extends Factory
             founded_date : $this->faker->date() ,
             phone : $this->faker->phoneNumber() ,
             email : $this->faker->safeEmail() ,
-            remuved : null ,
-            type : OrganizationTypeEnum ::legal,
+            remuved : null,
+            type : OrganizationTypeEnum::LEGAL,
             inn : $this->faker->unique()->numerify('##########'),
             kpp : $this->faker->unique()->numerify('#########') ,
             registration_number : $this->faker->unique()->numerify('############') ,
         );
 
         return $personalAreaVO->toArrayNotNull();
-        
+
     }
 
 }

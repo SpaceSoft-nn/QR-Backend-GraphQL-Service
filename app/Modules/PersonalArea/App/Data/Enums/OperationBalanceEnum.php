@@ -4,8 +4,8 @@ namespace App\Modules\PersonalArea\App\Data\Enums;
 
 enum OperationBalanceEnum : string
 {
-    case deposit = 'subtraction'; //пополнение
-    case withdrawal = 'addition'; //списание
-    case adjustment = 'replenishment'; //корректировка
-    case setbalance = 'setbalance'; //первоначальная установка баланса
+    case DEPOSIT = 'DEPOSIT'; //пополнение
+    case WITHDRAWAL = 'WITHDRAWAL'; //списание
+    case ADJUSTMENT = 'ADJUSTMENT'; //корректировка
+    case SETBALANCE = 'SETBALANCE'; //первоначальная установка баланса
 }

@@ -50,6 +50,8 @@ class AuthResolver
             password: $args['password'],
         ));
 
+
+
         /** @var TokeJwtEntity  */
         $tokeJwtEntity = $this->authService->loginUser($user);
 
