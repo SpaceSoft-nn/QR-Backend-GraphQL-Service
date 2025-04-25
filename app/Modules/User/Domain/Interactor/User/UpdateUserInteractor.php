@@ -60,7 +60,7 @@ class UpdateUserInteractor extends BaseInteractor
             return $userBeforeUpdate;
         });
 
-        return $user; 
+        return $user;
     }
 
     // private function findUser(string $user_id) : User
@@ -84,6 +84,7 @@ class UpdateUserInteractor extends BaseInteractor
     {
         $this->hasUserByUserOwner($dto->userOwner, $dto->user);
         $this->userAdminOrManager($dto->userOwner);
+        $this->userDontUserOwner($dto->userOwner, $dto->user);
     }
 
     /**
@@ -96,12 +97,20 @@ class UpdateUserInteractor extends BaseInteractor
 
     }
 
-     /**
-     * Проверяем относится ли передаваемый user, к авторизированному user
+    /**
+     * Проверяем что авторизированный пользователь является админом или менеджером
     */
     private function userAdminOrManager(User $userOwner)
     {
         Gate::authorize('UserAdminOrManager', $userOwner);
+    }
+
+    /**
+     * Проверяем что авторизированный пользователь, не является передаваемым
+    */
+    private function userDontUserOwner(User $userOwner, User $user)
+    {
+        Gate::forUser($userOwner)->authorize('userDontUserOwner', $user);
     }
 
 }
