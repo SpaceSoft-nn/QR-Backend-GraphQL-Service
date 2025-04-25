@@ -51,7 +51,7 @@ class UpdateUserInteractor extends BaseInteractor
              */
             $user = $dto->user;
 
-            $userVO = UserVO::toValueObject($user)->setRole($dto->role);
+            $userVO = UserVO::toValueObject($user)->setRole($dto->role)->setActiveUser($dto->active);
 
             //Обновляем User
             /** @var User */
@@ -60,7 +60,7 @@ class UpdateUserInteractor extends BaseInteractor
             return $userBeforeUpdate;
         });
 
-        return $user;
+        return $user; 
     }
 
     // private function findUser(string $user_id) : User

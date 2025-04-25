@@ -8,7 +8,9 @@ input UpdateUserInput @validator(class: "App\\Modules\\User\\Domain\\Validators\
 
     user_id: String!
 
-    role: UserRoleEnum!
+    role: UserRoleEnum
+
+    active: Boolean
 
 }
 

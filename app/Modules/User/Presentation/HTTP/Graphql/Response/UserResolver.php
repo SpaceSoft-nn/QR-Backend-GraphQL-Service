@@ -63,6 +63,7 @@ class UserResolver
             user: User::findOrFail($args['user_id']),
             userOwner: $user,
             role: $args['role'],
+            active: $args['active'],
         );
 
         /** @var User */

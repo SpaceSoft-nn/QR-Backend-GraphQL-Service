@@ -12,7 +12,8 @@ final class UpdateUserDTO extends BaseDTO
 
         public User $user, //передаваемый user - над которым будет совершаться действие
         public User $userOwner,
-        public UserRoleEnum $role,
+        public ?UserRoleEnum $role,
+        public ?bool $active,
 
     ) { }
 
@@ -20,7 +21,8 @@ final class UpdateUserDTO extends BaseDTO
 
         User $user,
         User $userOwner,
-        string $role,
+        ?string $role = null,
+        ?bool $active = null,
 
     ) : self {
 
@@ -29,6 +31,7 @@ final class UpdateUserDTO extends BaseDTO
             user: $user,
             userOwner: $userOwner,
             role: UserRoleEnum::from($role),
+            active: $active,
 
         );
 
