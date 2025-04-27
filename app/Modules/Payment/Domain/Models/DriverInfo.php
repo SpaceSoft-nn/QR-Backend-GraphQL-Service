@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\Payment\Domain\Factories\DriverInfoFactory;
+use App\Modules\User\Domain\Models\User;
 
 class DriverInfo extends Model
 {
@@ -66,12 +67,12 @@ class DriverInfo extends Model
     public function user()
     {
         return $this->hasOneThrough(
-            Organization::class,         // конечная модель
+            User::class,         // конечная модель
             UserOrganization::class,       // промежуточная модель
             'id',                          // внешний ключ в таблице user_organization, связывающий её с DriverInfo
             'id',                          // внешний ключ в таблице organization, связывающий её с user_organization
             'user_organization_id',        // локальный ключ в таблице driver_info
-            'organization_id'              // локальный ключ в таблице user_organization
+            'user_id'              // локальный ключ в таблице user_organization
         );
     }
 
