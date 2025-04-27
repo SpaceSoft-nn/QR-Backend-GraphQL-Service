@@ -3,16 +3,16 @@
 namespace App\Modules\Payment\Domain\Interactor;
 
 use App\Modules\Base\DTO\BaseDTO;
-use App\Modules\Base\Error\GraphQLBusinessException;
 use Illuminate\Support\Facades\DB;
 use App\Modules\User\Domain\Models\User;
 use App\Modules\Base\Interactor\BaseInteractor;
-use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\Payment\Domain\Models\DriverInfo;
+use App\Modules\Base\Error\GraphQLBusinessException;
+use App\Modules\Pivot\Domain\Models\UserOrganization;
+use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\Payment\App\Data\DTO\CreateDriverInfoDTO;
 use App\Modules\Payment\App\Data\ValueObject\DriverInfoVO;
-use App\Modules\Payment\Domain\Actions\CreateDriverInfoAction;
-use App\Modules\Pivot\Domain\Models\UserOrganization;
+use App\Modules\Payment\Domain\Actions\UpdateOrCreateDriverInfoAction;
 
 class CreateDriverInfoInteractor extends BaseInteractor
 {
@@ -41,7 +41,7 @@ class CreateDriverInfoInteractor extends BaseInteractor
             $userOrganization = $this->findUserOrganization($dto->organization_id, $dto->user);
 
             /** @var DriverInfo */
-            $driverInfo = $this->createDriverInfo(DriverInfoVO::make(
+            $driverInfo = $this->updateOrCreateDriverInfoAction(DriverInfoVO::make(
                 key: $dto->key,
                 value: $dto->value,
                 payment_method_id: $dto->payment_method_id,
@@ -54,9 +54,9 @@ class CreateDriverInfoInteractor extends BaseInteractor
         return $model;
     }
 
-    private function createDriverInfo(DriverInfoVO $vo) : DriverInfo
+    private function updateOrCreateDriverInfoAction(DriverInfoVO $vo) : DriverInfo
     {
-        return CreateDriverInfoAction::make($vo);
+        return UpdateOrCreateDriverInfoAction::make($vo);
     }
 
     private function findUserOrganization(string $organization_id, User $user) : UserOrganization

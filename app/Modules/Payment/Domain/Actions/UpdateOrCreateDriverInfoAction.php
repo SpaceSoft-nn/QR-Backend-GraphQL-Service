@@ -8,7 +8,7 @@ use App\Modules\Payment\Domain\Models\DriverInfo;
 use App\Modules\Payment\App\Data\ValueObject\DriverInfoVO;
 
 
-class CreateDriverInfoAction
+class UpdateOrCreateDriverInfoAction
 {
     public static function make(DriverInfoVO $vo) : DriverInfo
     {
@@ -18,11 +18,15 @@ class CreateDriverInfoAction
     private function run(DriverInfoVO $vo) : DriverInfo
     {
 
-        $model = DriverInfo::query()->create($vo->toArrayNotNull());
-
         try {
 
-            dd(5);
+            $model = DriverInfo::query()->updateOrCreate(
+                [
+                    'payment_method_id' => $vo->payment_method_id,
+                    'user_organization_id' => $vo->user_organization_id,
+                ],
+                $vo->toArrayNotNull()
+            );
 
         } catch (\Throwable $th) {
             $nameClass = self::class;

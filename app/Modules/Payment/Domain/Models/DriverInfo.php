@@ -3,6 +3,7 @@
 namespace App\Modules\Payment\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Modules\Pivot\Domain\Models\UserOrganization;
@@ -10,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\Payment\Domain\Factories\DriverInfoFactory;
-use App\Modules\User\Domain\Models\User;
 
 class DriverInfo extends Model
 {
