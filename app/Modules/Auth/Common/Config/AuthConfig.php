@@ -11,7 +11,7 @@ namespace App\Modules\Auth\Common\Config;
 class AuthConfig
 {
 
-    public function __construct(
+    private function __construct(
 
         public string $guard,
 
@@ -19,10 +19,7 @@ class AuthConfig
 
         public ?int $timeExpRefreshToken = null,
 
-    ) {
-        $this->timeExpAccessToken = $timeExpAccessToken ?? env("TIME_EXP_ACCESS_TOKEN" , 60);
-        $this->timeExpRefreshToken = $timeExpRefreshToken ?? env("TIME_EXP_REFRESH_TOKEN" , 432000);
-    }
+    ) { }
 
     public static function make(
 
@@ -31,6 +28,9 @@ class AuthConfig
         ?int $timeExpRefreshToken = null,
 
     ) : self {
+
+        if(is_null($timeExpAccessToken)) { $timeExpAccessToken = $timeExpAccessToken ?? env("TIME_EXP_ACCESS_TOKEN" , 60); }
+        if(is_null($timeExpRefreshToken)) { $timeExpRefreshToken = $timeExpRefreshToken ?? env("TIME_EXP_REFRESH_TOKEN" , 432000); }
 
         return new self(
             guard: $guard,
