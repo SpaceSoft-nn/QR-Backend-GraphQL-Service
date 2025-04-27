@@ -18,11 +18,10 @@ class CreateDriverInfoAction
     private function run(DriverInfoVO $vo) : DriverInfo
     {
 
-        $model = DriverInfo::query()->create($vo->toArrayNotNull());
 
         try {
 
-            dd(5);
+            $model = DriverInfo::query()->create($vo->toArrayNotNull());
 
         } catch (\Throwable $th) {
             $nameClass = self::class;

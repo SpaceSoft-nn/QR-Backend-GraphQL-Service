@@ -22,8 +22,7 @@ class UpdateOrCreateDriverInfoAction
 
             $model = DriverInfo::query()->updateOrCreate(
                 [
-                    'payment_method_id' => $vo->payment_method_id,
-                    'user_organization_id' => $vo->user_organization_id,
+                    'key' => $vo->key,
                 ],
                 $vo->toArrayNotNull()
             );

@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
 
-            $table->string('key')->comment('Название ключа например API Key или Seecret Key');
+            $table->string('key')->unique()->comment('Название ключа например API Key или Seecret Key');
             $table->string('value')->comment('Значение ключа');
 
 
