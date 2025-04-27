@@ -358,7 +358,7 @@ class AuthJwt implements AuthInterface
             'domain' => "",
             'secure' => false,
             'httponly' => true,
-            'samesite' => 'Lax',
+            'samesite' => 'None',
         ]);
 
         return $status;
