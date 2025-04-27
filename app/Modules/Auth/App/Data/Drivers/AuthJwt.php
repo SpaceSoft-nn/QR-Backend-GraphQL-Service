@@ -271,7 +271,7 @@ class AuthJwt implements AuthInterface
 
         } catch (TokenInvalidException $e) {
 
-            setcookie('refresh_token', '', time() - 3600, "/");
+            setcookie('refresh_token', 'ВАНЯ Я ЭТУ ЗАЛУПУ УДАЛИЛ', time() - 3600, "/");
             throw new LighthouseTokenBlacklistedException('Токен refresh недействителен.', 401);
 
         } catch (JWTException $e) {
@@ -320,12 +320,12 @@ class AuthJwt implements AuthInterface
                 JWTAuth::setToken($token)->invalidate(true);
 
                 //удаляем куки
-                setcookie('refresh_token', '', time() - 3600, "/");
+                setcookie('refresh_token', 'ВАНЯ Я ЭТУ ЗАЛУПУ УДАЛИЛ', time() - 3600, "/");
             }
 
         } catch (\Throwable $th) {
             //удаляем куки
-            setcookie('refresh_token', '', time() - 3600, "/");
+            setcookie('refresh_token', 'ВАНЯ Я ЭТУ ЗАЛУПУ УДАЛИЛ', time() - 3600, "/");
         }
 
         return true;
