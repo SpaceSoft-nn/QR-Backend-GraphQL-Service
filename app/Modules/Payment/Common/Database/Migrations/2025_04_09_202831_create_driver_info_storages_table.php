@@ -25,7 +25,6 @@ return new class extends Migration
             $table->foreignId('user_organization_id')->index()
                 ->constrained('user_organization')->noActionOnDelete();
 
-            $table->unique(['payment_method_id', 'user_organization_id']);
 
             $table->timestamps();
 
