@@ -356,7 +356,7 @@ class AuthJwt implements AuthInterface
             'expires' => time() + (10 * 365 * 24 * 60 * 60),
             'path' => "/",
             'domain' => "",
-            'secure' => false,
+            'secure' => true,
             'httponly' => true,
             'samesite' => 'None',
         ]);
