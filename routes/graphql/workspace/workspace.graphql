@@ -28,7 +28,7 @@ extend type Query {
 }
 
 type deleteUserWorkspace {
-    worksapce: Workspace!
+    workspace: Workspace!
     status: Boolean!
 }
 
