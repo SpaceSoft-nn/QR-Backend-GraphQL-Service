@@ -20,8 +20,8 @@ class AuthConfig
         public ?int $timeExpRefreshToken = null,
 
     ) {
-        $this->$timeExpAccessToken = $timeExpAccessToken ?? env("TIME_EXP_ACCESS_TOKEN" , 60);
-        $this->$timeExpRefreshToken = $timeExpRefreshToken ?? env("TIME_EXP_REFRESH_TOKEN" , 60 * 24 * 30);
+        $this->timeExpAccessToken = $timeExpAccessToken ?? env("TIME_EXP_ACCESS_TOKEN" , 60);
+        $this->timeExpRefreshToken = $timeExpRefreshToken ?? env("TIME_EXP_REFRESH_TOKEN" , 432000);
     }
 
     public static function make(

@@ -16,7 +16,11 @@ class AuthServiceProvider extends ServiceProvider
     {
 
         $this->app->scoped(AuthJwt::class, function (Application $app) {
-            return new AuthJwt(AuthConfig::make());
+
+            /** @var AuthConfig */
+            $authConf = AuthConfig::make();
+
+            return new AuthJwt($authConf);
         });
 
         $this->app->scoped(AuthService::class, function (Application $app) {
@@ -25,5 +29,5 @@ class AuthServiceProvider extends ServiceProvider
 
     }
 
-    
+
 }

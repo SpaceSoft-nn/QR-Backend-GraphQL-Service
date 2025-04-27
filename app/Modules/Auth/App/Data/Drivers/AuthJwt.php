@@ -19,7 +19,7 @@ use App\Modules\Auth\Domain\Exceptions\Error\LighthouseTokenBlacklistedException
 
 class AuthJwt implements AuthInterface
 {
-    public ?AuthConfig $config = null;
+    private AuthConfig $config;
 
     public function __construct(
         AuthConfig $config
@@ -29,6 +29,8 @@ class AuthJwt implements AuthInterface
 
     public function login(Model $model) : TokeJwtEntity
     {
+
+        JWTAuth::factory()->setTTL($this->config->timeExpAccessToken);
         $accessToken = JWTAuth::fromUser($model);
 
         $accessRefresh = $this->createRefreshToken($accessToken);
@@ -199,7 +201,7 @@ class AuthJwt implements AuthInterface
     {
 
         // Время жизни Access токена (например, 15 минут)
-        JWTAuth::factory()->setTTL($this->config->timeExpAccessToken);
+        $jwt = JWTAuth::factory()->setTTL($this->config->timeExpAccessToken);
 
         /**
          * Что бы claims не выдавал ошибку инспектора
