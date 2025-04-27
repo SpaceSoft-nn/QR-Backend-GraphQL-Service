@@ -255,7 +255,7 @@ class AuthJwt implements AuthInterface
             $refreshToken = JWTAuth::fromUser($user);
 
             //устанавливаем refresh токен в куки
-            setcookie('refresh_token', $refreshToken, 0, "/", "", false, true);
+            $this->setCustomCookie($refreshToken);
 
             return $refreshToken;
 
@@ -319,10 +319,12 @@ class AuthJwt implements AuthInterface
                 //добавляем токен в черный список
                 JWTAuth::setToken($token)->invalidate(true);
 
+                //удаляем куки
                 setcookie('refresh_token', '', time() - 3600, "/");
             }
 
         } catch (\Throwable $th) {
+            //удаляем куки
             setcookie('refresh_token', '', time() - 3600, "/");
         }
 
@@ -341,6 +343,25 @@ class AuthJwt implements AuthInterface
         $token = trim($token);
 
         return empty($token) ? null : $token;
+    }
+
+    /**
+     * Устаналиваем куки
+     * @return bool
+     */
+    private function setCustomCookie(string $refreshToken) : bool
+    {
+        #TODO Вывести эти значение в config - для удобности работы
+        $status = setcookie('refresh_token', $refreshToken, [
+            'expires' => time() + (10 * 365 * 24 * 60 * 60),
+            'path' => "/",
+            'domain' => "",
+            'secure' => false,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+
+        return $status;
     }
 
 
