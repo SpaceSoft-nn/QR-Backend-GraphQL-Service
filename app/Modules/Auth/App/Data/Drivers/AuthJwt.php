@@ -94,12 +94,20 @@ class AuthJwt implements AuthInterface
         }
 
         try {
+
+            //user получаем только в том случае, если tokenAccess валидный
             $user = JWTAuth::setToken($tokenAccess)->authenticate();
+
+
         } catch (TokenExpiredException $e) {
+
             $user = null;
+
         }  catch (TokenBlacklistedException $e) {
+
             throw new LighthouseTokenBlacklistedException('Токен Access в black list.', 401);
         }
+
 
         if($user) {
 
@@ -108,8 +116,7 @@ class AuthJwt implements AuthInterface
 
             //обновляем Access токен
             JWTAuth::factory()->setTTL($this->config->timeExpAccessToken); //устанавливаем время для Access токен
-            $tokenAccess = JWTAuth::setToken($tokenAccess);
-            $tokenAccess = $tokenAccess->refresh();   //обновляем Access - токен
+            $tokenAccess = JWTAuth::fromUser($user);
 
         } else {
 
@@ -117,19 +124,18 @@ class AuthJwt implements AuthInterface
             //обновляем refresh
             $refreshToken = $this->createRefreshToken(Cookie::get('refresh_token'));
 
-            //устанавливаем время для access токена
+            //получаем user по актульаному refresh токену
+            $user = JWTAuth::setToken($refreshToken)->authenticate();
+
+            //устанавливаем время жизни токена access
             JWTAuth::factory()->setTTL($this->config->timeExpAccessToken);
 
-            $tokenAccess = JWTAuth::setToken($tokenAccess);
-
-            //обновляем Access - токен
-            $tokenAccess = $tokenAccess->refresh();
+            //получаем новый токен по user
+            $tokenAccess = JWTAuth::fromUser($user);
 
         }
 
-
         return $this->respondWithToken($tokenAccess, $refreshToken);
-
     }
 
     /**
@@ -271,7 +277,7 @@ class AuthJwt implements AuthInterface
 
         } catch (TokenInvalidException $e) {
 
-            setcookie('refresh_token', 'ВАНЯ Я ЭТУ ЗАЛУПУ УДАЛИЛ', time() - 3600, "/");
+            setcookie('refresh_token', '', time() - 3600, "/");
             throw new LighthouseTokenBlacklistedException('Токен refresh недействителен.', 401);
 
         } catch (JWTException $e) {
@@ -320,12 +326,12 @@ class AuthJwt implements AuthInterface
                 JWTAuth::setToken($token)->invalidate(true);
 
                 //удаляем куки
-                setcookie('refresh_token', 'ВАНЯ Я ЭТУ ЗАЛУПУ УДАЛИЛ', time() - 3600, "/");
+                setcookie('refresh_token', '', time() - 3600, "/");
             }
 
         } catch (\Throwable $th) {
             //удаляем куки
-            setcookie('refresh_token', 'ВАНЯ Я ЭТУ ЗАЛУПУ УДАЛИЛ', time() - 3600, "/");
+            setcookie('refresh_token', '', time() - 3600, "/");
         }
 
         return true;
