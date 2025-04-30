@@ -1,14 +1,22 @@
 <?php
 namespace App\Modules\Base\Money;
 
+use Stringable;
+use InvalidArgumentException;
 use App\Modules\Base\Casts\MoneyCast;
 use Illuminate\Contracts\Database\Eloquent\Castable;
-use InvalidArgumentException;
-use Stringable;
 
-final class Money implements Stringable, Castable {
+#TODO написать unit тесты и проверить копейки
+class Money implements Stringable, Castable {
 
     public readonly string $value;
+
+    /**
+     * Значение в копейках
+     * @var string
+     *
+    */
+    public readonly string $value_kopeck;
 
     public function __construct(Money|string|int|float $value)
     {
@@ -26,6 +34,9 @@ final class Money implements Stringable, Castable {
         }
 
         $this->value = (string) $value;
+
+        //переводим в копейки
+        $this->value_kopeck = $this->toKopecks($this->value);
     }
 
     /**
@@ -131,6 +142,20 @@ final class Money implements Stringable, Castable {
     {
         return $this->eq($number, $scale) || $this->lt($number, $scale);
     }
+
+    /**
+     * Переводим в копейки
+     * @param Money|string|int|float $number
+     *
+     * @return string
+     */
+    private function toKopecks() : string
+    {
+        $kopecks = floor(floatval($this->value) * 100);
+
+        return strval($kopecks);
+    }
+
 
     public function __toString() : string
     {

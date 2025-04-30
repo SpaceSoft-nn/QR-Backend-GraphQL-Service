@@ -24,7 +24,7 @@ class TochkaBankQrCreateConfig
 
     public static function make(
 
-        ?string $amount = "0",
+        ?string $amount = null,
 
         ?int $width = 200,
 
@@ -40,7 +40,7 @@ class TochkaBankQrCreateConfig
 
     ) : self {
 
-        $amount = new Money(0);
+        if(is_null($amount)) { $amount = new Money(0); }
 
         return new self(
             currency: "RUB",

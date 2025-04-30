@@ -6,8 +6,9 @@ use function App\Helpers\Mylog;
 use App\Modules\Base\DTO\BaseDTO;
 use Illuminate\Support\Facades\Http;
 use App\Modules\Base\Interactor\BaseInteractor;
-use App\Modules\Drivers\Common\Config\TochkaBank\TochkaBankQrCreateConfig;
+use App\Modules\Drivers\App\Data\Entities\TochkaBankEntity;
 use App\Modules\Drivers\Domain\Exceptions\TochkaBank\QrBusinessException;
+use App\Modules\Drivers\Common\Config\TochkaBank\TochkaBankQrCreateConfig;
 
 class CreateQrInteractor extends BaseInteractor
 {
@@ -18,20 +19,20 @@ class CreateQrInteractor extends BaseInteractor
     ) { }
 
 
-    public function execute(BaseDTO $dto)
+    public function execute(BaseDTO $dto) : TochkaBankEntity
     {
         return $this->run($dto);
     }
 
 
-    protected function run(BaseDTO $dto)
+    protected function run(BaseDTO $dto) : TochkaBankEntity
     {
-
+        //базовый запрос для создании QR spb у точки
         $data = [
             "Data" => [
                 "paymentPurpose" => "Оплата по счету № 1 от 01.01.2021. Без НДС",
                 "qrcType" => "01",
-                "amount" => (int) $this->conf->amount->__toString(),
+                "amount" => $this->conf->amount->value_kopeck,
                 "currency" => $this->conf->currency,
                 "imageParams" => [
                     "width" => $this->conf->imageParams['width'],
@@ -50,12 +51,16 @@ class CreateQrInteractor extends BaseInteractor
 
             $jsonBody = $response->body();
 
+            /** @var array */
+            $array = json_decode($jsonBody, true);
 
+            dd(TochkaBankEntity::fromArrayToObject($array));
 
+            return TochkaBankEntity::fromArrayToObject($array);
 
         } else {
 
-            $jsonBody = $response->getBody(); // или $response->body() если Laravel HTTP
+            $jsonBody = $response->getBody();
             $formatted = $this->formatErrorMessageFromJson($jsonBody);
 
             Mylog('Ошибка формирование QR СБП, точка апи: ' . $formatted, 'qr');
@@ -64,6 +69,7 @@ class CreateQrInteractor extends BaseInteractor
 
     }
 
+    //для форматироование ошибки
     private function formatErrorMessageFromJson($jsonBody) {
         $data = json_decode($jsonBody, true);
 
