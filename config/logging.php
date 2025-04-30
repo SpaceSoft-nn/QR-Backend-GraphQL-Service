@@ -58,6 +58,13 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'qr' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/qr.log'),
+            'level' => 'info',
+            'replace_placeholders' => true,
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),

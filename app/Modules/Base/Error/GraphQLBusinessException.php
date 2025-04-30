@@ -11,17 +11,17 @@ class GraphQLBusinessException extends Exception implements ClientAware, Provide
     /**
      * @var string[]|string
      */
-    private $messageCustom;
+    protected $messageCustom;
 
     /**
      * @var int
      */
-    private ?int $codeCustom;
+    protected ?int $codeCustom;
 
     /**
      * @var array
      */
-    private array $extensions = [];
+    protected array $extensions = [];
 
     public function __construct(string|array $messageCustom, $codeCustom = 400, array $extensions = [])
     {
