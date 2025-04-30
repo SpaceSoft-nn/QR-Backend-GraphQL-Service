@@ -13,5 +13,6 @@ return [
     App\Modules\PersonalArea\App\Providers\PersonalAreaServiceProvider::class,
     App\Modules\Notification\App\Providers\Notification\NotificationServiceProvider::class,
     App\Modules\Payment\App\Providers\PaymentServiceProvider::class,
-    \App\Modules\Transaction\App\Providers\TransactionServiceProvider::class,
+    App\Modules\Transaction\App\Providers\TransactionServiceProvider::class,
+    App\Modules\Drivers\App\Providers\DriversServiceProvider::class,
 ];
