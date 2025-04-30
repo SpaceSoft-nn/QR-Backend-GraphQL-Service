@@ -3,12 +3,12 @@
 namespace App\Modules\Drivers\Domain\Interactor;
 
 use App\Modules\Base\DTO\BaseDTO;
+use App\Modules\Base\Error\GraphQLBusinessException;
 use Illuminate\Support\Facades\Http;
 use App\Modules\Base\Interactor\BaseInteractor;
 
 class CreateQrInteractor extends BaseInteractor
 {
-
     const URL = "https://enter.tochka.com/sandbox/v2/sbp/v1.0/qr-code/merchant/MF0000000001/40817810802000000008/044525104";
 
     public function __construct(
@@ -26,12 +26,19 @@ class CreateQrInteractor extends BaseInteractor
     {
 
         $data = [
-            "amount" => 1,
-            "currency" => "RUB",
-            "paymentPurpose" => "Оплата по счету № 1 от 01.01.2021. Без НДС",
-            "qrcType" => "02",
-            "sourceName" => "string",
-            "ttl" => 0,
+            "Data" => [
+                "paymentPurpose" => "Оплата по счету № 1 от 01.01.2021. Без НДС",
+                "qrcType" => "01",
+                "amount" => 0,
+                "currency" => "RUB",
+                "imageParams" => [
+                    "width" => 200,
+                    "height" => 200,
+                    "mediaType" => "image/png"
+                ],
+                "sourceName" => "string",
+                "ttl" => 0
+            ]
         ];
 
         $response = Http::asJson()->withToken('working_token')
@@ -45,17 +52,9 @@ class CreateQrInteractor extends BaseInteractor
 
             // Обработка данных
         } else {
-            // Обработка ошибок
-            dd($response->status(), 'Ошибка при обращении к API');
+            throw new GraphQLBusinessException();
         }
 
-        // /** @var Organization */
-        // $model = DB::transaction(function ($pdo) use ($dto) {
-
-
-        // });
-
-        // return $model;
     }
 
 }

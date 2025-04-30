@@ -2,24 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Modules\Drivers\Domain\Interactor\CreateQrInteractor;
+use App\Modules\Drivers\Domain\Services\TochkaBankService;
 use Illuminate\Console\Command;
 
-class A {
-
-    const URL = "A";
-
-    public function constMethod()
-    {
-        return self::URL;
-    }
-
-}
-
-class B extends A {
-
-    const URL = "B";
-
-}
 
 class GoCommand extends Command
 {
@@ -31,11 +17,12 @@ class GoCommand extends Command
 
     public function handle()
     {
+        /** @var TochkaBankService */
+        $serv = app(TochkaBankService::class);
 
-        $b = new B();
+        $status = $serv->createQr();
 
-        dd($b::URL);
-
+        dd($status);
     }
 
     private function missingNumber(array $nums) {

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
     return view('welcome');
 });
+
 
 Route::get('/graphql', function () {
 
@@ -14,4 +16,7 @@ Route::get('/graphql', function () {
     return view('graphql', compact('url', 'subscriptionUrl'));
 
 });
+
+
+Route::get('/bank', TestController::class);
 
