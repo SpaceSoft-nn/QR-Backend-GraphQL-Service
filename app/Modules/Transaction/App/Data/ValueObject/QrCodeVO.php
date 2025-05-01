@@ -5,6 +5,7 @@ namespace App\Modules\Transaction\App\Data\ValueObject;
 use App\Modules\Base\Money\Money;
 use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
+use App\Modules\Transaction\App\Data\Enums\QrTypeEnum;
 
 readonly class QrCodeVO implements Arrayable
 {
@@ -13,9 +14,18 @@ readonly class QrCodeVO implements Arrayable
     public function __construct(
 
         public string $transaction_id,
-        public ?string $qr_url,
+        public string $qr_url,
+
+
+        public ?QrTypeEnum $qr_type,
+
+        public ?int $ttl,
+        public ?int $width,
+        public ?int $height,
+
         public ?string $name_product,
         public ?Money $amount,
+        public ?string $content_image_base64,
 
     ) {}
 
@@ -23,9 +33,16 @@ readonly class QrCodeVO implements Arrayable
     public static function make(
 
         string $transaction_id,
-        ?string $qr_url = 'https://dev.by/storage/images/44/14/12/03/derived/9f1b0cc0fc7967986851e3d3f38e2575.jpg',
-        ?string $name_product = null,
+        string $qr_url,
+        string $qr_type,
+
+        ?int $ttl,
+        ?int $width,
+        ?int $height,
+
         ?Money $amount = null,
+        ?string $name_product = null,
+        ?string $content_image_base64 = null,
 
 
     ) : self {
@@ -39,6 +56,12 @@ readonly class QrCodeVO implements Arrayable
             name_product: $name_product,
             amount: new Money($amount),
 
+            qr_type: QrTypeEnum::from($qr_type),
+            ttl: $ttl,
+            width: $width,
+            height: $height,
+            content_image_base64: $content_image_base64,
+
         );
 
     }
@@ -51,6 +74,12 @@ readonly class QrCodeVO implements Arrayable
             "qr_url" => $this->qr_url,
             "name_product" => $this->name_product,
             "amount" => $this->amount,
+
+            "qr_type" => $this->qr_type,
+            "ttl" => $this->ttl,
+            "width" => $this->width,
+            "height" => $this->height,
+            "content_image_base64" => $this->content_image_base64,
 
         ];
     }

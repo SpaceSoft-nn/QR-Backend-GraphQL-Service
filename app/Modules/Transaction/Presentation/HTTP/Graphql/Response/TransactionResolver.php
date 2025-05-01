@@ -5,6 +5,7 @@ namespace App\Modules\Transaction\Presentation\HTTP\Graphql\Response;
 use App\Modules\User\Domain\Models\User;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
+use App\Modules\Drivers\App\Data\DTO\CreateQrDTO;
 use App\Modules\Transaction\Domain\Models\Transaction;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\Transaction\App\Data\DTO\TransactionDTO;
@@ -22,7 +23,7 @@ class TransactionResolver
 
 
     /**
-     * Создание user (manager/cassier)
+     * Создание транзакции
      *
      * @return array
      */
@@ -38,10 +39,22 @@ class TransactionResolver
 
         /** @var Transaction */
         $transation = $this->transactionService->createTransaction(TransactionDTO::make(
-            transaction: TransactionVO::fromArrayToObject($args),
+            transactionVO: TransactionVO::fromArrayToObject($args),
             user: $user,
-        ));
+            dtoQr: CreateQrDTO::make(
 
+                amount: $args['amount'],
+                paymentPurpose: "",
+                qrcType: $args['qr_type'],
+
+                width: $args['width'] ?? null,
+                height: $args['height'] ?? null,
+                sourceName: $args['sourceName'] ?? null,
+                ttl: $args['ttl'] ?? null,
+                workspace_id: $args['workspace_id'] ?? null,
+
+            ),
+        ));
 
         return $transation;
     }

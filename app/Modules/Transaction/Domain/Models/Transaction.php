@@ -2,16 +2,14 @@
 
 namespace App\Modules\Transaction\Domain\Models;
 
-use App\Modules\Base\Money\Money;
 use Illuminate\Support\Str;
+use App\Modules\Base\Money\Money;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use App\Modules\Payment\Domain\Models\PaymentMethod;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use App\Modules\Transaction\App\Data\Enums\StatusTransactionEnum;
 
 class Transaction extends Model

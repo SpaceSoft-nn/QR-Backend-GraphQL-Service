@@ -2,9 +2,10 @@
 
 namespace App\Modules\Drivers\App\Data\Entities;
 
+use App\Modules\Base\Entity\QrEntityBase;
 use Illuminate\Support\Arr;
 
-class TochkaBankEntity
+class TochkaBankEntity extends QrEntityBase
 {
     private function __construct(
 
@@ -18,7 +19,7 @@ class TochkaBankEntity
 
 
         public string $payload,
-        public string $qrcId, //тип QrCode: 01 - QR-Static (QR наклейка) 02 - QR-Dynamic (QR на кассе)
+        public string $qrcId, // Идентификатор QR-кода в СБП
         public string $content_image_base64, //Картинка в base64
     ) { }
 

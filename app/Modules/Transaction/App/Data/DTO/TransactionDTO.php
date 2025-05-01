@@ -13,22 +13,25 @@ final class TransactionDTO extends BaseDTO
 
     public function __construct(
 
-        public TransactionVO $transaction,
+        public TransactionVO $transactionVO,
         public User $user,
+        public BaseDTO $dtoQr,
 
     ) {}
 
     public static function make(
 
-        TransactionVO $transaction,
+        TransactionVO $transactionVO,
         User $user,
+        BaseDTO $dtoQr,
 
     ) : self {
 
         return new self(
 
-            transaction: $transaction,
+            transactionVO: $transactionVO,
             user: $user,
+            dtoQr: $dtoQr,
 
         );
 

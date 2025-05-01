@@ -6,6 +6,9 @@ use function App\Helpers\Mylog;
 use App\Modules\Base\DTO\BaseDTO;
 use Illuminate\Support\Facades\Http;
 use App\Modules\Base\Interactor\BaseInteractor;
+use App\Modules\Drivers\App\Data\DTO\CreateQrDTO;
+use App\Modules\Workspace\Domain\Models\Workspace;
+use App\Modules\Organization\Domain\Models\Organization;
 use App\Modules\Drivers\App\Data\Entities\TochkaBankEntity;
 use App\Modules\Drivers\Domain\Exceptions\TochkaBank\QrBusinessException;
 use App\Modules\Drivers\Common\Config\TochkaBank\TochkaBankQrCreateConfig;
@@ -19,33 +22,51 @@ class CreateQrInteractor extends BaseInteractor
     ) { }
 
 
+    /**
+     * @param CreateQrDTO $dto
+     *
+     * @return TochkaBankEntity
+     */
     public function execute(BaseDTO $dto) : TochkaBankEntity
     {
         return $this->run($dto);
     }
 
 
+    /**
+     * @param CreateQrDTO $dto
+     *
+     * @return TochkaBankEntity
+     */
     protected function run(BaseDTO $dto) : TochkaBankEntity
     {
+
+        /** @var Workspace */
+        $workspace = $this->findWorkspace($dto->workspace_id);
+
+        //формируем правильное назначение платежа
+        $this->formingValidDTO($dto, $workspace);
+
         //базовый запрос для создании QR spb у точки
         $data = [
             "Data" => [
-                "paymentPurpose" => "Оплата по счету № 1 от 01.01.2021. Без НДС",
-                "qrcType" => "01",
-                "amount" => $this->conf->amount->value_kopeck,
+                "paymentPurpose" => $dto->paymentPurpose,
+                "qrcType" => $dto->qrcType->isNumber(),
+                "amount" => $dto->amount ?? $this->conf->amount->value_kopeck,
                 "currency" => $this->conf->currency,
                 "imageParams" => [
-                    "width" => $this->conf->imageParams['width'],
-                    "height" => $this->conf->imageParams['height'],
+                    "width" => $dto->width ?? $this->conf->imageParams['width'],
+                    "height" => $dto->height ?? $this->conf->imageParams['height'],
                     "mediaType" => $this->conf->imageParams['mediaType'],
                 ],
-                "sourceName" => $this->conf->sourceName,
-                "ttl" => $this->conf->ttl,
+                "sourceName" => $dto->sourceName ?? $this->conf->sourceName,
+                "ttl" => $dto->ttl ?? $this->conf->ttl,
             ]
         ];
 
         $response = Http::asJson()->withToken('working_token')
             ->post(static::URL, $data);
+
 
         if ($response->successful()) {
 
@@ -53,8 +74,6 @@ class CreateQrInteractor extends BaseInteractor
 
             /** @var array */
             $array = json_decode($jsonBody, true);
-
-            dd(TochkaBankEntity::fromArrayToObject($array));
 
             return TochkaBankEntity::fromArrayToObject($array);
 
@@ -106,6 +125,27 @@ class CreateQrInteractor extends BaseInteractor
         }
 
         return implode(PHP_EOL, $lines);
+    }
+
+    /**
+    * Формируем валидный ДТО, указываем описание: paymentPurpose
+    * @return [type]
+    */
+    private function formingValidDTO(CreateQrDTO $dto, Workspace $workspace) : CreateQrDTO
+    {
+        /** @var Organization */
+        $organization = $workspace->organization;
+
+        $data = now()->locale('ru')->isoFormat('DD MMMM YYYY, HH:mm');
+
+        $dto->paymentPurpose = "Оплата от $data , по (АРМ №:$workspace->id), у организации ($organization->name)";
+
+        return $dto;
+    }
+
+    private function findWorkspace(string $workspace_id) : Workspace
+    {
+        return Workspace::findOrFail($workspace_id);
     }
 
 }

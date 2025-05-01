@@ -20,6 +20,18 @@ input CreateTransactionInput @validator(class: "App\\Modules\\Transaction\\Domai
     "Сумма для оплаты"
     amount: String!
 
+    "Тип QR кода - динамический или статический"
+    qr_type: QrTypeEnum!
+
+    "(Период использования QR-кода в минутах) Задается, только если тип QR = QR-Dynamic"
+    ttl: Int
+
+    "Ширина картинки QR - стилизация*"
+    width: Int
+
+    "Высота картинки QR - стилизация*"
+    height: Int
+
     "Тип продукта, услуга/товар и т.д... "
     type_product: String
 
@@ -64,3 +76,4 @@ enum TransactionStatusEnum {
     COMPLETED,
     CANCELLED,
 }
+

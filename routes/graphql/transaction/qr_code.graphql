@@ -10,18 +10,41 @@ type QrCode @model(class: "App\\Modules\\Transaction\\Domain\\Models\\QrCode") {
 
     id: ID!
 
+    "Ссылка на изображения"
     qr_url: String!
 
+    "Бинарный формат изображения"
+    content_image_base64: String! @field(resolver: "App\\Modules\\Transaction\\Presentation\\HTTP\\Graphql\\Field\\QrCodeFieldResolver@content_image_base64")
+
+    "Тип QR: DYNAMIC/STATIC "
+    qr_type: QrTypeEnum!
+
+    "К какой транзакции принадлежит QR"
     transaction: Transaction! @belongsTo
 
-    name_product: String
-
+    "Сумма - должна быть только при динамическом QR - DYNAMIC"
     amount: String
+
+    "Время существования QR - только у DYNAMIC"
+    ttl: String
+
+    "Ширина изображения"
+    width: String
+
+    "Высота изображения"
+    height: String
+
+    name_product: String
 
     created_at: Date!
 
     updated_at: Date!
 
+}
+
+enum QrTypeEnum {
+    DYNAMIC,
+    STATIC,
 }
 
 
