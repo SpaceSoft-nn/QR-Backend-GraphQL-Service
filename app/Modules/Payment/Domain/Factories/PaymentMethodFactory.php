@@ -17,6 +17,7 @@ class PaymentMethodFactory extends Factory
             "active" => true,
             "driver_name" => "Test",
             "payment_id" => null,
+            "png_url" => null,
         ];
 
     }

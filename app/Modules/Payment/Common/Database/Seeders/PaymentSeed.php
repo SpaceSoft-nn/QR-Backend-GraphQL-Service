@@ -17,11 +17,17 @@ class PaymentSeed extends Seeder
     private function createPayment()
     {
         /** @var Payment */
-        $payment = Payment::factory()->create();
+        $payment = Payment::factory()->create([
+            "name" => "Банки"
+        ]);
 
-        PaymentMethod::factory()
+        // number_id - 1
+        $tochkaBank = PaymentMethod::factory()
             ->withPayment($payment)
-            ->create();
+            ->create([
+                "driver_name" => "Точка Банк",
+                "png_url" => "https://static.tildacdn.com/tild3033-3137-4838-b139-343161653937/tochka_bank_300.png",
+            ]);
     }
 
 }

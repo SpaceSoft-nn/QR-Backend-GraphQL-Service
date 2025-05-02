@@ -26,6 +26,7 @@ class PaymentMethod extends Model
         "active",
         "driver_name",
         "payment_id",
+        "png_url",
 
     ];
 

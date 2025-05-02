@@ -8,6 +8,7 @@ use App\Modules\User\App\Data\Enums\UserRoleEnum;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\Organization\Domain\Models\Organization;
+use App\Modules\Payment\Domain\Models\PaymentMethod;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\Pivot\Domain\Actions\UserWorkspace\LinkUserToWorkspace;
 use App\Modules\Pivot\Domain\Actions\UserOrganization\LinkUserToOrganization;
@@ -75,7 +76,9 @@ class DatabaseSeeder extends Seeder
                     $workspaces = Workspace::factory()
                         ->count(30)
                         ->withUserOrganization($user)
-                        ->create();
+                        ->create([
+                            "payment_method_id" => PaymentMethod::inRandomOrder()->first()->id,
+                        ]);
 
                     foreach ($workspaces as $workspace) {
                         LinkUserToWorkspace::run($user, $workspace, true);
