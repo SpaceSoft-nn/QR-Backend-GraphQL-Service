@@ -3,10 +3,9 @@
 namespace App\Modules\Drivers\App\Data\DTO;
 
 use App\Modules\Base\DTO\BaseDTO;
-use App\Modules\Workspace\Domain\Models\Workspace;
 use App\Modules\Transaction\App\Data\Enums\QrTypeEnum;
 
-final class CreateQrDTO extends BaseDTO
+final class CreateQrTochkaBankDTO extends BaseDTO
 {
     private function __construct(
 
@@ -14,12 +13,13 @@ final class CreateQrDTO extends BaseDTO
         public string $paymentPurpose, //(Назначение платежа) пример: "Оплата по счету № 1 от 01.01.2021. Без НДС",
         public QrTypeEnum $qrcType, // 01 - QR-Static (QR наклейка) 02 - QR-Dynamic (QR на кассе)
 
+        public ?string $workspace_id = null,
+
+
         public ?int $width, //Ширина изображения (>=200, по умолчанию: 300) [ 200 .. 2000 ]
         public ?int $height, //Высота изображения (>=200, по умолчанию: 300)  [ 200 .. 2000 ]
         public ?string $sourceName, // (Название источника) Cистема, создавшая QR-код
-
         public ?int $ttl = null, // (Период использования QR-кода в минутах) Задается, только если тип QR = QR-Dynamic
-        public ?string $workspace_id = null,
 
     ) { }
 

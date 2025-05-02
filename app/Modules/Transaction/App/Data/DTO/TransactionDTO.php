@@ -15,7 +15,7 @@ final class TransactionDTO extends BaseDTO
 
         public TransactionVO $transactionVO,
         public User $user,
-        public BaseDTO $dtoQr,
+        // public BaseDTO $dtoQr,
 
     ) {}
 
@@ -23,7 +23,7 @@ final class TransactionDTO extends BaseDTO
 
         TransactionVO $transactionVO,
         User $user,
-        BaseDTO $dtoQr,
+        // BaseDTO $dtoQr,
 
     ) : self {
 
@@ -31,7 +31,7 @@ final class TransactionDTO extends BaseDTO
 
             transactionVO: $transactionVO,
             user: $user,
-            dtoQr: $dtoQr,
+            // dtoQr: $dtoQr,
 
         );
 

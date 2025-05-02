@@ -6,9 +6,9 @@ use function App\Helpers\Mylog;
 use App\Modules\Base\DTO\BaseDTO;
 use Illuminate\Support\Facades\Http;
 use App\Modules\Base\Interactor\BaseInteractor;
-use App\Modules\Drivers\App\Data\DTO\CreateQrDTO;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use App\Modules\Organization\Domain\Models\Organization;
+use App\Modules\Drivers\App\Data\DTO\CreateQrTochkaBankDTO;
 use App\Modules\Drivers\App\Data\Entities\TochkaBankEntity;
 use App\Modules\Drivers\Domain\Exceptions\TochkaBank\QrBusinessException;
 use App\Modules\Drivers\Common\Config\TochkaBank\TochkaBankQrCreateConfig;
@@ -23,7 +23,7 @@ class CreateQrInteractor extends BaseInteractor
 
 
     /**
-     * @param CreateQrDTO $dto
+     * @param CreateQrTochkaBankDTO $dto
      *
      * @return TochkaBankEntity
      */
@@ -34,7 +34,7 @@ class CreateQrInteractor extends BaseInteractor
 
 
     /**
-     * @param CreateQrDTO $dto
+     * @param CreateQrTochkaBankDTO $dto
      *
      * @return TochkaBankEntity
      */
@@ -70,12 +70,19 @@ class CreateQrInteractor extends BaseInteractor
 
         if ($response->successful()) {
 
+            //получаем значение с апи
             $jsonBody = $response->body();
 
-            /** @var array */
+            /**
+             * маппим в массив
+             * @var array
+            */
             $array = json_decode($jsonBody, true);
 
-            return TochkaBankEntity::fromArrayToObject($array);
+            /** @var TochkaBankEntity */
+            $tochkaEntity = TochkaBankEntity::fromArrayToObject($array, $dto);
+
+            return $tochkaEntity;
 
         } else {
 
@@ -131,7 +138,7 @@ class CreateQrInteractor extends BaseInteractor
     * Формируем валидный ДТО, указываем описание: paymentPurpose
     * @return [type]
     */
-    private function formingValidDTO(CreateQrDTO $dto, Workspace $workspace) : CreateQrDTO
+    private function formingValidDTO(CreateQrTochkaBankDTO $dto, Workspace $workspace) : CreateQrTochkaBankDTO
     {
         /** @var Organization */
         $organization = $workspace->organization;

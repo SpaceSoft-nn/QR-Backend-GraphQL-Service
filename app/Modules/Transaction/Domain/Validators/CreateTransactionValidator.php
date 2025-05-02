@@ -15,7 +15,7 @@ final class CreateTransactionValidator extends Validator
 
         return [
             "workspace_id" => ['required', 'uuid', 'exists:workspaces,id'],
-            "amount" => ['required', 'numeric'],
+            "amount" => ['required', 'numeric', "min:1", "max:1000000"],
             "qr_type" => ['required', Rule::enum(QrTypeEnum::class)],
 
             "ttl" => ['nullable', 'integer', 'min:1', "max:4320"],

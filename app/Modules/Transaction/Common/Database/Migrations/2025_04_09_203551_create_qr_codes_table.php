@@ -26,13 +26,12 @@ return new class extends Migration
             $table->string('height')->nullable()->comment("Высота картинки СБП");
 
 
-
             $table->foreignUuid('transaction_id')->index()
                 ->constrained('transactions')->noActionOnDelete();
 
 
             $table->string('name_product')->nullable();
-            $table->decimal('amount')->nullable();
+            $table->decimal('amount', 9, 2)->nullable();
 
 
             $table->timestamps();

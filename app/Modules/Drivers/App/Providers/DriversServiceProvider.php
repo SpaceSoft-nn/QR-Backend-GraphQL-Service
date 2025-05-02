@@ -5,6 +5,8 @@ namespace App\Modules\Drivers\App\Providers;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use App\Modules\Drivers\Common\Config\TochkaBank\TochkaBankQrCreateConfig;
+use App\Modules\Drivers\Domain\Services\Adapter\TochkaBankServiceAdapter;
+use App\Modules\Drivers\Domain\Services\TochkaBankService;
 
 class DriversServiceProvider extends ServiceProvider
 {
@@ -21,11 +23,8 @@ class DriversServiceProvider extends ServiceProvider
             return TochkaBankQrCreateConfig::make();
         });
 
-        // if($this->app->runningInConsole()){
+        // $this->app->bind(TochkaBankServiceAdapter::class, TochkaBankService::class);
 
 
-        //     $this->loadMigrationsFrom(dirname(__DIR__) . '/..' . '/Common' . '/Database' . "/Migrations");
-
-        // }
     }
 }

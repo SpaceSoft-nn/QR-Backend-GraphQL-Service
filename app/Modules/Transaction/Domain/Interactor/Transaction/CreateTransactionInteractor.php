@@ -7,22 +7,24 @@ use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Entity\QrEntityBase;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Transaction\Domain\Models\QrCode;
-use App\Modules\Workspace\Domain\Models\Workspace;
 use App\Modules\Transaction\Domain\Models\Transaction;
 use App\Modules\Transaction\App\Data\DTO\TransactionDTO;
-use App\Modules\Drivers\Domain\Services\TochkaBankService;
 use App\Modules\Transaction\App\Data\ValueObject\QrCodeVO;
 use App\Modules\Transaction\Domain\Actions\CreateQrCodeAction;
 use App\Modules\Transaction\App\Data\ValueObject\TransactionVO;
 use App\Modules\Transaction\Domain\Actions\CreateTransactionAction;
+use App\Modules\Drivers\Domain\Interface\Service\IPaymentDriverService;
 
 class CreateTransactionInteractor extends BaseInteractor
 {
 
-    public function __construct(
-        private TochkaBankService $service,
-    ) { }
+    private IPaymentDriverService $service;
 
+    public function __construct(
+        IPaymentDriverService $service,
+    ) {
+        $this->service = $service;
+    }
 
     /**
      *
@@ -42,18 +44,17 @@ class CreateTransactionInteractor extends BaseInteractor
      */
     protected function run(BaseDTO $dto) : Transaction
     {
-        /** @var BaseDTO */
-        $dtoQr = $dto->dtoQr;
 
         /**
-         * Получаем сформированный ответ от апи
+         * Получаем сформированный ответ от апи (Здесь будет вызываться Сервис в зависимости от Фабричного Метода Transaction)
          * @var QrEntityBase
          *
         */
-        $entity = $this->service->createQr($dto->dtoQr);
+        $entity = $this->service->createQr();
+
 
         /** @var Transaction */
-        $model = DB::transaction(function ($pdo) use ($dto, $dtoQr, $entity) {
+        $model = DB::transaction(function ($pdo) use ($dto, $entity) {
 
             /** @var TransactionVO */
             $transactionVO = $dto->transactionVO;
@@ -70,11 +71,11 @@ class CreateTransactionInteractor extends BaseInteractor
                 QrCodeVO::make(
                     transaction_id: $transaction->id,
                     qr_url: $entity->payload,
-                    qr_type: $dtoQr->qrcType->value,
+                    qr_type: $entity->qrcType->value,
 
-                    ttl: $dtoQr->ttl,
-                    width: $dtoQr->width,
-                    height: $dtoQr->height,
+                    ttl: $entity->ttl,
+                    width: $entity->width,
+                    height: $entity->height,
 
                     name_product: $transaction->name_product,
                     amount: $transactionVO->amount,
