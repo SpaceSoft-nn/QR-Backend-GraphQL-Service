@@ -16,6 +16,9 @@ type PaymentMethod @model(class: "App\\Modules\\Payment\\Domain\\Models\\Payment
 
     active: Boolean!
 
+    "Логотип"
+    png_url: String!
+
     "Название драйвера например: Сбербанк, Точка банк"
     driver_name: String!
 
