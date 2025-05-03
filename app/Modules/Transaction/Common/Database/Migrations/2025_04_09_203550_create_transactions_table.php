@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignUuid('workspace_id')->index()
                 ->constrained('workspaces')->noActionOnDelete();
 
-            $table->foreignUuid('user_id')->index()
+            $table->foreignUuid('user_id')->index()->comment('user - создавший транзакцию')
                 ->constrained('users')->noActionOnDelete();
 
 
