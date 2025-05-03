@@ -10,8 +10,10 @@ use App\Modules\Transaction\Domain\Models\Transaction;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\Transaction\App\Data\DTO\TransactionDTO;
 use App\Modules\Transaction\App\Data\ValueObject\TransactionVO;
+use App\Modules\Transaction\App\Repositories\TransactionRepository;
 use App\Modules\Transaction\Domain\Services\TransactionService;
 use App\Modules\Transaction\Domain\Services\Factory\TransactionServiceFactory;
+use Illuminate\Database\Eloquent\Collection;
 
 class TransactionResolver
 {
@@ -19,6 +21,7 @@ class TransactionResolver
     public function __construct(
         private AuthService $authService,
         private TransactionServiceFactory $transactionServiceFactory,
+        private TransactionRepository $repository,
     ) {}
 
 
@@ -56,6 +59,15 @@ class TransactionResolver
         ));
 
         return $transation;
+    }
+
+    public function index(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : Collection
+    {
+        /** @var Collection|\App\Modules\Transaction\Domain\Models\Transaction[] */
+        $transactions = $this->repository->transactionsByWorkspace($args['workspace_id']);
+
+
+        return $transactions;
     }
 
 }

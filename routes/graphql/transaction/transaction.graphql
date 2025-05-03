@@ -10,6 +10,8 @@ extend type Query {
 
     "Вернуть транзакцию по ID"
     transaction(id: ID! @whereKey): Transaction @find @guard
+    transactions(workspace_id: ID @rules(apply: ["required", "exists:workspaces,id"])): [Transaction]! @guard @field(resolver: "App\\Modules\\Transaction\\Presentation\\HTTP\\Graphql\\Response\\TransactionResolver@index")
+
 
 }
 
