@@ -60,6 +60,9 @@ type Transaction @model(class: "App\\Modules\\Transaction\\Domain\\Models\\Trans
 
     qr_code: QrCode! @belongsTo(relation: "qrCode")
 
+    "пользователь, создавший транзакцию"
+    user: User! @belongsTo(relation: "user")
+
     type_product: String
 
     count_product: String

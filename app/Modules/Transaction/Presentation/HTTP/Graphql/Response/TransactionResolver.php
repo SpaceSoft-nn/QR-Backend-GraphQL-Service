@@ -48,13 +48,17 @@ class TransactionResolver
         $workspace = Workspace::findOrFail($args['workspace_id']);
 
 
-        /** @var TransactionService */
+        /**
+         * Вызываем фабричный метод для формирование конкретного драйвера платежа: Тинькофф, точка банк и т.д
+         * @var TransactionService
+         *
+        */
         $transactionService = $this->transactionServiceFactory::getPaymentDriverService($workspace->paymentMethod->number_id ?? null, $args);
 
 
         /** @var Transaction */
         $transation = $transactionService->createTransaction(TransactionDTO::make(
-            transactionVO: TransactionVO::fromArrayToObject($args),
+            transactionVO: TransactionVO::fromArrayToObject($args, $user),
             user: $user,
         ));
 

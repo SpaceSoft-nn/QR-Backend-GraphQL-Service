@@ -177,6 +177,5 @@ class WorkspaceResolver
         return $workspace;
     }
 
-
 }
 

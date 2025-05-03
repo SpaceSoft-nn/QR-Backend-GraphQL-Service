@@ -2,9 +2,9 @@
 
 namespace App\Modules\Transaction\Domain\Models;
 
-use Illuminate\Support\Str;
 use App\Modules\Base\Money\Money;
 use Illuminate\Database\Eloquent\Model;
+use App\Modules\User\Domain\Models\User;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -29,6 +29,7 @@ class Transaction extends Model
         "amount",
 
         "workspace_id",
+        "user_id",
 
         "type_product",
         "count_product",
@@ -58,6 +59,11 @@ class Transaction extends Model
         });
     }
 
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class, "user_id", "id");
+    }
+
     public function qrCode() : HasOne
     {
         return $this->hasOne(QrCode::class, 'transaction_id', 'id');
@@ -72,4 +78,6 @@ class Transaction extends Model
     {
         return $this->workspace->paymentMethod();
     }
+
+
 }

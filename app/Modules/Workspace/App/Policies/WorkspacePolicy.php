@@ -24,11 +24,31 @@ class WorkspacePolicy
     }
 
     /**
+     * Проверяем принадлежит ли данный пользователь к workspace
+     * @param Workspace $workspace
+     * @param User $user
+     *
+    */
+    public function userHasWorkspace(User $user, Workspace $workspace) : Response
+    {
+
+        $status = UserWorkspace::query()->where('workspace_id', $workspace->id)->where('user_id', $user->id)->exists();
+
+        return ($status)
+        ? Response::allow()
+        : throw new GraphQLBusinessException('Пользователя которого вы пытаетесь удалить из ARM к нему не относится.' , 403);
+
+    }
+
+
+
+    /**
+     * Проверяем имеет ли данный пользователь права на удаление
      * @param Workspace $workspace
      * @param User $user
      *
      */
-    public function userHasWorkspace(User $user, Workspace $workspace) : Response
+    public function userHasWorkspaceDelete(User $user, Workspace $workspace) : Response
     {
         $status = UserWorkspace::query()->where('workspace_id', $workspace->id)->where('user_id', $user->id)->exists();
 
@@ -43,10 +63,8 @@ class WorkspacePolicy
      * @param User $user
      *
      */
-    public function userDontUserOwner(User $userOwner, User $user, ) : Response
+    public function userDontUserOwner(User $userOwner, User $user) : Response
     {
-
-        dd('cer');
 
         return ($userOwner->id === $user->id)
         ? Response::allow()

@@ -17,4 +17,9 @@ enum UserRoleEnum : string
     {
         return self::ADMIN === $enum;
     }
+
+    public static function isCassier(UserRoleEnum $enum) : bool
+    {
+        return self::CASSIER === $enum;
+    }
 }

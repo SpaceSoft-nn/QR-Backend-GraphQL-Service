@@ -21,6 +21,9 @@ return new class extends Migration
             $table->foreignUuid('workspace_id')->index()
                 ->constrained('workspaces')->noActionOnDelete();
 
+            $table->foreignUuid('user_id')->index()
+                ->constrained('users')->noActionOnDelete();
+
 
             $table->string('type_product')->nullable()
                 ->comment('необязательное поле - типа продукта (услуга, товар) ');

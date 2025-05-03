@@ -56,7 +56,7 @@ class DeleteUserWorkspaceInteractor extends BaseInteractor
 
     private function filterCheck(DeleteUserWorkspaceDTO $dto)
     {
-        $this->userHasWorkspace($dto->workspace, $dto->user);
+        $this->userHasWorkspaceDelete($dto->workspace, $dto->user);
         $this->userDontUserOwner($dto->userOwner, $dto->user);
     }
 
@@ -66,9 +66,9 @@ class DeleteUserWorkspaceInteractor extends BaseInteractor
      *
      * @return void
     */
-    private function userHasWorkspace(Workspace $workspace, User $user)
+    private function userHasWorkspaceDelete(Workspace $workspace, User $user)
     {
-        Gate::forUser($user)->authorize('userHasWorkspace', [$workspace]);
+        Gate::forUser($user)->authorize('userHasWorkspaceDelete', [$workspace]);
     }
 
 

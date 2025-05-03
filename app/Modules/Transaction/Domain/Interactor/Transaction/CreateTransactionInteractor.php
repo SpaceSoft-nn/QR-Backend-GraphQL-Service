@@ -14,6 +14,9 @@ use App\Modules\Transaction\Domain\Actions\CreateQrCodeAction;
 use App\Modules\Transaction\App\Data\ValueObject\TransactionVO;
 use App\Modules\Transaction\Domain\Actions\CreateTransactionAction;
 use App\Modules\Drivers\Domain\Interface\Service\IPaymentDriverService;
+use App\Modules\User\Domain\Models\User;
+use App\Modules\Workspace\Domain\Models\Workspace;
+use Illuminate\Support\Facades\Gate;
 
 class CreateTransactionInteractor extends BaseInteractor
 {
@@ -34,6 +37,7 @@ class CreateTransactionInteractor extends BaseInteractor
      */
     public function execute(BaseDTO $dto) : Transaction
     {
+        $this->filterPermission($dto);
         return $this->run($dto);
     }
 
@@ -99,6 +103,25 @@ class CreateTransactionInteractor extends BaseInteractor
     private function createTransaction(TransactionVO $vo) : Transaction
     {
         return CreateTransactionAction::make($vo);
+    }
+
+    private function filterPermission(TransactionDTO $dto)
+    {
+        $this->userHasWorkspace($dto->user, $dto->transactionVO->workspace_id);
+    }
+
+    /**
+     * Проверяем относится ли данный пользователь к workspace
+     * @param User $user
+     * @param Workspace $workspace
+     *
+     * @return bool
+     */
+    private function userHasWorkspace(User $user, string $workspaceId) : bool
+    {
+        Gate::forUser($user)->authorize('userHasWorkspace', [Workspace::find($workspaceId)]);
+
+        return true;
     }
 
 }

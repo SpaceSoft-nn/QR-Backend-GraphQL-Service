@@ -4,6 +4,7 @@ namespace App\Modules\Transaction\App\Data\ValueObject;
 
 use Illuminate\Support\Arr;
 use App\Modules\Base\Money\Money;
+use App\Modules\User\Domain\Models\User;
 use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
 use App\Modules\Transaction\App\Data\Enums\StatusTransactionEnum;
@@ -17,6 +18,7 @@ readonly class TransactionVO implements Arrayable
         public Money $amount,
 
         public string $workspace_id,
+        public string $user_id,
 
         public ?StatusTransactionEnum $status,
         public ?string $type_product,
@@ -25,12 +27,28 @@ readonly class TransactionVO implements Arrayable
 
     ) {}
 
+    public function setUserId(string $userId)
+    {
+        return self::make(
+            amount: $this->amount,
+
+            workspace_id: $this->workspace_id,
+            user_id: $userId,
+
+            status: $this->status,
+            type_product: $this->type_product,
+            count_product: $this->count_product,
+            name_product: $this->name_product,
+        );
+    }
+
 
     public static function make(
 
         string $amount,
 
         string $workspace_id,
+        string $user_id,
 
         ?StatusTransactionEnum $status = StatusTransactionEnum::PENDING,
         ?string $type_product = null,
@@ -48,6 +66,7 @@ readonly class TransactionVO implements Arrayable
             amount: new Money($amount),
 
             workspace_id: $workspace_id,
+            user_id: $user_id,
 
             type_product: $type_product,
             count_product: $count_product,
@@ -64,6 +83,7 @@ readonly class TransactionVO implements Arrayable
             "amount" => $this->amount,
 
             "workspace_id" => $this->workspace_id,
+            "user_id" => $this->user_id,
 
             "type_product" => $this->type_product,
             "count_product" => $this->count_product,
@@ -71,13 +91,15 @@ readonly class TransactionVO implements Arrayable
         ];
     }
 
-    public static function fromArrayToObject(array $data) : self
+    public static function fromArrayToObject(array $data, User $user) : self
     {
+
         return self::make(
             status: Arr::get($data, 'status', StatusTransactionEnum::PENDING),
             amount: Arr::get($data, 'amount'),
 
             workspace_id: Arr::get($data, 'workspace_id'),
+            user_id: $user->id,
 
             type_product: Arr::get($data, 'type_product', null),
             count_product: Arr::get($data, 'count_product', null),

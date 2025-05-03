@@ -12,7 +12,7 @@ class UserPolicy
 {
 
     /**
-     * Провречем что user, не является самим собой
+     * проверяем что user, не является самим собой
      * @param User $userOwner
      * @param User $user
      *
@@ -58,6 +58,19 @@ class UserPolicy
         return ($status)
             ? Response::allow()
             : throw new GraphQLBusinessException('У авторизированного пользователя, нету прав для совершения этого действия' , 403);
+    }
+
+    /**
+     * Проверяем что user - является кассиром
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function userIsCassier(User $user) : bool
+    {
+        $status = UserRoleEnum::isCassier($user->role);
+
+        return $status;
     }
 
 }
