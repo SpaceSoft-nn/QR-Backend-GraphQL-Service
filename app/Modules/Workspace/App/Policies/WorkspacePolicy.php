@@ -29,14 +29,16 @@ class WorkspacePolicy
      * @param User $user
      *
     */
-    public function userHasWorkspace(User $user, Workspace $workspace) : Response
+    public function userHasWorkspace(User $user, Workspace $workspace, ?string $message = null) : Response
     {
 
         $status = UserWorkspace::query()->where('workspace_id', $workspace->id)->where('user_id', $user->id)->exists();
 
+        $message ?? 'Пользователь не относится к данному ARM.';
+
         return ($status)
         ? Response::allow()
-        : throw new GraphQLBusinessException('Пользователя которого вы пытаетесь удалить из ARM к нему не относится.' , 403);
+        : throw new GraphQLBusinessException($message , 403);
 
     }
 
