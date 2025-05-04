@@ -4,11 +4,10 @@ namespace App\Modules\Transaction\App\Repositories;
 
 use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Collection;
-use App\Modules\Workspace\Domain\Models\Workspace;
+use App\Modules\User\App\Data\Enums\UserRoleEnum;
 use App\Modules\Transaction\Domain\Models\Transaction;
 use App\Modules\Base\Interface\Repositories\CoreRepository;
 use App\Modules\Transaction\Domain\Interface\Repositories\ITransactionRepository;
-use App\Modules\User\App\Data\Enums\UserRoleEnum;
 
 final class TransactionRepository extends CoreRepository implements ITransactionRepository
 {

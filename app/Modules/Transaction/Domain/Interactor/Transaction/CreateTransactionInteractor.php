@@ -107,7 +107,10 @@ class CreateTransactionInteractor extends BaseInteractor
 
     private function filterPermission(TransactionDTO $dto)
     {
-        $this->userHasWorkspace($dto->user, $dto->transactionVO->workspace_id);
+        $workspace = Workspace::find($dto->transactionVO->workspace_id);
+
+        $this->userHasWorkspace($dto->user, $workspace->id);
+        $this->userHasCreateTransaction($dto->user, $workspace->id);
     }
 
     /**
@@ -120,6 +123,21 @@ class CreateTransactionInteractor extends BaseInteractor
     private function userHasWorkspace(User $user, string $workspaceId) : bool
     {
         Gate::forUser($user)->authorize('userHasWorkspace', [Workspace::find($workspaceId)]);
+
+        return true;
+    }
+
+    /**
+     * Проверяем, является ли user активным рабочим в ARM - если да, разрешаем ему создавать транзакции.
+     * @param User $user
+     * @param string $workspaceId
+     *
+     * @return bool
+     */
+    private function userHasCreateTransaction(User $user, string $workspaceId) : bool
+    {
+        dd(1);  
+        Gate::forUser($user)->authorize('userHasCreateTransaction', [Workspace::find($workspaceId)]);
 
         return true;
     }
