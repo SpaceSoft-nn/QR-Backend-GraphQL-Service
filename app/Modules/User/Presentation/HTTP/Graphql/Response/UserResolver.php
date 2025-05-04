@@ -29,8 +29,11 @@ class UserResolver
      */
     public function store(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : User
     {
+        dd(1);
+
         //Валидируем
         $date = $this->userValidator->validate($args);
+
 
         /**
          * Получаем User по токену

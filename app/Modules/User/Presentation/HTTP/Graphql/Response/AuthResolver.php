@@ -43,6 +43,7 @@ class AuthResolver
     public function login(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : array
     {
 
+
         /** @var User */
         $user = $this->userService->loginUser(LoginUserDTO::make(
             email: $args['email'] ?? null,

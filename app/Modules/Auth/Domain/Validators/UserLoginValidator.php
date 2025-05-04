@@ -9,8 +9,8 @@ final class UserLoginValidator extends Validator
     public function rules(): array
     {
         return [
-            "email" => ['required', 'sometimes', 'email'],
-            "phone" => ['nullable', 'string', 'min:5'],
+            "email" => ['required', 'sometimes', 'email', "exists:email_lists,value"],
+            "phone" => ['nullable', 'string', 'min:5', "exists:phone_lists,value"],
             "password" => ['required'],
         ];
     }
