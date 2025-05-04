@@ -109,8 +109,8 @@ class CreateTransactionInteractor extends BaseInteractor
     {
         $workspace = Workspace::find($dto->transactionVO->workspace_id);
 
-        $this->userHasWorkspace($dto->user, $workspace->id);
-        $this->userHasCreateTransaction($dto->user, $workspace->id);
+        $this->userHasWorkspace($dto->user, $workspace);
+        $this->userHasCreateTransaction($dto->user, $workspace);
     }
 
     /**
@@ -120,9 +120,9 @@ class CreateTransactionInteractor extends BaseInteractor
      *
      * @return bool
      */
-    private function userHasWorkspace(User $user, string $workspaceId) : bool
+    private function userHasWorkspace(User $user, Workspace $workspace) : bool
     {
-        Gate::forUser($user)->authorize('userHasWorkspace', [Workspace::find($workspaceId)]);
+        Gate::forUser($user)->authorize('userHasWorkspace', [$workspace]);
 
         return true;
     }
@@ -134,10 +134,9 @@ class CreateTransactionInteractor extends BaseInteractor
      *
      * @return bool
      */
-    private function userHasCreateTransaction(User $user, string $workspaceId) : bool
+    private function userHasCreateTransaction(User $user, Workspace $workspace) : bool
     {
-        dd(1);  
-        Gate::forUser($user)->authorize('userHasCreateTransaction', [Workspace::find($workspaceId)]);
+        Gate::forUser($user)->authorize('userHasCreateTransaction', [$workspace]);
 
         return true;
     }

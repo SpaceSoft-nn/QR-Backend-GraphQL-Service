@@ -52,7 +52,6 @@ class AuthResolver
         ));
 
 
-
         /** @var TokeJwtEntity  */
         $tokeJwtEntity = $this->authService->loginUser($user);
 

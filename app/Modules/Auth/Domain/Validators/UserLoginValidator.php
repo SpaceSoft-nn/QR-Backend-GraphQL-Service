@@ -11,7 +11,7 @@ final class UserLoginValidator extends Validator
         return [
             "email" => ['required', 'sometimes', 'email', "exists:email_lists,value"],
             "phone" => ['nullable', 'string', 'min:5', "exists:phone_lists,value"],
-            "password" => ['required'],
+            "password" => ['required', 'string'],
         ];
     }
 
