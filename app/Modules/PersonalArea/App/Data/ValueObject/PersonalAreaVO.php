@@ -13,7 +13,6 @@ readonly class PersonalAreaVO implements Arrayable
 
     public function __construct(
 
-        public string $subscription_id,
         public string $owner_id,
         public ?Money $balance,
 
@@ -22,7 +21,6 @@ readonly class PersonalAreaVO implements Arrayable
 
     public static function make(
 
-        string $subscription_id,
         string $owner_id,
         int|string|float|null $balance = null,
 
@@ -32,7 +30,6 @@ readonly class PersonalAreaVO implements Arrayable
         if(is_null($balance)) { $balance = new Money(0); }
 
         return new self(
-            subscription_id: $subscription_id,
             owner_id: $owner_id,
             balance: new Money($balance),
         );
@@ -42,7 +39,6 @@ readonly class PersonalAreaVO implements Arrayable
     public function toArray() : array
     {
         return [
-            "subscription_id" => $this->subscription_id,
             "owner_id" => $this->owner_id,
             "balance" => (string) $this->balance,
         ];

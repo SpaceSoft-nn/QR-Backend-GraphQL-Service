@@ -7,7 +7,7 @@ type PersonalArea @model(class: "App\\Modules\\PersonalArea\\Domain\\Models\\Per
 
     balance: String!
 
-    subscription: SubscriptionPlan! @belongsTo
+    subscription: SubscriptionPlan! @hasOne
 
     created_at: Date!
 

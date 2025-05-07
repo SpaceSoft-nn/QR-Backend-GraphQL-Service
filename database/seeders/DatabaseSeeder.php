@@ -13,6 +13,8 @@ use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\Pivot\Domain\Actions\UserWorkspace\LinkUserToWorkspace;
 use App\Modules\Pivot\Domain\Actions\UserOrganization\LinkUserToOrganization;
 use App\Modules\Pivot\Domain\Actions\PersonalAreaUser\LinkUserToPersonalAreaAction;
+use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
+use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
 class DatabaseSeeder extends Seeder
 {
@@ -35,9 +37,15 @@ class DatabaseSeeder extends Seeder
 
                 //создаём личный кабинет
                 {
-                    $personalArea = PersonalArea::factory()->create([
-                        'owner_id' => $user->id,
-                    ]);
+                    $personalArea = PersonalArea::factory()
+                        ->afterCreating(function ($model) {
+                            SubscriptionPlan::factory()->create([
+                                "personal_area_id" => $model->id,
+                            ]);
+                        })
+                        ->create([
+                            'owner_id' => $user->id,
+                        ]);
                     $user->personalAreas()->attach($personalArea->id);
                 }
 
@@ -91,8 +99,10 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
         ]);
 
+
         $this->call([
             \App\Modules\Payment\Common\Database\Seeders\DriverInfoSeed::class,
+            \App\Modules\Subscription\Common\Database\Seeders\TariffSeed::class,
         ]);
 
     }

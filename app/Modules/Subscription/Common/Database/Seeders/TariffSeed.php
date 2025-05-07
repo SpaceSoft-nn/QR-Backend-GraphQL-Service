@@ -17,12 +17,12 @@ final class TariffSeed extends Seeder
     private function createDriverInfo()
     {
 
-        TariffPackage::factory()->create([
+        $status = TariffPackage::factory()->create([
             "name_tariff" => "package",
             "price" => 498,
             "payment_limit" => 50,
             "description" => "50 Оплат - на 1 месяц",
-            "period" => MonthTariffEnum::ONEMONTH,
+            "period" => MonthTariffEnum::ONEMONTH->getDays(),
         ]);
 
         TariffPackage::factory()->create([
@@ -30,7 +30,7 @@ final class TariffSeed extends Seeder
             "price" => 1398,
             "payment_limit" => 150,
             "description" => "150 Оплат - на 3 месяца",
-            "period" => MonthTariffEnum::THREEMONTH,
+            "period" => MonthTariffEnum::THREEMONTH->getDays(),
         ]);
 
         TariffPackage::factory()->create([
@@ -38,7 +38,7 @@ final class TariffSeed extends Seeder
             "price" => 799,
             "payment_limit" => 100,
             "description" => "100 Оплат - на 1 месяц",
-            "period" => MonthTariffEnum::ONEMONTH,
+            "period" => MonthTariffEnum::ONEMONTH->getDays(),
         ]);
 
         //
@@ -48,7 +48,7 @@ final class TariffSeed extends Seeder
             "price" => 2199,
             "payment_limit" => 300,
             "description" => "300 Оплат - на 3 месяца",
-            "period" => MonthTariffEnum::THREEMONTH,
+            "period" => MonthTariffEnum::THREEMONTH->getDays(),
         ]);
 
         TariffPackage::factory()->create([
@@ -56,7 +56,7 @@ final class TariffSeed extends Seeder
             "price" => 2498,
             "payment_limit" => 500,
             "description" => "500 Оплат - на 3 месяца",
-            "period" => MonthTariffEnum::THREEMONTH,
+            "period" => MonthTariffEnum::THREEMONTH->getDays(),
         ]);
 
         TariffPackage::factory()->create([
@@ -64,15 +64,15 @@ final class TariffSeed extends Seeder
             "price" => 5998,
             "payment_limit" => 1500,
             "description" => "1500 Оплат - на 6 месяцев",
-            "period" => MonthTariffEnum::SIXMONTH,
+            "period" => MonthTariffEnum::SIXMONTH->getDays(),
         ]);
 
         TariffPackage::factory()->create([
             "name_tariff" => "package",
             "price" => 11998,
             "payment_limit" => 4000,
-            "description" => "300 Оплат - на 12 месяцев",
-            "period" => MonthTariffEnum::TWELVEMONTH,
+            "description" => "4000 Оплат - на 12 месяцев",
+            "period" => MonthTariffEnum::TWELVEMONTH->getDays(),
         ]);
 
         //
@@ -82,7 +82,7 @@ final class TariffSeed extends Seeder
             "price" => 3998,
             "payment_limit" => 1000,
             "description" => "1000 Оплат - на 3 месяца",
-            "period" => MonthTariffEnum::THREEMONTH,
+            "period" => MonthTariffEnum::THREEMONTH->getDays(),
         ]);
 
         TariffPackage::factory()->create([
@@ -90,7 +90,7 @@ final class TariffSeed extends Seeder
             "price" => 6998,
             "payment_limit" => 2500,
             "description" => "2500 Оплат - на 6 месяцев",
-            "period" => MonthTariffEnum::SIXMONTH,
+            "period" => MonthTariffEnum::SIXMONTH->getDays(),
         ]);
 
         TariffPackage::factory()->create([
@@ -98,7 +98,7 @@ final class TariffSeed extends Seeder
             "price" => 14998,
             "payment_limit" => 6000,
             "description" => "6000 Оплат - на 12 месяцев",
-            "period" => MonthTariffEnum::TWELVEMONTH,
+            "period" => MonthTariffEnum::TWELVEMONTH->getDays(),
         ]);
 
         //
@@ -108,7 +108,7 @@ final class TariffSeed extends Seeder
             "price" => 17998,
             "payment_limit" => 10000,
             "description" => "10000 Оплат - на 12 месяцев",
-            "period" => MonthTariffEnum::TWELVEMONTH,
+            "period" => MonthTariffEnum::TWELVEMONTH->getDays(),
         ]);
 
 

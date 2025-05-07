@@ -15,12 +15,12 @@ return new class extends Migration
             $table->increments('number_id')->unique()->comment('Номер тарифа для удобности');
 
             $table->string('name_tariff')
-                ->nullable()
-                ->unique()->comment("Название тарифа");
+                ->default('workspace')
+                ->nullable()->comment("Название тарифа");
 
             $table->decimal('price', 10, 2);
             $table->decimal('price_discount', 10, 2)->nullable()->comment('Сумма подсчета со скидкой');
-            
+
             $table->unsignedSmallInteger('count_workspace')->comment('Количество рабочих мест');
             $table->unsignedSmallInteger('discount')->default(0)->count("Скидка для данного тарифа");
 

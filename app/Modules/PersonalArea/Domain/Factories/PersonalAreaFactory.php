@@ -19,11 +19,7 @@ class PersonalAreaFactory extends Factory
         /** @var User */
         $user = User::factory()->create();
 
-        /** @var Subscription */
-        $subscription = SubscriptionPlan::factory()->create();
-
         $personalAreaVO = PersonalAreaVO::make(
-            subscription_id: $subscription->id,
             owner_id: $user->id,
             balance: 0,
         );

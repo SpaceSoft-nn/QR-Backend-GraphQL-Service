@@ -17,8 +17,8 @@ return new class extends Migration
             $table->increments('number_id')->unique()->comment('Номер тарифа для удобности');
 
             $table->string('name_tariff')
-                ->nullable()
-                ->unique()->comment("Название тарифа");
+                ->default('package')
+                ->nullable()->comment("Название тарифа");
 
             $table->decimal('price', 10, 2);
 

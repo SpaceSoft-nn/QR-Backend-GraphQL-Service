@@ -23,8 +23,8 @@ return new class extends Migration
 
             $table->date('expires_at')->nullable(); //устанавливаем дефолтное недостижмое время для стандартного Subscription
 
-            $table->date('count_workspace')->default(5)->nullable()->comment("Устанавливаем счетчик для подсчета максимального количество workspace");
-            $table->date('payment_limit')->default(50)->nullable()->comment("Устанавливаем счетчик для подсчета максимального количество оплат (транзакций)");
+            $table->unsignedInteger('count_workspace')->default(5)->nullable()->comment("Устанавливаем счетчик для подсчета максимального количество workspace");
+            $table->unsignedInteger('payment_limit')->default(50)->nullable()->comment("Устанавливаем счетчик для подсчета максимального количество оплат (транзакций)");
 
             $table->timestamps();
 
