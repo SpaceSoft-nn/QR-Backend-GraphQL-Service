@@ -77,5 +77,19 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
 
 }
 
+"Типы подписок по времени (месяца)"
+enum UserRoleEnum {
+    "1 Месяц"
+    ONENONTH
+
+    "3 Месяца"
+    THREEMONTH,
+
+    "6 Месяцев"
+    SIXMONTH,
+
+    "312 Месяцев"
+    TWELVEMONTH,
+}
 
 
