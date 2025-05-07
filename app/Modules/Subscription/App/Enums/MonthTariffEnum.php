@@ -6,7 +6,7 @@ use App\Modules\Base\Money\Money;
 
 enum MonthTariffEnum : int
 {
-    case ONENONTH = 1;
+    case ONEMONTH = 1;
 
     case THREEMONTH = 3;
 
@@ -21,7 +21,7 @@ enum MonthTariffEnum : int
     public function getDays(): int
     {
         return match($this) {
-            self::ONENONTH => 30,
+            self::ONEMONTH => 30,
             self::THREEMONTH => 90,
             self::SIXMONTH => 180,
             self::TWELVEMONTH => 360,
@@ -35,7 +35,7 @@ enum MonthTariffEnum : int
     public function getPriceForWorkspace(): Money
     {
         return match($this) {
-            self::ONENONTH => new Money(799),
+            self::ONEMONTH => new Money(799),
             self::THREEMONTH => new Money(2199),
             self::SIXMONTH => new Money(4197),
             self::TWELVEMONTH => new Money(7998),

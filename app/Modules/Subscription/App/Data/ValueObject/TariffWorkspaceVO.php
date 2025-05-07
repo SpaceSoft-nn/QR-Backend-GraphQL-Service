@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
 use App\Modules\Subscription\App\Enums\MonthTariffEnum;
 
-final readonly class SubscriptionVO implements Arrayable
+final readonly class TariffWorkspaceVO implements Arrayable
 {
     use FilterArrayTrait;
 
@@ -29,7 +29,7 @@ final readonly class SubscriptionVO implements Arrayable
 
     public static function make(
 
-        string $name_tariff,
+        ?string $name_tariff = "workspace",
 
         string $price,
         string $price_discount,
@@ -44,14 +44,12 @@ final readonly class SubscriptionVO implements Arrayable
 
     ) : self {
 
-        
-
 
         return new self(
 
             name_tariff: $name_tariff,
-            price: $price,
-            price_discount: $price_discount,
+            price: new Money($price),
+            price_discount: new Money($price_discount),
             discount: $discount,
             count_workspace: $count_workspace,
             description: $description,

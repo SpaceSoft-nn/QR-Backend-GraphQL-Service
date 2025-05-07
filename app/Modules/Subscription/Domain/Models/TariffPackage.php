@@ -2,7 +2,8 @@
 
 namespace App\Modules\Subscription\Domain\Models;
 
-
+use App\Modules\Base\Money\Money;
+use App\Modules\Subscription\Domain\Factories\TariffPackageFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,16 +13,16 @@ class TariffPackage extends Model
 {
     use HasFactory, HasUuids;
 
-    // protected static function newFactory()
-    // {
-    //     return SubscriptionPlanFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return TariffPackageFactory::new();
+    }
 
     protected $table = 'tariff_packages';
 
     protected $fillable = [
 
-        "number_id",
+
         "name_tariff",
         "price",
         "payment_limit",
@@ -31,6 +32,7 @@ class TariffPackage extends Model
     ];
 
     protected $guarded = [
+        "number_id",
         'id',
         'created_at',
         'updated_at',
@@ -41,7 +43,7 @@ class TariffPackage extends Model
     ];
 
     protected $casts = [
-        // "price" => Money::class,
+        "price" => Money::class,
     ];
 
     public function subscription(): MorphMany

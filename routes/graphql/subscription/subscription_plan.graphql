@@ -59,6 +59,9 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
     "Оставшиеся количество свободных АРМ для создания"
     price: String!
 
+    "Сумма со скидкой"
+    price_discount: String
+
     "Оставшиеся количество успешных оплат"
     count_workspace: Int!
 
@@ -80,7 +83,7 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
 "Типы подписок по времени (месяца)"
 enum UserRoleEnum {
     "1 Месяц"
-    ONENONTH
+    ONEMONTH
 
     "3 Месяца"
     THREEMONTH,
