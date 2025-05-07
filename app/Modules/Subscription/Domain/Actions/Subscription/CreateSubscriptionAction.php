@@ -20,10 +20,7 @@ class CreateSubscriptionAction
 
         try {
 
-            $model = SubscriptionPlan::query()->firstOrCreate(
-                ['plan_name' => $vo->plan_name],
-                ['price' => $vo->price]
-            );
+            $model = SubscriptionPlan::query()->firstOrCreate($vo->toArrayNotNull());
 
         } catch (\Throwable $th) {
 
