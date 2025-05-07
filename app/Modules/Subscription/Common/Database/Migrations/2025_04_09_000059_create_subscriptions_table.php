@@ -13,20 +13,24 @@ return new class extends Migration
 
             $table->uuid('id')->primary();
 
-            $table->string('plan_name');
+            $table->string('plan_name')->default("basic");
 
-            $table->decimal('price', 10, 2);
+
+            $table->foreignUuid('personal_area_id')->index()
+                ->constrained('personal_areas');
+
+            $table->nullableUuidMorphs("subscriptionable");
 
             $table->date('expires_at')->nullable(); //устанавливаем дефолтное недостижмое время для стандартного Subscription
+
+            $table->date('count_workspace')->default(5)->nullable()->comment("Устанавливаем счетчик для подсчета максимального количество workspace");
+            $table->date('payment_limit')->default(50)->nullable()->comment("Устанавливаем счетчик для подсчета максимального количество оплат (транзакций)");
 
             $table->timestamps();
 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('subscriptions');

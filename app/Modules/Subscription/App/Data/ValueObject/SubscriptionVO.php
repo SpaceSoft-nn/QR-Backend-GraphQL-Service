@@ -13,7 +13,14 @@ final readonly class SubscriptionVO implements Arrayable
     public function __construct(
 
         public ?string $plan_name,
-        public ?Money $price,
+        public string $personal_area_id,
+
+        public ?string $subscriptionable_id,
+        public ?string $subscriptionable_type,
+
+        public ?int $count_workspace,
+        public ?int $payment_limit,
+
         public ?string $expires_at,
 
     ) {}
@@ -21,18 +28,27 @@ final readonly class SubscriptionVO implements Arrayable
     public static function make(
 
         ?string $plan_name = "basic",
-        int|string|float|null $price = null,
-        ?string $expires_at = null,
+        string $personal_area_id,
+
+        ?string $subscriptionable_id,
+        ?string $subscriptionable_type,
+
+        ?int $count_workspace,
+        ?int $payment_limit,
+
+        ?string $expires_at,
 
     ) : self {
-
-        if(is_null($price)) { $price = new Money(0); }
 
 
         return new self(
 
             plan_name: $plan_name,
-            price: new Money($price),
+            personal_area_id: $personal_area_id,
+            subscriptionable_id: $subscriptionable_id,
+            subscriptionable_type: $subscriptionable_type,
+            count_workspace: $count_workspace,
+            payment_limit: $payment_limit,
             expires_at: $expires_at,
 
         );
@@ -43,7 +59,11 @@ final readonly class SubscriptionVO implements Arrayable
     {
         return [
             "plan_name" => $this->plan_name,
-            "price" => (string) $this->price,
+            "personal_area_id" => $this->personal_area_id,
+            "subscriptionable_id" => $this->subscriptionable_id,
+            "subscriptionable_type" => $this->subscriptionable_type,
+            "count_workspace" => $this->count_workspace,
+            "payment_limit" => $this->payment_limit,
             "expires_at" => $this->expires_at,
         ];
     }

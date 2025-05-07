@@ -5,7 +5,13 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
 
     plan_name: String!
 
-    price: String!
+    personalArea: @belongTo
+
+    "Оставшиеся количество свободных АРМ для создания"
+    count_workspace: Int!
+
+    "Оставшиеся количество успешных оплат"
+    payment_limit: Int!
 
     "Дата окончания подписки, если null - подписка не ограничена"
     expires_at: Date
@@ -15,4 +21,61 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
     updated_at: Date!
 
 }
+
+"Тариф Тип 1: с ограничением на число оплат"
+type TariffPackage @model(class: "App\\Modules\\Subscription\\Domain\\Models\\TariffPackage") {
+
+    id: ID!
+
+    number_id: String!
+
+    name_tariff: String!
+
+    "Оставшиеся количество свободных АРМ для создания"
+    count_workspace: Int!
+
+    "Оставшиеся количество успешных оплат"
+    payment_limit: Int!
+
+    "Дата окончания подписки, если null - подписка не ограничена"
+    expires_at: Date
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+
+"Тариф Тип 2: неограниченные оплаты, ограниченные АРМ"
+type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\TariffWorkspace") {
+
+    id: ID!
+
+    number_id: int!
+
+    "Название тарифа"
+    name_tariff: String
+
+    "Оставшиеся количество свободных АРМ для создания"
+    price: String!
+
+    "Оставшиеся количество успешных оплат"
+    count_workspace: Int!
+
+    "Скидка для данного тарифа"
+    discount: Date
+
+    "Описание"
+    description: String
+
+    "Количество дней активации: например 30 (1 месяц), 90 дней (3 месяца) и т.д"
+    period: Int!
+
+    created_at: Date!
+
+    updated_at: Date!
+
+}
+
+
 

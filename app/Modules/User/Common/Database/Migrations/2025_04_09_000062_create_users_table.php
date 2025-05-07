@@ -28,7 +28,7 @@ return new class extends Migration
             $table->boolean('auth')->default(false)->comment('Активирован ли через подтврждения email/phone');
 
             $table->foreignUuid('personal_area_id')->index()->nullable()
-                ->constrained('personal_areas')->onDelete('cascade');;
+                ->constrained('personal_areas')->onDelete('cascade');
 
             $table->foreignUuid('email_id')->index()->nullable()
                 ->constrained('email_lists');

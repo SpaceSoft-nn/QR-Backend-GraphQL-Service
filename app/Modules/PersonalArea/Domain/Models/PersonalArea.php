@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PersonalArea extends Model
 {
@@ -56,9 +57,9 @@ class PersonalArea extends Model
         return $this->belongsTo(User::class, 'owner_id', 'id');
     }
 
-    public function subscription() : BelongsTo
+    public function subscription() : HasOne
     {
-        return $this->belongsTo(SubscriptionPlan::class, 'subscription_id', 'id');
+        return $this->hasOne(SubscriptionPlan::class, 'personal_area_id', 'id');
     }
 
     public function balanceLogs() : HasMany

@@ -2,13 +2,13 @@
 
 namespace App\Modules\Subscription\Domain\Models;
 
-use App\Modules\Base\Money\Money;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\Subscription\Domain\Factories\SubscriptionPlanFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class SubscriptionPlan extends Model
 {
@@ -24,7 +24,14 @@ class SubscriptionPlan extends Model
     protected $fillable = [
 
         "plan_name",
-        "price",
+        "personal_area_id",
+
+        "subscriptionable_id",
+        "subscriptionable_type",
+
+        "count_workspace",
+        "payment_limit",
+
         "expires_at",
 
     ];
@@ -40,11 +47,16 @@ class SubscriptionPlan extends Model
     ];
 
     protected $casts = [
-        "price" => Money::class,
+        // "price" => Money::class,
     ];
 
-    public function PersonalAreas() : HasMany
+    public function personalArea() : BelongsTo
     {
-        return $this->HasMany(PersonalArea::class, 'subscription_id', 'id');
+        return $this->belongsTo(PersonalArea::class, 'personal_area_id', 'id');
+    }
+
+    public function subscriptionable(): MorphTo
+    {
+        return $this->morphTo();
     }
 }

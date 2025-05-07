@@ -14,6 +14,7 @@ class SubscriptionServiceProvider extends ServiceProvider
         if($this->app->runningInConsole()){
 
             $this->loadMigrationsFrom(dirname(__DIR__) . '/..' . '/Common' . '/Database' . "/Migrations");
+            $this->loadMigrationsFrom(dirname(__DIR__) . '/..' . '/Common' . '/Database' . "/Migrations" . "/Tariff");
 
         }
     }
