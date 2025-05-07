@@ -5,7 +5,10 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
 
     plan_name: String!
 
-    personalArea: @belongTo
+    personalArea: @belongTo!
+
+    "Вернуть выбранный тариф"
+    subscriptionable: @morphTo
 
     "Оставшиеся количество свободных АРМ для создания"
     count_workspace: Int!
@@ -30,6 +33,9 @@ type TariffPackage @model(class: "App\\Modules\\Subscription\\Domain\\Models\\Ta
     number_id: String!
 
     name_tariff: String!
+
+    "Возвращает все подписки которые привязаны к этому таррифу"
+    subscription: @morphMany
 
     "Оставшиеся количество свободных АРМ для создания"
     count_workspace: Int!
@@ -61,6 +67,9 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
 
     "Сумма со скидкой"
     price_discount: String
+
+    "Возвращает все подписки которые привязаны к этому тарифу"
+    subscription: @morphMany
 
     "Оставшиеся количество успешных оплат"
     count_workspace: Int!
