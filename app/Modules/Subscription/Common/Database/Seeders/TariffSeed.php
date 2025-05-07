@@ -41,6 +41,8 @@ final class TariffSeed extends Seeder
             "period" => MonthTariffEnum::ONEMONTH,
         ]);
 
+        //
+
         TariffPackage::factory()->create([
             "name_tariff" => "package",
             "price" => 2199,
@@ -100,6 +102,14 @@ final class TariffSeed extends Seeder
         ]);
 
         //
+
+        TariffPackage::factory()->create([
+            "name_tariff" => "package",
+            "price" => 17998,
+            "payment_limit" => 10000,
+            "description" => "10000 Оплат - на 12 месяцев",
+            "period" => MonthTariffEnum::TWELVEMONTH,
+        ]);
 
 
 
