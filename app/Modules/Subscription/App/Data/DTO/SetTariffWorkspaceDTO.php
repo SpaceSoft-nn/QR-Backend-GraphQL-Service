@@ -3,15 +3,16 @@
 namespace App\Modules\Subscription\App\Data\DTO;
 
 use App\Modules\Base\DTO\BaseDTO;
-use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\User\Domain\Models\User;
+use App\Modules\PersonalArea\Domain\Models\PersonalArea;
+use App\Modules\Subscription\App\Data\ValueObject\TariffWorkspaceVO;
 
-class SetTariffPackageDTO extends BaseDTO
+class SetTariffWorkspaceDTO extends BaseDTO
 {
     public function __construct(
 
         public User $user,
-        public int $number_id,
+        public TariffWorkspaceVO $tariffWorkspaceVO,
         public PersonalArea $personalArea,
 
     ){ }
@@ -19,7 +20,7 @@ class SetTariffPackageDTO extends BaseDTO
     public static function make(
 
         User $user,
-        int $number_id,
+        TariffWorkspaceVO $tariffWorkspaceVO,
         PersonalArea $personalArea,
 
     ) : self {
@@ -27,7 +28,7 @@ class SetTariffPackageDTO extends BaseDTO
 
         return new self(
             user: $user,
-            number_id: $number_id,
+            tariffWorkspaceVO: $tariffWorkspaceVO,
             personalArea: $personalArea,
         );
     }

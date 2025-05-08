@@ -2,11 +2,11 @@
 
 namespace App\Modules\Subscription\Domain\Services\Base;
 
-use App\Modules\Subscription\Domain\Services\TariffPackegService;
 use App\Modules\Subscription\Domain\Services\TariffWorkspaceService;
 use App\Modules\Subscription\Domain\Exceptions\ErrorFactoryException;
 
 use App\Modules\Subscription\Domain\Interface\Service\ITariffService;
+use App\Modules\Subscription\Domain\Services\TariffPackegeService;
 
 class FactoryTariffService
 {
@@ -21,7 +21,7 @@ class FactoryTariffService
 
         return match($name_tariff) {
 
-            'package' => app(TariffPackegService::class),
+            'package' => app(TariffPackegeService::class),
             'workspace' => app(TariffWorkspaceService::class),
             default => throw new ErrorFactoryException('Ошибка при выборе сервиса тарифа, не правильно переданное имя тарифа.', 500),
 

@@ -4,9 +4,12 @@ namespace App\Modules\Transaction\Domain\Interactor\Transaction;
 
 use App\Modules\Base\DTO\BaseDTO;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use App\Modules\User\Domain\Models\User;
 use App\Modules\Base\Entity\QrEntityBase;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Transaction\Domain\Models\QrCode;
+use App\Modules\Workspace\Domain\Models\Workspace;
 use App\Modules\Transaction\Domain\Models\Transaction;
 use App\Modules\Transaction\App\Data\DTO\TransactionDTO;
 use App\Modules\Transaction\App\Data\ValueObject\QrCodeVO;
@@ -14,9 +17,6 @@ use App\Modules\Transaction\Domain\Actions\CreateQrCodeAction;
 use App\Modules\Transaction\App\Data\ValueObject\TransactionVO;
 use App\Modules\Transaction\Domain\Actions\CreateTransactionAction;
 use App\Modules\Drivers\Domain\Interface\Service\IPaymentDriverService;
-use App\Modules\User\Domain\Models\User;
-use App\Modules\Workspace\Domain\Models\Workspace;
-use Illuminate\Support\Facades\Gate;
 
 class CreateTransactionInteractor extends BaseInteractor
 {
