@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Modules\Drivers\Domain\Interactor\CreateQrInteractor;
-use App\Modules\Drivers\Domain\Services\TochkaBankService;
 use Illuminate\Console\Command;
-
+use App\Modules\PersonalArea\Domain\Models\PersonalArea;
+use App\Modules\Subscription\Domain\Models\TariffPackage;
+use App\Modules\Subscription\Domain\Models\TariffWorkspace;
 
 class GoCommand extends Command
 {
@@ -17,12 +17,8 @@ class GoCommand extends Command
 
     public function handle()
     {
-        /** @var TochkaBankService */
-        $serv = app(TochkaBankService::class);
 
-        $status = $serv->createQr();
 
-        dd($status);
     }
 
     private function missingNumber(array $nums) {

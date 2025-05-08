@@ -27,7 +27,7 @@ final readonly class SubscriptionVO implements Arrayable
 
     public static function make(
 
-        ?string $plan_name = "basic",
+
         string $personal_area_id,
 
         ?string $subscriptionable_id,
@@ -37,6 +37,8 @@ final readonly class SubscriptionVO implements Arrayable
         ?int $payment_limit,
 
         ?string $expires_at,
+        
+        ?string $plan_name = "basic",
 
     ) : self {
 

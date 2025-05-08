@@ -23,7 +23,7 @@ class TariffWorkspaceFactory extends Factory
             count_workspace: 1,
             discount: 0,
             description: "Подписка на 1 АРМ",
-            period: "ONENONTH",
+            period: 1,
         );
 
         return $subscriptionVO->toArrayNotNull();

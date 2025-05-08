@@ -54,35 +54,48 @@ class CreatePersonalAreaInteractor extends BaseInteractor
             */
             $balance = 0;
 
-            /** @var SubscriptionPlan */
-            $subscriptionPlan = $this->createSubscription(
-                SubscriptionVO::make()
-            );
-
 
             /** @var PersonalArea */
             $personalArea = $this->createPersonalArea(
                 PersonalAreaVO::make(
-                    subscription_id: $subscriptionPlan->id,
                     owner_id: $user->id,
                     balance: $balance,
                 )
             );
 
             /**
-             * записываем первоначальный лог баланс
-             *  @var BalanceLog
+             * Устанавливаем базову подписку для личного кабинета
+             * @var SubscriptionPlan
             */
-            $balanceLog = $this->createBalanceLog(BalanceLogVO::make(
+            $subscription = $this->createSubscriptionPlan(SubscriptionVO::make(
                 personal_area_id: $personalArea->id,
-                balance_before: $balance,
-                balance_after: $balance,
-                amount: $balance,
-                operation: OperationBalanceEnum::setbalance,
+                plan_name: null,
+                subscriptionable_id: null,
+                subscriptionable_type: null,
+                count_workspace: null,
+                payment_limit: null,
+                expires_at: null,
             ));
 
             //устанавливаем связь многие ко многим
             $status = LinkUserToPersonalAreaAction::run($user, $personalArea);
+
+
+            { // Установка баланса
+
+                /**
+                 * записываем первоначальный лог баланс - вывести в observer + event
+                 *  @var BalanceLog
+                */
+                $balanceLog = $this->createBalanceLog(BalanceLogVO::make(
+                    personal_area_id: $personalArea->id,
+                    balance_before: $balance,
+                    balance_after: $balance,
+                    amount: $balance,
+                    operation: OperationBalanceEnum::SETBALANCE,
+                ));
+
+            }
 
             return $personalArea;
         });
@@ -100,8 +113,9 @@ class CreatePersonalAreaInteractor extends BaseInteractor
         return CreateBalanceLogAction::make($balanceLogVO);
     }
 
-    private function createSubscription(SubscriptionVO $subscriptionVO) : SubscriptionPlan
+
+    private function createSubscriptionPlan(SubscriptionVO $vo) : SubscriptionPlan
     {
-        return CreateSubscriptionAction::make($subscriptionVO);
+        return CreateSubscriptionAction::make($vo);
     }
 }

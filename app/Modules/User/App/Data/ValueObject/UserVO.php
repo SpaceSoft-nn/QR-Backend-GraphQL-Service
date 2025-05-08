@@ -131,7 +131,7 @@ readonly class UserVO implements Arrayable
         $last_name =  Arr::get($data, 'last_name');
         $father_name =  Arr::get($data, 'father_name');
         $password =  Arr::get($data, 'password');
-        $role =  UserRoleEnum::from(Arr::get($data, 'role', 'admin'));
+        $role =  UserRoleEnum::from(Arr::get($data, 'role', 'ADMIN'));
         $email_id = Arr::get($data, 'email_user' , null);
         $phone_id = Arr::get($data, 'phone_user' , null);
 

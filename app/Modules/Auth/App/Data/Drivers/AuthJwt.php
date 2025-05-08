@@ -197,8 +197,8 @@ class AuthJwt implements AuthInterface
         return TokeJwtEntity::make(
             access_token: $token,
             token_type: 'Bearer JWT',
-            expiresInMinutesAcc: $expiresInMinutesAcc,
-            expiresInMinutesRef: $expiresInMinutesRef,
+            expiresInMinutesAcc: intval($expiresInMinutesAcc),
+            expiresInMinutesRef: intval($expiresInMinutesRef),
         );
     }
 

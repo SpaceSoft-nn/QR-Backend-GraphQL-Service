@@ -29,21 +29,19 @@ final readonly class TariffWorkspaceVO implements Arrayable
 
     public static function make(
 
-        ?string $name_tariff = "workspace",
-
         string $price,
         string $price_discount,
-        ?int $discount = 0,
 
         int $count_workspace,
-
-        ?string $description,
-
         string $period,
 
 
-    ) : self {
+        ?string $description,
+        ?int $discount = 0,
+        ?string $name_tariff = "workspace",
 
+
+    ) : self {
 
         return new self(
 

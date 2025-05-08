@@ -1,3 +1,16 @@
+extend type Mutation {
+
+    setTariffPackage(number_id: Int! @rules(apply: ["required", "integer", "exists:tariff_packages,number_id"])): TariffPackage! @field(resolver: "App\\Modules\\Subscription\\Presentation\\HTTP\\Graphql\\Response\\TrafficResolver@setTariffPackage") @guard
+}
+
+
+extend type Query {
+
+    "Вернуть все возможные тарифы Package"
+    tariffPackages: [TariffPackage!]! @all @guard
+}
+
+
 
 type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\\SubscriptionPlan") {
 
@@ -27,8 +40,6 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
 
 union Subscriptionable = TariffPackage | TariffWorkspace
 
-
-
 # "Тариф Тип 1: с ограничением на число оплат"
 type TariffPackage @model(class: "App\\Modules\\Subscription\\Domain\\Models\\TariffPackage") {
 
@@ -38,11 +49,8 @@ type TariffPackage @model(class: "App\\Modules\\Subscription\\Domain\\Models\\Ta
 
     name_tariff: String!
 
-    "Оставшиеся количество свободных АРМ для создания"
-    count_workspace: Int!
-
     "Возвращает все подписки которые привязаны к этому тарифу"
-    subscription: SubscriptionPlan @morphMany
+    subscription: [SubscriptionPlan]! @morphMany(relation: "subscription")
 
     "Оставшиеся количество успешных оплат"
     payment_limit: Int!
@@ -73,7 +81,7 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
     price_discount: String
 
     "Возвращает все подписки которые привязаны к этому тарифу"
-    subscription: SubscriptionPlan @morphMany
+    subscription: [SubscriptionPlan]! @morphMany(relation: "subscription")
 
     "Оставшиеся количество успешных оплат"
     count_workspace: Int!
