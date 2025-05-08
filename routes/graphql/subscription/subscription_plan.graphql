@@ -1,6 +1,9 @@
 extend type Mutation {
 
-    setTariffPackage(number_id: Int! @rules(apply: ["required", "integer", "exists:tariff_packages,number_id"])): TariffPackage! @field(resolver: "App\\Modules\\Subscription\\Presentation\\HTTP\\Graphql\\Response\\TrafficResolver@setTariffPackage") @guard
+    setTariffPackage(
+        number_id: Int! @rules(apply: ["required", "integer", "exists:tariff_packages,number_id"]),
+        personal_area_id: ID! @rules(apply: ["required", "uuid", "exists:personal_areas,id"])
+    ): TariffPackage! @field(resolver: "App\\Modules\\Subscription\\Presentation\\HTTP\\Graphql\\Response\\TrafficResolver@setTariffPackage") @guard
 }
 
 
