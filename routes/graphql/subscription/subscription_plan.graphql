@@ -5,10 +5,10 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
 
     plan_name: String!
 
-    personalArea: @belongTo!
+    personal_area: PersonalArea! @belongsTo(relation: "personalArea")
 
     "Вернуть выбранный тариф"
-    subscriptionable: @morphTo
+    subscriptionable: Subscriptionable @morphTo
 
     "Оставшиеся количество свободных АРМ для создания"
     count_workspace: Int!
@@ -25,20 +25,24 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
 
 }
 
-"Тариф Тип 1: с ограничением на число оплат"
+union Subscriptionable = TariffPackage | TariffWorkspace
+
+
+
+# "Тариф Тип 1: с ограничением на число оплат"
 type TariffPackage @model(class: "App\\Modules\\Subscription\\Domain\\Models\\TariffPackage") {
 
     id: ID!
 
-    number_id: String!
+    number_id: Int!
 
     name_tariff: String!
 
-    "Возвращает все подписки которые привязаны к этому таррифу"
-    subscription: @morphMany
-
     "Оставшиеся количество свободных АРМ для создания"
     count_workspace: Int!
+
+    "Возвращает все подписки которые привязаны к этому тарифу"
+    subscription: SubscriptionPlan @morphMany
 
     "Оставшиеся количество успешных оплат"
     payment_limit: Int!
@@ -57,7 +61,7 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
 
     id: ID!
 
-    number_id: int!
+    number_id: Int!
 
     "Название тарифа"
     name_tariff: String
@@ -69,7 +73,7 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
     price_discount: String
 
     "Возвращает все подписки которые привязаны к этому тарифу"
-    subscription: @morphMany
+    subscription: SubscriptionPlan @morphMany
 
     "Оставшиеся количество успешных оплат"
     count_workspace: Int!
@@ -100,7 +104,7 @@ enum UserRoleEnum {
     "6 Месяцев"
     SIXMONTH,
 
-    "312 Месяцев"
+    "12 Месяцев"
     TWELVEMONTH,
 }
 
