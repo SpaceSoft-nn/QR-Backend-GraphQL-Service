@@ -7,5 +7,4 @@ use App\Modules\Base\DTO\BaseDTO;
 interface ITariffService
 {
     public function setTariff(BaseDTO $dto);
-
 }

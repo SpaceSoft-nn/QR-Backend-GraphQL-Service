@@ -2,9 +2,10 @@
 
 namespace App\Modules\Subscription\App\Data\ValueObject;
 
-use App\Modules\Base\Money\Money;
+use Illuminate\Support\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
+use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 
 final readonly class SubscriptionVO implements Arrayable
 {
@@ -25,6 +26,8 @@ final readonly class SubscriptionVO implements Arrayable
 
     ) {}
 
+
+
     public static function make(
 
 
@@ -37,11 +40,10 @@ final readonly class SubscriptionVO implements Arrayable
         ?int $payment_limit,
 
         ?string $expires_at,
-        
+
         ?string $plan_name = "basic",
 
     ) : self {
-
 
         return new self(
 
@@ -57,6 +59,58 @@ final readonly class SubscriptionVO implements Arrayable
 
     }
 
+    public function setPlanName(string $plan_name) : self
+    {
+        return self::make(
+            plan_name: $plan_name,
+            personal_area_id: $this->personal_area_id,
+            subscriptionable_id: $this->subscriptionable_id,
+            subscriptionable_type: $this->subscriptionable_type,
+            count_workspace: $this->count_workspace,
+            payment_limit: $this->payment_limit,
+            expires_at: $this->expires_at,
+        );
+    }
+
+    public function setExpiresAt(string $expires_at) : self
+    {
+        return self::make(
+            plan_name: $this->plan_name,
+            personal_area_id: $this->personal_area_id,
+            subscriptionable_id: $this->subscriptionable_id,
+            subscriptionable_type: $this->subscriptionable_type,
+            count_workspace: $this->count_workspace,
+            payment_limit: $this->payment_limit,
+            expires_at: $expires_at,
+        );
+    }
+
+    public function setPaymentLimit(int $payment_limit) : self
+    {
+        return self::make(
+            plan_name: $this->plan_name,
+            personal_area_id: $this->personal_area_id,
+            subscriptionable_id: $this->subscriptionable_id,
+            subscriptionable_type: $this->subscriptionable_type,
+            count_workspace: $this->count_workspace,
+            payment_limit: $payment_limit,
+            expires_at: $this->expires_at,
+        );
+    }
+
+    public function setCountWorkspace(int $countWorkspace) : self
+    {
+        return self::make(
+            plan_name: $this->plan_name,
+            personal_area_id: $this->personal_area_id,
+            subscriptionable_id: $this->subscriptionable_id,
+            subscriptionable_type: $this->subscriptionable_type,
+            count_workspace: $countWorkspace,
+            payment_limit: $this->payment_limit,
+            expires_at: $this->expires_at,
+        );
+    }
+
     public function toArray() : array
     {
         return [
@@ -68,6 +122,21 @@ final readonly class SubscriptionVO implements Arrayable
             "payment_limit" => $this->payment_limit,
             "expires_at" => $this->expires_at,
         ];
+    }
+
+    public static function modelForValueObject(SubscriptionPlan $sub) : self
+    {
+
+        return self::make(
+            personal_area_id: $sub->personal_area_id,
+            subscriptionable_id: $sub->subscriptionable_id,
+            subscriptionable_type: $sub->subscriptionable_type,
+            count_workspace: $sub->count_workspace,
+            payment_limit: $sub->payment_limit,
+            expires_at: $sub->expires_at,
+            plan_name: $sub->plan_name,
+        );
+
     }
 
 }

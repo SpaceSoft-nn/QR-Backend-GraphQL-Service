@@ -2,6 +2,7 @@
 
 namespace App\Modules\Subscription\Domain\Models;
 
+use App\Modules\Base\Casts\RuDateTimeCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,7 +48,7 @@ class SubscriptionPlan extends Model
     ];
 
     protected $casts = [
-        // "price" => Money::class,
+        "expires_at" => RuDateTimeCast::class,
     ];
 
     public function personalArea() : BelongsTo

@@ -6,6 +6,7 @@ use App\Modules\Base\DTO\BaseDTO;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
 use App\Modules\Subscription\Domain\Interface\Service\ITariffService;
 use App\Modules\Subscription\Domain\Interactor\Packege\SetTariffPackegeInteractor;
+use App\Modules\Subscription\Domain\Models\TariffPackage;
 
 class TariffPackegeService implements ITariffService
 {
@@ -18,9 +19,9 @@ class TariffPackegeService implements ITariffService
     /**
      * @param SetTariffPackageDTO $dto
      *
-     * @return [type]
+     * @return TariffPackage
      */
-    public function setTariff(BaseDTO $dto)
+    public function setTariff(BaseDTO $dto) : TariffPackage
     {
         return $this->setTariffPackegeInteractor->execute($dto);
     }

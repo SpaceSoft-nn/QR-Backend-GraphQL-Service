@@ -2,7 +2,9 @@
 
 namespace App\Modules\Subscription\Domain\Interactor\Packege;
 
+use Illuminate\Support\Carbon;
 use App\Modules\Base\DTO\BaseDTO;
+use App\Modules\Base\Money\Money;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Modules\Base\Interactor\BaseInteractor;
@@ -11,8 +13,8 @@ use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\Subscription\Domain\Models\TariffPackage;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
-
-
+use App\Modules\Subscription\App\Data\ValueObject\SubscriptionVO;
+use App\Modules\Subscription\Domain\Actions\Subscription\UpdateSubscriptionAction;
 
 class SetTariffPackegeInteractor extends BaseInteractor
 {
@@ -45,17 +47,39 @@ class SetTariffPackegeInteractor extends BaseInteractor
         /** @var TariffPackage */
         $model = DB::transaction(function ($pdo) use ($dto) {
 
+            /** @var TariffPackage */
+            $tariffPackage = $this->tariffPackage;
+
+            /** @var PersonalArea */
+            $personalArea = $dto->personalArea;
+
+            /** @var SubscriptionPlan */
+            $subscription = $personalArea->subscription;
+
+            dd(SubscriptionVO::modelForValueObject($subscription));
+
+            /** @var SubscriptionVO */
+            $subscriptionVO = SubscriptionVO::modelForValueObject($subscription)
+                ->setPaymentLimit($tariffPackage->payment_limit)
+                ->setCountWorkspace(100)
+                ->setExpiresAt(Carbon::now()->addDays($tariffPackage->period)->format('d-m-Y H:i:s'))
+                ->setPlanName($tariffPackage->name_tariff);
 
 
 
+            $status = $this->updateSubscriptionAction($subscription, $subscriptionVO);
+
+            return $tariffPackage;
         });
+
+        dd($model);
 
         return $model;
     }
 
     private function checkPermission(SetTariffPackageDTO $dto)
     {
-        $this->checkHasTariffForSubscription($dto);
+        // $this->checkHasTariffForSubscription($dto);
         $this->checkBalance($dto);
     }
 
@@ -80,11 +104,18 @@ class SetTariffPackegeInteractor extends BaseInteractor
         /** @var PersonalArea */
         $personalArea = $dto->personalArea;
 
-        /** @var  */
-        $tariffPackage = TariffPackage::find($dto->number_id);
+        /** @var TariffPackage */
+        $this->tariffPackage = TariffPackage::where("number_id", $dto->number_id)->first();
 
-        $status = ($personalArea->balance >= $tariffPackage->price) ? true : false;
+        $status = (new Money($personalArea->balance))->gte($this->tariffPackage->price);
 
-        dd($status);
+        if(!$status) { throw new GraphQLBusinessException("У вас недостаточно средств на балансе.", 402); }
+
+        return true;
+    }
+
+    private function updateSubscriptionAction(SubscriptionPlan $sub, SubscriptionVO $vo) : SubscriptionPlan
+    {
+        return UpdateSubscriptionAction::make($sub, $vo);
     }
 }

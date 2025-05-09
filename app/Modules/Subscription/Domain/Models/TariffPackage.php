@@ -3,11 +3,12 @@
 namespace App\Modules\Subscription\Domain\Models;
 
 use App\Modules\Base\Money\Money;
-use App\Modules\Subscription\Domain\Factories\TariffPackageFactory;
+use App\Modules\Subscription\App\Enums\MonthTariffEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Modules\Subscription\Domain\Factories\TariffPackageFactory;
 
 class TariffPackage extends Model
 {
@@ -44,6 +45,7 @@ class TariffPackage extends Model
 
     protected $casts = [
         "price" => Money::class,
+        // "period" => MonthTariffEnum::class,
     ];
 
     public function subscription(): MorphMany

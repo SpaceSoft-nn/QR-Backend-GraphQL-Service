@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->nullableUuidMorphs("subscriptionable");
 
-            $table->date('expires_at')->nullable(); //устанавливаем дефолтное недостижмое время для стандартного Subscription
+            $table->dateTime('expires_at')->nullable(); //устанавливаем дефолтное недостижмое время для стандартного Subscription
 
             $table->unsignedInteger('count_workspace')->default(5)->nullable()->comment("Устанавливаем счетчик для подсчета максимального количество workspace");
             $table->unsignedInteger('payment_limit')->default(50)->nullable()->comment("Устанавливаем счетчик для подсчета максимального количество оплат (транзакций)");

@@ -10,6 +10,7 @@ use App\Modules\Transaction\Domain\Models\Transaction;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
+use App\Modules\Subscription\Domain\Models\TariffPackage;
 use App\Modules\Subscription\Domain\Services\TariffPackegService;
 use App\Modules\Subscription\Domain\Services\TariffPackegeService;
 use App\Modules\Subscription\Domain\Services\Base\FactoryTariffService;
@@ -28,7 +29,7 @@ class TrafficResolver
      *
      * @return array
      */
-    public function setTariffPackage(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : Model
+    public function setTariffPackage(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : TariffPackage
     {
 
         /**
@@ -41,6 +42,7 @@ class TrafficResolver
         /** @var TariffPackegeService */
         $service = $this->factoryTariffService->getServiceTariff('package');
 
+        /** @var TariffPackage*/
         $model = $service->setTariff(
             SetTariffPackageDTO::make(
                 user: $user,
@@ -49,9 +51,9 @@ class TrafficResolver
             )
         );
 
-        dd(10);
+        dd($model);
 
-        return new Transaction();
+        return $model;
     }
 
 }
