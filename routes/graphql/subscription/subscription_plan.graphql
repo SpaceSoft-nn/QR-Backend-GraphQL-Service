@@ -1,9 +1,10 @@
 extend type Mutation {
 
+    "Устанавливаем (обновляем) тариф у Subscription пользователя на Package"
     setTariffPackage(
         number_id: Int! @rules(apply: ["required", "integer", "exists:tariff_packages,number_id"]),
         personal_area_id: ID! @rules(apply: ["required", "uuid", "exists:personal_areas,id"])
-    ): TariffPackage! @field(resolver: "App\\Modules\\Subscription\\Presentation\\HTTP\\Graphql\\Response\\TrafficResolver@setTariffPackage") @guard
+    ): SubscriptionPlan! @field(resolver: "App\\Modules\\Subscription\\Presentation\\HTTP\\Graphql\\Response\\TrafficResolver@setTariffPackage") @guard
 }
 
 
@@ -58,8 +59,7 @@ type TariffPackage @model(class: "App\\Modules\\Subscription\\Domain\\Models\\Ta
     "Оставшиеся количество успешных оплат"
     payment_limit: Int!
 
-    "Дата окончания подписки, если null - подписка не ограничена"
-    expires_at: Date
+    period: Int!
 
     created_at: Date!
 
@@ -75,7 +75,7 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
     number_id: Int!
 
     "Название тарифа"
-    name_tariff: String
+    name_tariff: String!
 
     "Оставшиеся количество свободных АРМ для создания"
     price: String!

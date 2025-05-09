@@ -6,7 +6,6 @@ use Illuminate\Support\Carbon;
 use App\Modules\Base\DTO\BaseDTO;
 use App\Modules\Base\Money\Money;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Base\Error\GraphQLBusinessException;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
@@ -27,9 +26,9 @@ class SetTariffPackegeInteractor extends BaseInteractor
     /**
      * @param SetTariffPackageDTO $dto
      *
-     * @return TariffPackage
+     * @return SubscriptionPlan
      */
-    public function execute(BaseDTO $dto) : TariffPackage
+    public function execute(BaseDTO $dto) : SubscriptionPlan
     {
         $this->checkPermission($dto);
 
@@ -40,11 +39,11 @@ class SetTariffPackegeInteractor extends BaseInteractor
     /**
      * @param SetTariffPackageDTO $dto
      *
-     * @return TariffPackage
+     * @return SubscriptionPlan
      */
-    protected function run(BaseDTO $dto) : TariffPackage
+    protected function run(BaseDTO $dto) : SubscriptionPlan
     {
-        /** @var TariffPackage */
+        /** @var SubscriptionPlan */
         $model = DB::transaction(function ($pdo) use ($dto) {
 
             /** @var TariffPackage */
@@ -56,23 +55,24 @@ class SetTariffPackegeInteractor extends BaseInteractor
             /** @var SubscriptionPlan */
             $subscription = $personalArea->subscription;
 
-            dd(SubscriptionVO::modelForValueObject($subscription));
 
             /** @var SubscriptionVO */
             $subscriptionVO = SubscriptionVO::modelForValueObject($subscription)
                 ->setPaymentLimit($tariffPackage->payment_limit)
                 ->setCountWorkspace(100)
                 ->setExpiresAt(Carbon::now()->addDays($tariffPackage->period)->format('d-m-Y H:i:s'))
-                ->setPlanName($tariffPackage->name_tariff);
+                ->setPlanName($tariffPackage->name_tariff)
+                ->setPolymorph($tariffPackage->id, get_class($tariffPackage));
 
 
-
+            //обновляем данные Subscription
             $status = $this->updateSubscriptionAction($subscription, $subscriptionVO);
 
-            return $tariffPackage;
-        });
+            //получаем актуальное состояние
+            $subscription->refresh();
 
-        dd($model);
+            return $subscription;
+        });
 
         return $model;
     }
@@ -118,4 +118,5 @@ class SetTariffPackegeInteractor extends BaseInteractor
     {
         return UpdateSubscriptionAction::make($sub, $vo);
     }
+
 }

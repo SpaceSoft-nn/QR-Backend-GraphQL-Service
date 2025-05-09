@@ -85,6 +85,19 @@ final readonly class SubscriptionVO implements Arrayable
         );
     }
 
+    public function setPolymorph(string $subscriptionable_id, string $subscriptionable_type) : self
+    {
+        return self::make(
+            plan_name: $this->plan_name,
+            personal_area_id: $this->personal_area_id,
+            subscriptionable_id: $subscriptionable_id,
+            subscriptionable_type: $subscriptionable_type,
+            count_workspace: $this->count_workspace,
+            payment_limit: $this->payment_limit,
+            expires_at: $this->expires_at,
+        );
+    }
+
     public function setPaymentLimit(int $payment_limit) : self
     {
         return self::make(

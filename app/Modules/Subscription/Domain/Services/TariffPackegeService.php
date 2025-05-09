@@ -3,10 +3,11 @@
 namespace App\Modules\Subscription\Domain\Services;
 
 use App\Modules\Base\DTO\BaseDTO;
+use App\Modules\Subscription\Domain\Models\TariffPackage;
+use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
 use App\Modules\Subscription\Domain\Interface\Service\ITariffService;
 use App\Modules\Subscription\Domain\Interactor\Packege\SetTariffPackegeInteractor;
-use App\Modules\Subscription\Domain\Models\TariffPackage;
 
 class TariffPackegeService implements ITariffService
 {
@@ -17,11 +18,12 @@ class TariffPackegeService implements ITariffService
 
 
     /**
+     * Установка тарифа для subscription
      * @param SetTariffPackageDTO $dto
      *
-     * @return TariffPackage
+     * @return SubscriptionPlan
      */
-    public function setTariff(BaseDTO $dto) : TariffPackage
+    public function setTariff(BaseDTO $dto) : SubscriptionPlan
     {
         return $this->setTariffPackegeInteractor->execute($dto);
     }
