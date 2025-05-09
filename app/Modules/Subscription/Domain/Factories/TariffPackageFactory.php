@@ -2,7 +2,7 @@
 
 namespace App\Modules\Subscription\Domain\Factories;
 
-use App\Modules\Subscription\App\Enums\MonthTariffEnum;
+use App\Modules\Subscription\App\Data\Enums\MonthTariffEnum;
 use App\Modules\Subscription\Domain\Models\TariffPackage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

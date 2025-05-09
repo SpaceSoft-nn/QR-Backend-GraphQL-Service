@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Subscription\App\Enums;
+namespace App\Modules\Subscription\App\Data\Enums;
 
 use App\Modules\Base\Money\Money;
 
@@ -29,6 +29,20 @@ enum MonthTariffEnum : int
     }
 
     /**
+     * Возвращает дни в количестве месяца
+     * @return int
+    */
+    public static function getMonth(int $days): self
+    {
+        return match($days) {
+            30 => self::ONEMONTH,
+            90 => self::THREEMONTH,
+            180 => self::SIXMONTH,
+            360 => self::TWELVEMONTH,
+        };
+    }
+
+    /**
      * Возвращаем сумму для 1 workspace по месяцам
      * @return int
     */
@@ -41,4 +55,5 @@ enum MonthTariffEnum : int
             self::TWELVEMONTH => new Money(7998),
         };
     }
+
 }

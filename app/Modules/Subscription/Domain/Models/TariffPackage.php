@@ -3,7 +3,7 @@
 namespace App\Modules\Subscription\Domain\Models;
 
 use App\Modules\Base\Money\Money;
-use App\Modules\Subscription\App\Enums\MonthTariffEnum;
+use App\Modules\Subscription\App\Data\Enums\MonthTariffEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\MorphMany;

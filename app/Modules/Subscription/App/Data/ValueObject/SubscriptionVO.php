@@ -2,7 +2,6 @@
 
 namespace App\Modules\Subscription\App\Data\ValueObject;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;

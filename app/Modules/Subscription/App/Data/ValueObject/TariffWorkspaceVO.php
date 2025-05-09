@@ -5,7 +5,7 @@ namespace App\Modules\Subscription\App\Data\ValueObject;
 use App\Modules\Base\Money\Money;
 use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
-use App\Modules\Subscription\App\Enums\MonthTariffEnum;
+use App\Modules\Subscription\App\Data\Enums\MonthTariffEnum;
 
 final readonly class TariffWorkspaceVO implements Arrayable
 {
