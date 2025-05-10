@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Subscription\Domain\Interactor\Packege;
+namespace App\Modules\Subscription\Domain\Interactor\Workspace;
 
 use Illuminate\Support\Carbon;
 use App\Modules\Base\DTO\BaseDTO;
@@ -9,18 +9,21 @@ use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Base\Error\GraphQLBusinessException;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
-use App\Modules\Subscription\Domain\Models\TariffPackage;
+use App\Modules\Subscription\Domain\Models\TariffWorkspace;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
 use App\Modules\Subscription\App\Data\DTO\SetTariffWorkspaceDTO;
 use App\Modules\Subscription\App\Data\ValueObject\SubscriptionVO;
+use App\Modules\Subscription\App\Data\ValueObject\TariffWorkspaceVO;
+use App\Modules\Subscription\Domain\Actions\Tariff\CreateTariffWorkspaceAction;
+use App\Modules\Subscription\Domain\Actions\Subscription\CreateSubscriptionAction;
 use App\Modules\Subscription\Domain\Actions\Subscription\UpdateSubscriptionAction;
 
-class SetTariffPackegeInteractor extends BaseInteractor
+class SetTariffWorkspaceInteractor extends BaseInteractor
 {
 
     public function __construct(
-        private TariffPackage $tariffPackage,
+
     ) { }
 
 
@@ -47,7 +50,8 @@ class SetTariffPackegeInteractor extends BaseInteractor
         /** @var SubscriptionPlan */
         $model = DB::transaction(function ($pdo) use ($dto) {
 
-
+            /** @var TariffWorkspace */
+            $tariffWorksapce = $this->createTariffWorksapceAction($dto->tariffWorkspaceVO);
 
             /** @var PersonalArea */
             $personalArea = $dto->personalArea;
@@ -55,14 +59,13 @@ class SetTariffPackegeInteractor extends BaseInteractor
             /** @var SubscriptionPlan */
             $subscription = $personalArea->subscription;
 
-
             /** @var SubscriptionVO */
             $subscriptionVO = SubscriptionVO::modelForValueObject($subscription)
-                ->setPaymentLimit($tariffPackage->payment_limit)
-                ->setCountWorkspace(100)
-                ->setExpiresAt(Carbon::now()->addDays($tariffPackage->period)->format('d-m-Y H:i:s'))
-                ->setPlanName($tariffPackage->name_tariff)
-                ->setPolymorph($tariffPackage->id, get_class($tariffPackage));
+                ->setPaymentLimit(null)
+                ->setCountWorkspace($tariffWorksapce->count_workspace)
+                ->setExpiresAt(Carbon::now()->addDays($tariffWorksapce->period)->format('d-m-Y H:i:s'))
+                ->setPlanName($tariffWorksapce->name_tariff)
+                ->setPolymorph($tariffWorksapce->id, get_class($tariffWorksapce));
 
 
             //обновляем данные Subscription
@@ -77,10 +80,10 @@ class SetTariffPackegeInteractor extends BaseInteractor
         return $model;
     }
 
-    private function checkPermission(SetTariffPackageDTO $dto)
+    private function checkPermission(SetTariffWorkspaceDTO $dto)
     {
         // $this->checkHasTariffForSubscription($dto);
-        $this->checkBalance($dto);
+        // $this->checkBalance($dto);
     }
 
     /**
@@ -99,15 +102,15 @@ class SetTariffPackegeInteractor extends BaseInteractor
                 : false;
     }
 
-    private function checkBalance(SetTariffPackageDTO $dto)
+    private function checkBalance(SetTariffWorkspaceDTO $dto)
     {
         /** @var PersonalArea */
         $personalArea = $dto->personalArea;
 
-        /** @var TariffPackage */
-        $this->tariffPackage = TariffPackage::where("number_id", $dto->number_id)->first();
+        /** @var Money */
+        $priceWorkspace = $dto->tariffWorkspaceVO->price_discount;
 
-        $status = (new Money($personalArea->balance))->gte($this->tariffPackage->price);
+        $status = (new Money($personalArea->balance))->gte($priceWorkspace);
 
         if(!$status) { throw new GraphQLBusinessException("У вас недостаточно средств на балансе.", 402); }
 
@@ -117,6 +120,11 @@ class SetTariffPackegeInteractor extends BaseInteractor
     private function updateSubscriptionAction(SubscriptionPlan $sub, SubscriptionVO $vo) : SubscriptionPlan
     {
         return UpdateSubscriptionAction::make($sub, $vo);
+    }
+
+    private function createTariffWorksapceAction(TariffWorkspaceVO $vo) : TariffWorkspace
+    {
+        return CreateTariffWorkspaceAction::make($vo);
     }
 
 }

@@ -10,6 +10,9 @@ use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\Subscription\App\Data\DTO\PriceTariffWorkspaceCalculationDTO;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
+use App\Modules\Subscription\App\Data\DTO\SetTariffWorkspaceDTO;
+use App\Modules\Subscription\App\Data\Enums\MonthTariffEnum;
+use App\Modules\Subscription\App\Data\ValueObject\TariffWorkspaceVO;
 use App\Modules\Subscription\Domain\Services\TariffPackegeService;
 use App\Modules\Subscription\Domain\Services\Base\FactoryTariffService;
 use App\Modules\Subscription\Domain\Services\TariffWorkspaceService;
@@ -65,27 +68,30 @@ class TrafficResolver
         /** @var TariffWorkspaceService */
         $service = $this->factoryTariffService->getServiceTariff('workspace');
 
-        $array = $service->priceTariffWorkspaceCalculation(PriceTariffWorkspaceCalculationDTO::make(
+        /** @var array */
+        $arrayCalculate = $service->priceTariffWorkspaceCalculation(PriceTariffWorkspaceCalculationDTO::make(
             count_workspace: $args['count_workspace'],
             period: $args['period'],
         ));
 
-        dd($array);
-
-        // $tariffWorkspaceVO = TariffWorkspaceVO::make(
-
-        // );
+        /** @var TariffWorkspaceVO */
+        $tariffWorkspaceVO = TariffWorkspaceVO::make(
+            price: $arrayCalculate['price'],
+            price_discount: $arrayCalculate['price_discount'],
+            count_workspace: $args['count_workspace'],
+            period: $args['period'],
+            description: $args['description'],
+            discount: $arrayCalculate['discount'],
+        );
 
         /** @var SubscriptionPlan*/
-        // $model = $service->setTariff(
-        //     SetTariffWorkspaceDTO::make(
-        //         user: $user,
-        //         TariffWorkspaceVO: ,
-        //         PersonalArea: PersonalArea::findOrFail($args['personal_area_id']),
-        //     )
-        // );
+        $model = $service->setTariff(SetTariffWorkspaceDTO::make(
+            user: $user,
+            tariffWorkspaceVO: $tariffWorkspaceVO,
+            personalArea: PersonalArea::find($args['personal_area_id']),
+        ));
 
-        return new SubscriptionPlan();
+        return $model;
     }
 
 }

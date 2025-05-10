@@ -97,7 +97,7 @@ final readonly class SubscriptionVO implements Arrayable
         );
     }
 
-    public function setPaymentLimit(int $payment_limit) : self
+    public function setPaymentLimit(?int $payment_limit) : self
     {
         return self::make(
             plan_name: $this->plan_name,

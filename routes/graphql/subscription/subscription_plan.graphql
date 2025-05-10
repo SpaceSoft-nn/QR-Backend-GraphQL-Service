@@ -16,6 +16,9 @@ extend type Query {
 }
 
 input SetTariffWorkspaceInput @validator(class: "App\\Modules\\Subscription\\Domain\\Validation\\SetTariffWorkspaceInputValidator"){
+
+    personal_area_id: ID! @rules(apply: ["required", "exists:personal_areas,id"])
+
     "Количество общего workspace"
     count_workspace: Int!
 
@@ -42,11 +45,11 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
     "Оставшиеся количество свободных АРМ для создания"
     count_workspace: Int!
 
-    "Оставшиеся количество успешных оплат"
+    "Оставшиеся количество успешных оплат - если null оплаты не ограничены"
     payment_limit: Int!
 
     "Дата окончания подписки, если null - подписка не ограничена"
-    expires_at: Date
+    expires_at: DateTime
 
     created_at: Date!
 
@@ -116,5 +119,5 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
 
 }
 
-    
+
 

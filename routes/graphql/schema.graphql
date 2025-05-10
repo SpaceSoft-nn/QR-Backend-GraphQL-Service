@@ -15,6 +15,9 @@
 
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
+"Возвращает дату и время в русском формате."
+scalar DateTime @scalar(class: "App\\GraphQL\\Scalars\\CustomRuDateTimeScalarType")
+
 type Query
 type Mutation
 

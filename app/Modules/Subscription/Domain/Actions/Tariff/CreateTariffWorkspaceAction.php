@@ -7,7 +7,7 @@ use function App\Helpers\Mylog;
 use App\Modules\Subscription\Domain\Models\TariffWorkspace;
 use App\Modules\Subscription\App\Data\ValueObject\TariffWorkspaceVO;
 
-class CreateTariffWorksapceAction
+class CreateTariffWorkspaceAction
 {
     public static function make(TariffWorkspaceVO $vo) : TariffWorkspace
     {

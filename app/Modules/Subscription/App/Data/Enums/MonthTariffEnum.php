@@ -32,13 +32,18 @@ enum MonthTariffEnum : int
      * Возвращает дни в количестве месяца
      * @return int
     */
-    public static function getMonth(int $days): self
+    public static function getMonth(int|string $days): self
     {
+        if($days instanceof string)
+        {
+            $days = intval($days);
+        }
+
         return match($days) {
-            30 => self::ONEMONTH,
-            90 => self::THREEMONTH,
-            180 => self::SIXMONTH,
-            360 => self::TWELVEMONTH,
+            30, "30" => self::ONEMONTH,
+            90, "90" => self::THREEMONTH,
+            180, "180" => self::SIXMONTH,
+            360, "360" => self::TWELVEMONTH,
         };
     }
 

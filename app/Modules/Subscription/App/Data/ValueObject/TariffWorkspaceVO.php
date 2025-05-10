@@ -15,11 +15,12 @@ final readonly class TariffWorkspaceVO implements Arrayable
 
         public string $name_tariff,
 
-        public Money $price,
-        public Money $price_discount,
+        public Money $price, //общая цена
+        public Money $price_discount, //цена со скидкой
 
         public int $count_workspace,
-        public ?int $discount,
+
+        public ?int $discount, //скидка %
 
         public ?string $description,
 
@@ -35,13 +36,15 @@ final readonly class TariffWorkspaceVO implements Arrayable
         int $count_workspace,
         string $period,
 
-
         ?string $description,
         ?int $discount = 0,
         ?string $name_tariff = "workspace",
 
 
     ) : self {
+
+        /** @var MonthTariffEnum */
+        $period = MonthTariffEnum::getMonth($period);
 
         return new self(
 
@@ -51,7 +54,7 @@ final readonly class TariffWorkspaceVO implements Arrayable
             discount: $discount,
             count_workspace: $count_workspace,
             description: $description,
-            period: MonthTariffEnum::from($period),
+            period: $period,
 
         );
 

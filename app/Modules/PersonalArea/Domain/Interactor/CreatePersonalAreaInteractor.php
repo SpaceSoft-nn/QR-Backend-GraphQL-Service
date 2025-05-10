@@ -16,8 +16,8 @@ use App\Modules\Subscription\App\Data\ValueObject\SubscriptionVO;
 use App\Modules\PersonalArea\App\Data\ValueObject\BalanceLog\BalanceLogVO;
 use App\Modules\PersonalArea\Domain\Actions\BalanceLog\CreateBalanceLogAction;
 use App\Modules\PersonalArea\Domain\Actions\PersonalArea\CreatePersonalAreaAction;
-use App\Modules\Pivot\Domain\Actions\PersonalAreaUser\LinkUserToPersonalAreaAction;
 use App\Modules\Subscription\Domain\Actions\Subscription\CreateSubscriptionAction;
+use App\Modules\Pivot\Domain\Actions\PersonalAreaUser\LinkUserToPersonalAreaAction;
 
 class CreatePersonalAreaInteractor extends BaseInteractor
 {
