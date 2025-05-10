@@ -14,6 +14,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->decimal('balance', 10, 2);
+            $table->check('balance >= 0'); //баланс не может быть меньше 0
 
             $table->timestamps();
 

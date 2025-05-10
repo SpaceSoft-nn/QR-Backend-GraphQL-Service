@@ -7,15 +7,14 @@ use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
-use App\Modules\Subscription\App\Data\DTO\PriceTariffWorkspaceCalculationDTO;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
 use App\Modules\Subscription\App\Data\DTO\SetTariffWorkspaceDTO;
-use App\Modules\Subscription\App\Data\Enums\MonthTariffEnum;
-use App\Modules\Subscription\App\Data\ValueObject\TariffWorkspaceVO;
 use App\Modules\Subscription\Domain\Services\TariffPackegeService;
-use App\Modules\Subscription\Domain\Services\Base\FactoryTariffService;
+use App\Modules\Subscription\App\Data\ValueObject\TariffWorkspaceVO;
 use App\Modules\Subscription\Domain\Services\TariffWorkspaceService;
+use App\Modules\Subscription\Domain\Services\Base\FactoryTariffService;
+use App\Modules\Subscription\App\Data\DTO\PriceTariffWorkspaceCalculationDTO;
 
 class TrafficResolver
 {

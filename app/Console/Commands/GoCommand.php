@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Modules\Base\Money\Money;
 use Illuminate\Console\Command;
+use App\Modules\Base\Money\Money;
 use App\Modules\User\Domain\Models\User;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
-use App\Modules\PersonalArea\App\Data\DTO\DepositBalanceDTO;
 use App\Modules\PersonalArea\Domain\Services\BalanceService;
+use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
 
 class GoCommand extends Command
 {
@@ -20,13 +20,11 @@ class GoCommand extends Command
     public function handle(BalanceService $balanceService)
     {
 
-        $status = $balanceService->deposit(DepositBalanceDTO::make(
-            moneyDeposit: new Money(250.504435),
+        $status = $balanceService->withdrawal(WithdrawalBalanceDTO::make(
+            moneyDeposit: new Money(50.5),
             personalArea: PersonalArea::find("0196b626-7acb-708c-87b7-1efbaf44be78"),
             user: User::find("0196b626-7a0a-7175-9be0-ebd468ac6e3b"),
         ));
-
-        dd($status);
 
     }
 

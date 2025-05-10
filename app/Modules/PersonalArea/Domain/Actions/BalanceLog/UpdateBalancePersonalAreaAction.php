@@ -20,10 +20,16 @@ class UpdateBalancePersonalAreaAction
 
         try {
 
-            /** @var true */
-            $status = $personalArea->update([
-                "balance" => $balance,
-            ]);
+            /**
+             * lockForUpdate() - использует для блокировки на момент обновление, и для предовтращения 'гонки' в бд
+             * @var PersonalArea
+             *
+            */
+            $personalAreaFresh = PersonalArea::where('id', $personalArea->id)->lockForUpdate()->first();
+
+            $personalAreaFresh->balance = $balance;
+
+            $status = $personalAreaFresh->save();
 
 
         } catch (\Throwable $th) {

@@ -10,20 +10,21 @@ use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Base\Error\GraphQLBusinessException;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\Subscription\Domain\Models\TariffWorkspace;
+use App\Modules\PersonalArea\Domain\Services\BalanceService;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
+use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
 use App\Modules\Subscription\App\Data\DTO\SetTariffWorkspaceDTO;
 use App\Modules\Subscription\App\Data\ValueObject\SubscriptionVO;
 use App\Modules\Subscription\App\Data\ValueObject\TariffWorkspaceVO;
 use App\Modules\Subscription\Domain\Actions\Tariff\CreateTariffWorkspaceAction;
-use App\Modules\Subscription\Domain\Actions\Subscription\CreateSubscriptionAction;
 use App\Modules\Subscription\Domain\Actions\Subscription\UpdateSubscriptionAction;
 
 class SetTariffWorkspaceInteractor extends BaseInteractor
 {
 
     public function __construct(
-
+        private BalanceService $balanceService,
     ) { }
 
 
@@ -58,6 +59,12 @@ class SetTariffWorkspaceInteractor extends BaseInteractor
 
             /** @var SubscriptionPlan */
             $subscription = $personalArea->subscription;
+
+            $statusBalance = $this->balanceService->withdrawal(WithdrawalBalanceDTO::make(
+                moneyDeposit: $tariffWorksapce->price_discount,
+                personalArea: $personalArea,
+                user: $dto->user,
+            ));
 
             /** @var SubscriptionVO */
             $subscriptionVO = SubscriptionVO::modelForValueObject($subscription)

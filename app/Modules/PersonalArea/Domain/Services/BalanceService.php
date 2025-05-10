@@ -4,13 +4,16 @@ namespace App\Modules\PersonalArea\Domain\Services;
 
 use App\Modules\Base\DTO\BaseDTO;
 use App\Modules\PersonalArea\App\Data\DTO\DepositBalanceDTO;
+use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
 use App\Modules\PersonalArea\Domain\Interface\Service\IBalanceService;
 use App\Modules\PersonalArea\Domain\Interactor\Balance\DepositBalancePersonalAreaInteractor;
+use App\Modules\PersonalArea\Domain\Interactor\Balance\WithdrawalBalancePersonalAreaInteractor;
 
 final class BalanceService implements IBalanceService
 {
     public function __construct(
         private DepositBalancePersonalAreaInteractor $depositBalancePersonalAreaInteractor,
+        private WithdrawalBalancePersonalAreaInteractor $withdrawalBalancePersonalAreaInteractor,
     ) { }
 
     /**
@@ -26,13 +29,13 @@ final class BalanceService implements IBalanceService
 
     /**
      * списание
-     * @param BaseDTO $dto
+     * @param WithdrawalBalanceDTO $dto
      *
      * @return bool
      */
     public function withdrawal(BaseDTO $dto) : bool
     {
-        return true;
+        return $this->withdrawalBalancePersonalAreaInteractor->execute($dto);
     }
 
     /**

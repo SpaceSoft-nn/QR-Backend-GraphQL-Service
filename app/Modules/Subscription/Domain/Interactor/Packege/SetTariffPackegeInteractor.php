@@ -10,8 +10,10 @@ use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Base\Error\GraphQLBusinessException;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\Subscription\Domain\Models\TariffPackage;
+use App\Modules\PersonalArea\Domain\Services\BalanceService;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
+use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
 use App\Modules\Subscription\App\Data\ValueObject\SubscriptionVO;
 use App\Modules\Subscription\Domain\Actions\Subscription\UpdateSubscriptionAction;
 
@@ -20,6 +22,7 @@ class SetTariffPackegeInteractor extends BaseInteractor
 
     public function __construct(
         private TariffPackage $tariffPackage,
+        private BalanceService $balanceService,
     ) { }
 
 
@@ -43,18 +46,25 @@ class SetTariffPackegeInteractor extends BaseInteractor
      */
     protected function run(BaseDTO $dto) : SubscriptionPlan
     {
+
+        /** @var TariffPackage */
+        $tariffPackage = $this->tariffPackage;
+
+        /** @var PersonalArea */
+        $personalArea = $dto->personalArea;
+
         /** @var SubscriptionPlan */
-        $model = DB::transaction(function ($pdo) use ($dto) {
+        $subscription = $personalArea->subscription;
 
-            /** @var TariffPackage */
-            $tariffPackage = $this->tariffPackage;
 
-            /** @var PersonalArea */
-            $personalArea = $dto->personalArea;
+        /** @var SubscriptionPlan */
+        $model = DB::transaction(function ($pdo) use ($dto, $tariffPackage, $personalArea, $subscription) {
 
-            /** @var SubscriptionPlan */
-            $subscription = $personalArea->subscription;
-
+            $statusBalance = $this->balanceService->withdrawal(WithdrawalBalanceDTO::make(
+                moneyDeposit: $tariffPackage->price,
+                personalArea: $personalArea,
+                user: $dto->user,
+            ));
 
             /** @var SubscriptionVO */
             $subscriptionVO = SubscriptionVO::modelForValueObject($subscription)
@@ -63,7 +73,6 @@ class SetTariffPackegeInteractor extends BaseInteractor
                 ->setExpiresAt(Carbon::now()->addDays($tariffPackage->period)->format('d-m-Y H:i:s'))
                 ->setPlanName($tariffPackage->name_tariff)
                 ->setPolymorph($tariffPackage->id, get_class($tariffPackage));
-
 
             //обновляем данные Subscription
             $status = $this->updateSubscriptionAction($subscription, $subscriptionVO);
