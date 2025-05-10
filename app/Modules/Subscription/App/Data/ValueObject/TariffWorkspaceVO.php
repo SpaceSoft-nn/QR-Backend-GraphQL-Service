@@ -70,7 +70,7 @@ final readonly class TariffWorkspaceVO implements Arrayable
             "discount" => $this->discount,
             "count_workspace" => $this->count_workspace,
             "description" => $this->description,
-            "period" => $this->period->value,
+            "period" => $this->period->getDays(),
 
         ];
     }

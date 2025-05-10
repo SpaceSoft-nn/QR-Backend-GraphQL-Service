@@ -19,10 +19,18 @@ class UpdateSubscriptionAction
     private static function run(SubscriptionPlan $sub, SubscriptionVO $vo) : SubscriptionPlan
     {
 
+        //устанавливаем количество оплат в null
+        if(is_null($vo->payment_limit))
+        {
+            $vo = array_merge($vo->toArrayNotNull(), ["payment_limit" => null]);
+        } else {
+            $vo = $vo->toArrayNotNull();
+        }
+
         try {
 
             //обновляем атрибуты модели через fill
-            $sub->fill($vo->toArrayNotNull());
+            $sub->fill($vo);
 
             //проверяем данные на 'грязь' - если данные отличаются от старого состояние модели, то обновляем сущность
             if ($sub->isDirty()) { $sub->save(); $sub->refresh(); }

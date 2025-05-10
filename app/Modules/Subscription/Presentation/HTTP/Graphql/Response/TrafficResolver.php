@@ -67,11 +67,16 @@ class TrafficResolver
         /** @var TariffWorkspaceService */
         $service = $this->factoryTariffService->getServiceTariff('workspace');
 
-        /** @var array */
+        /**
+         * Подсчет цены с учетом скидки + скидка
+         * @var array
+         *
+        */
         $arrayCalculate = $service->priceTariffWorkspaceCalculation(PriceTariffWorkspaceCalculationDTO::make(
             count_workspace: $args['count_workspace'],
             period: $args['period'],
         ));
+
 
         /** @var TariffWorkspaceVO */
         $tariffWorkspaceVO = TariffWorkspaceVO::make(
@@ -89,6 +94,8 @@ class TrafficResolver
             tariffWorkspaceVO: $tariffWorkspaceVO,
             personalArea: PersonalArea::find($args['personal_area_id']),
         ));
+
+        // dd($model);
 
         return $model;
     }

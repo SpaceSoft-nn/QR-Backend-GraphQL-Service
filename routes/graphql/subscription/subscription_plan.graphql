@@ -43,10 +43,10 @@ type SubscriptionPlan @model(class: "App\\Modules\\Subscription\\Domain\\Models\
     subscriptionable: Subscriptionable @morphTo
 
     "Оставшиеся количество свободных АРМ для создания"
-    count_workspace: Int!
+    count_workspace: Int
 
     "Оставшиеся количество успешных оплат - если null оплаты не ограничены"
-    payment_limit: Int!
+    payment_limit: Int
 
     "Дата окончания подписки, если null - подписка не ограничена"
     expires_at: DateTime
@@ -105,7 +105,7 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
     count_workspace: Int!
 
     "Скидка для данного тарифа"
-    discount: Date
+    discount: Int!
 
     "Описание"
     description: String

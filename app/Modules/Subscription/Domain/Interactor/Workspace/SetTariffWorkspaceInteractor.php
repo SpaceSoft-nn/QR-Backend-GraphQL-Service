@@ -75,6 +75,7 @@ class SetTariffWorkspaceInteractor extends BaseInteractor
                 ->setPolymorph($tariffWorksapce->id, get_class($tariffWorksapce));
 
 
+
             //обновляем данные Subscription
             $status = $this->updateSubscriptionAction($subscription, $subscriptionVO);
 

@@ -3,7 +3,6 @@
 namespace App\Modules\Subscription\Domain\Services;
 
 use App\Modules\Base\DTO\BaseDTO;
-use App\Modules\Subscription\Domain\Models\TariffPackage;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
 use App\Modules\Subscription\Domain\Interface\Service\ITariffService;
