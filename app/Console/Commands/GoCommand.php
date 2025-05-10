@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Modules\Base\Money\Money;
 use Illuminate\Console\Command;
+use App\Modules\User\Domain\Models\User;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
-use App\Modules\Subscription\Domain\Models\TariffPackage;
-use App\Modules\Subscription\Domain\Models\TariffWorkspace;
+use App\Modules\PersonalArea\App\Data\DTO\DepositBalanceDTO;
+use App\Modules\PersonalArea\Domain\Services\BalanceService;
 
 class GoCommand extends Command
 {
@@ -15,10 +17,17 @@ class GoCommand extends Command
     protected $description = 'Тестовый запуск';
 
 
-    public function handle()
+    public function handle(BalanceService $balanceService)
     {
 
-        
+        $status = $balanceService->deposit(DepositBalanceDTO::make(
+            moneyDeposit: new Money(250.504435),
+            personalArea: PersonalArea::find("0196b626-7acb-708c-87b7-1efbaf44be78"),
+            user: User::find("0196b626-7a0a-7175-9be0-ebd468ac6e3b"),
+        ));
+
+        dd($status);
+
     }
 
     private function quickSort(array $array) {

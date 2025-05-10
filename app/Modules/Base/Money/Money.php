@@ -46,7 +46,7 @@ class Money implements Stringable, Castable {
      *
      * @return static
      */
-    public function add(Money|string|int|float $number = 0, ?int $scale = null): static
+    public function add(Money|string|int|float $number = 0, ?int $scale = 2): static
     {
         $number = new static($number);
 
@@ -60,7 +60,7 @@ class Money implements Stringable, Castable {
      *
      * @return static
      */
-    public function sub(Money|string|int|float $number = 0, ?int $scale = null): static
+    public function sub(Money|string|int|float $number = 0, ?int $scale = 2): static
     {
         $number = new static($number);
 
@@ -74,7 +74,7 @@ class Money implements Stringable, Castable {
      *
      * @return static
      */
-    public function mul(Money|string|int|float $number = 0, ?int $scale = null): static
+    public function mul(Money|string|int|float $number = 0, ?int $scale = 2): static
     {
         $number = new static($number);
 
@@ -88,7 +88,7 @@ class Money implements Stringable, Castable {
      *
      * @return static
      */
-    public function div(Money|string|int|float $number = 0, ?int $scale = null): static
+    public function div(Money|string|int|float $number = 0, ?int $scale = 2): static
     {
         $number = new static($number);
 
@@ -102,7 +102,7 @@ class Money implements Stringable, Castable {
      *
      * @return bool
      */
-    public function eq(Money|string|int|float $number = 0, ?int $scale = null): bool
+    public function eq(Money|string|int|float $number = 0, ?int $scale = 2): bool
     {
         $number = new static($number);
 
@@ -113,7 +113,7 @@ class Money implements Stringable, Castable {
 
 
     //больше ли
-    public function gt(Money|string|int|float $number = 0, ?int $scale = null): bool
+    public function gt(Money|string|int|float $number = 0, ?int $scale = 2): bool
     {
         $number = new static($number);
 
@@ -123,12 +123,12 @@ class Money implements Stringable, Castable {
     }
 
     //больше или равно
-    public function gte(Money|string|int|float $number = 0, ?int $scale = null): bool
+    public function gte(Money|string|int|float $number = 0, ?int $scale = 2): bool
     {
         return $this->eq($number, $scale) || $this->gt($number, $scale);
     }
 
-    public function lt(Money|string|int|float $number = 0, ?int $scale = null): bool
+    public function lt(Money|string|int|float $number = 0, ?int $scale = 2): bool
     {
         $number = new static($number);
 
@@ -138,7 +138,7 @@ class Money implements Stringable, Castable {
     }
 
     //больше или равно
-    public function lte(Money|string|int|float $number = 0, ?int $scale = null): bool
+    public function lte(Money|string|int|float $number = 0, ?int $scale = 2): bool
     {
         return $this->eq($number, $scale) || $this->lt($number, $scale);
     }

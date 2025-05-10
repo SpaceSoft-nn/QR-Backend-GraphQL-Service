@@ -7,7 +7,7 @@ use App\Modules\PersonalArea\App\Data\DTO\DepositBalanceDTO;
 use App\Modules\PersonalArea\Domain\Interface\Service\IBalanceService;
 use App\Modules\PersonalArea\Domain\Interactor\Balance\DepositBalancePersonalAreaInteractor;
 
-final class PersonalAreaService implements IBalanceService
+final class BalanceService implements IBalanceService
 {
     public function __construct(
         private DepositBalancePersonalAreaInteractor $depositBalancePersonalAreaInteractor,
