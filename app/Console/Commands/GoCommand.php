@@ -18,6 +18,28 @@ class GoCommand extends Command
     public function handle()
     {
 
+        
+    }
+
+    private function quickSort(array $array) {
+
+        if(count($array) < 2){
+            return $array;
+        }
+
+        $pivot = $array[0];
+        $left = [];
+        $right = [];
+
+        for($i = 1; $i < count($array); $i++) {
+            if($array[$i] <= $pivot){
+                $left[] = $array[$i];
+            } else {
+                $right[] = $array[$i];
+            }
+        }
+
+        return array_merge($this->quickSort($left), [$pivot], $this->quickSort($right));
 
     }
 

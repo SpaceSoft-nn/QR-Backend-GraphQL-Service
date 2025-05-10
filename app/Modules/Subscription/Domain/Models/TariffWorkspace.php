@@ -23,9 +23,13 @@ class TariffWorkspace extends Model
     protected $fillable = [
 
         "name_tariff",
+
         "price",
-        "count_workspace",
+        "price_discount",
+
         "discount",
+
+        "count_workspace",
         "description",
         "period",
 

@@ -3,8 +3,8 @@
 namespace App\Modules\Subscription\Domain\Interactor\Workspace;
 
 use App\Modules\Base\DTO\BaseDTO;
-use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Base\Money\Money;
+use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Subscription\App\Data\Enums\MonthTariffEnum;
 use App\Modules\Subscription\Domain\Services\DiscountCalculatorService;
 use App\Modules\Subscription\App\Data\DTO\PriceTariffWorkspaceCalculationDTO;
@@ -61,22 +61,23 @@ class PriceTariffWorkspaceCalculationInteractor extends BaseInteractor
 
         /**
          * Высчитываем сидку в зависимости от количества workspace
-         * @var Money
+         * @var array
         */
-        $price_discount = $this->checkPriceDiscount($price, $count_workspace);
+        $arrayCalculate = $this->checkPriceDiscount($price, $count_workspace);
 
-        return $this->createCollection($price, $price_discount);
+        return $this->createCollection($price, new Money($arrayCalculate['price']), $arrayCalculate['discount']);
     }
 
-    private function createCollection(Money $price, Money $price_discount) : array
+    private function createCollection(Money $price, Money $price_discount, int $discount) : array
     {
         return [
             'price' => $price,
             'price_discount' => $price_discount,
+            'discount' => $discount,
         ];
     }
 
-    private function checkPriceDiscount(Money $price, int $count_workspace) : Money
+    private function checkPriceDiscount(Money $price, int $count_workspace) : array
     {
         return $this->serviceDiscount->calculate($price, $count_workspace);
     }
