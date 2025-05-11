@@ -50,6 +50,22 @@ class UserPolicy
 
     }
 
+    /**
+     * Проверяем что пользователь админ
+     * @param User $userOwner
+     * @param User $user
+     *
+     * @return Response
+    */
+    public function userAdmin(User $user) : Response
+    {
+        $status = (bool) ( UserRoleEnum::isAdmin($user->role) );
+
+        return ($status)
+            ? Response::allow()
+                : throw new GraphQLBusinessException('У авторизированного пользователя, нету прав для совершения этого действия' , 403);
+    }
+
 
     public function UserAdminOrManager(User $userOwner, User $user) : Response
     {
@@ -57,7 +73,7 @@ class UserPolicy
 
         return ($status)
             ? Response::allow()
-            : throw new GraphQLBusinessException('У авторизированного пользователя, нету прав для совершения этого действия' , 403);
+                : throw new GraphQLBusinessException('У авторизированного пользователя, нету прав для совершения этого действия' , 403);
     }
 
     /**

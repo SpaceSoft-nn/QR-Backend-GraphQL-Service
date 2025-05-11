@@ -14,8 +14,10 @@ use App\Modules\PersonalArea\Domain\Services\BalanceService;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffPackageDTO;
 use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
+use App\Modules\Subscription\App\Data\DTO\SetTariffWorkspaceDTO;
 use App\Modules\Subscription\App\Data\ValueObject\SubscriptionVO;
 use App\Modules\Subscription\Domain\Actions\Subscription\UpdateSubscriptionAction;
+use Illuminate\Support\Facades\Gate;
 
 class SetTariffPackegeInteractor extends BaseInteractor
 {
@@ -56,15 +58,18 @@ class SetTariffPackegeInteractor extends BaseInteractor
         /** @var SubscriptionPlan */
         $subscription = $personalArea->subscription;
 
-
         /** @var SubscriptionPlan */
         $model = DB::transaction(function ($pdo) use ($dto, $tariffPackage, $personalArea, $subscription) {
+
+
 
             $statusBalance = $this->balanceService->withdrawal(WithdrawalBalanceDTO::make(
                 moneyDeposit: $tariffPackage->price,
                 personalArea: $personalArea,
                 user: $dto->user,
             ));
+
+
 
             /** @var SubscriptionVO */
             $subscriptionVO = SubscriptionVO::modelForValueObject($subscription)
@@ -90,6 +95,8 @@ class SetTariffPackegeInteractor extends BaseInteractor
     {
         // $this->checkHasTariffForSubscription($dto);
         $this->checkBalance($dto);
+        $this->checkIsAdmin($dto);
+        $this->checkUserHasPersonalArea($dto);
     }
 
     /**
@@ -126,6 +133,23 @@ class SetTariffPackegeInteractor extends BaseInteractor
     private function updateSubscriptionAction(SubscriptionPlan $sub, SubscriptionVO $vo) : SubscriptionPlan
     {
         return UpdateSubscriptionAction::make($sub, $vo);
+    }
+
+    private function checkIsAdmin(SetTariffPackageDTO $dto) {
+        Gate::forUser($dto->user)->authorize('userAdmin', [$dto->user]);
+    }
+
+    /**
+     * Принадлежит ли пользователь к PersonalArea
+     * @param SetTariffWorkspaceDTO $dto
+     *
+     * @return bool
+    */
+    private function checkUserHasPersonalArea(SetTariffPackageDTO $dto) : bool
+    {
+        Gate::forUser($dto->user)->authorize('userHasPersonalArea', [$dto->personalArea]);
+
+        return true;
     }
 
 }

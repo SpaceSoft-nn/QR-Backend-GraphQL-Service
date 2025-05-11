@@ -21,8 +21,6 @@ class UserServiceProvider extends ServiceProvider
 
         if($this->app->runningInConsole()){
 
-
-
             $this->loadMigrationsFrom(dirname(__DIR__) . '/..' . '/Common' . '/Database' . "/Migrations");
 
         }

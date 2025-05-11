@@ -2,7 +2,6 @@
 
 namespace App\Modules\Subscription\Domain\Actions\Subscription;
 
-use Exception;
 use function App\Helpers\Mylog;
 
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;

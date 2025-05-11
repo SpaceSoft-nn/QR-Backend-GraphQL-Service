@@ -6,6 +6,7 @@ use Illuminate\Support\Carbon;
 use App\Modules\Base\DTO\BaseDTO;
 use App\Modules\Base\Money\Money;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Base\Error\GraphQLBusinessException;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
@@ -92,10 +93,12 @@ class SetTariffWorkspaceInteractor extends BaseInteractor
     {
         // $this->checkHasTariffForSubscription($dto);
         // $this->checkBalance($dto);
+        // $this->checkIsAdmin($dto);
+        $this->checkUserHasPersonalArea($dto);
     }
 
     /**
-     * Проверяем
+     * Проверяем имеется ли активный тариф (потом надо делать тарифы в очередь)
      * @return bool
      */
     private function checkHasTariffForSubscription(SetTariffPackageDTO $dto)
@@ -123,6 +126,30 @@ class SetTariffWorkspaceInteractor extends BaseInteractor
         if(!$status) { throw new GraphQLBusinessException("У вас недостаточно средств на балансе.", 402); }
 
         return true;
+    }
+
+    private function checkIsAdmin(SetTariffWorkspaceDTO $dto) : bool
+    {
+
+        Gate::forUser($dto->user)->authorize('userAdmin', [$dto->user]);
+
+        return true;
+
+    }
+
+    /**
+     * Принадлежит ли пользователь к PersonalArea
+     * @param SetTariffWorkspaceDTO $dto
+     *
+     * @return bool
+     */
+    private function checkUserHasPersonalArea(SetTariffWorkspaceDTO $dto) : bool
+    {
+
+        Gate::forUser($dto->user)->authorize('userHasPersonalArea', [$dto->personalArea]);
+
+        return true;
+
     }
 
     private function updateSubscriptionAction(SubscriptionPlan $sub, SubscriptionVO $vo) : SubscriptionPlan
