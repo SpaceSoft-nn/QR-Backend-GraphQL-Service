@@ -92,8 +92,8 @@ class SetTariffWorkspaceInteractor extends BaseInteractor
     private function checkPermission(SetTariffWorkspaceDTO $dto)
     {
         // $this->checkHasTariffForSubscription($dto);
-        // $this->checkBalance($dto);
-        // $this->checkIsAdmin($dto);
+        $this->checkBalance($dto);
+        $this->checkIsAdmin($dto);
         $this->checkUserHasPersonalArea($dto);
     }
 

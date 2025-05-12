@@ -7,12 +7,31 @@ extend type Mutation {
     ): SubscriptionPlan! @field(resolver: "App\\Modules\\Subscription\\Presentation\\HTTP\\Graphql\\Response\\TrafficResolver@setTariffPackage") @guard
 
     setTariffWorkspace(input: SetTariffWorkspaceInput! @spread): SubscriptionPlan! @field(resolver: "App\\Modules\\Subscription\\Presentation\\HTTP\\Graphql\\Response\\TrafficResolver@setTariffWorkspace") @guard
+
+    "Подсчет цены для тарифа Workspace от заданных параметров"
+    calculateTariffWorkspace(input: CalculateTariffWorkspaceInput! @spread): CalculateTariffWorkspace!  @field(resolver: "App\\Modules\\Subscription\\Presentation\\HTTP\\Graphql\\Response\\TrafficResolver@calculateTariffWorkspace") @guard
+
 }
 
 extend type Query {
 
     "Вернуть все возможные тарифы Package"
     tariffPackages: [TariffPackage!]! @all @guard
+
+}
+
+
+"Input для подсчета цены у тарифа workspace - в зависимости от парметров"
+input CalculateTariffWorkspaceInput {
+
+
+    "Количество общего workspace"
+    count_workspace: Int! @rules(apply: ["required", "integer", "min:1"])
+
+    "Количество дней активации: 30, 90, 180, 360"
+    period: Int! @rules(apply: ["required", "integer", "in:30,90,180,360"])
+
+
 }
 
 input SetTariffWorkspaceInput @validator(class: "App\\Modules\\Subscription\\Domain\\Validation\\SetTariffWorkspaceInputValidator"){
@@ -116,6 +135,17 @@ type TariffWorkspace @model(class: "App\\Modules\\Subscription\\Domain\\Models\\
     created_at: Date!
 
     updated_at: Date!
+
+}
+
+"Подсчёт цены для Тарифа Workspace"
+type CalculateTariffWorkspace {
+
+    price: String!
+
+    price_discount: String!
+
+    discount: String!
 
 }
 

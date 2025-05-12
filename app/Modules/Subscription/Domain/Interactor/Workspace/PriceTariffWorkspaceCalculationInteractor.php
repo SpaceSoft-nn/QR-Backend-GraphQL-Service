@@ -7,6 +7,7 @@ use App\Modules\Base\Money\Money;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Subscription\App\Data\Enums\MonthTariffEnum;
 use App\Modules\Subscription\Domain\Services\DiscountCalculatorService;
+use App\Modules\Subscription\App\Data\Entity\CalculateTariffWorkspaceEntity;
 use App\Modules\Subscription\App\Data\DTO\PriceTariffWorkspaceCalculationDTO;
 
 class PriceTariffWorkspaceCalculationInteractor extends BaseInteractor
@@ -20,9 +21,9 @@ class PriceTariffWorkspaceCalculationInteractor extends BaseInteractor
     /**
      * @param PriceTariffWorkspaceCalculationDTO $dto
      *
-     * @return array
+     * @return CalculateTariffWorkspaceEntity
      */
-    public function execute(BaseDTO $dto) : array
+    public function execute(BaseDTO $dto) : CalculateTariffWorkspaceEntity
     {
         return $this->run($dto);
     }
@@ -31,9 +32,9 @@ class PriceTariffWorkspaceCalculationInteractor extends BaseInteractor
     /**
      * @param PriceTariffWorkspaceCalculationDTO $dto
      *
-     * @return array
+     * @return CalculateTariffWorkspaceEntity
      */
-    protected function run(BaseDTO $dto) : array
+    protected function run(BaseDTO $dto) : CalculateTariffWorkspaceEntity
     {
         /**
          * Получаем объект enum в зависимости от периода
@@ -61,20 +62,20 @@ class PriceTariffWorkspaceCalculationInteractor extends BaseInteractor
 
         /**
          * Высчитываем сидку в зависимости от количества workspace
-         * @var array
+         * @var CalculateTariffWorkspaceEntity
         */
         $arrayCalculate = $this->checkPriceDiscount($price, $count_workspace);
 
         return $this->createCollection($price, new Money($arrayCalculate['price']), $arrayCalculate['discount']);
     }
 
-    private function createCollection(Money $price, Money $price_discount, int $discount) : array
+    private function createCollection(Money $price, Money $price_discount, int $discount) : CalculateTariffWorkspaceEntity
     {
-        return [
-            'price' => $price,
-            'price_discount' => $price_discount,
-            'discount' => $discount,
-        ];
+        return CalculateTariffWorkspaceEntity::make(
+            price: $price,
+            price_discount: $price_discount,
+            discount: (string) $discount,
+        );
     }
 
     private function checkPriceDiscount(Money $price, int $count_workspace) : array

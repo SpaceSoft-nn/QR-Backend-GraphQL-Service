@@ -15,6 +15,7 @@ use App\Modules\Subscription\App\Data\ValueObject\TariffWorkspaceVO;
 use App\Modules\Subscription\Domain\Services\TariffWorkspaceService;
 use App\Modules\Subscription\Domain\Services\Base\FactoryTariffService;
 use App\Modules\Subscription\App\Data\DTO\PriceTariffWorkspaceCalculationDTO;
+use App\Modules\Subscription\App\Data\Entity\CalculateTariffWorkspaceEntity;
 
 class TrafficResolver
 {
@@ -95,9 +96,32 @@ class TrafficResolver
             personalArea: PersonalArea::find($args['personal_area_id']),
         ));
 
-        // dd($model);
-
         return $model;
+    }
+
+    public function calculateTariffWorkspace(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    {
+        /**
+         * Получаем User по токену
+         * @var User
+         *
+        */
+        $user = $this->authService->getUserAuth();
+
+        /** @var TariffWorkspaceService */
+        $service = $this->factoryTariffService->getServiceTariff('workspace');
+
+        /**
+         * Подсчет цены с учетом скидки + скидка
+         * @var CalculateTariffWorkspaceEntity
+         *
+        */
+        $arrayCalculate = $service->priceTariffWorkspaceCalculation(PriceTariffWorkspaceCalculationDTO::make(
+            count_workspace: $args['count_workspace'],
+            period: $args['period'],
+        ));
+
+        return $arrayCalculate;
     }
 
 }

@@ -11,7 +11,7 @@ final class SetTariffWorkspaceInputValidator extends Validator
     public function rules(): array
     {
         return [
-            "count_workspace" => ['required', 'integer', "min:1"],
+            "count_workspace" => ['required', 'integer', 'min:1'],
             "period" => ['required', 'integer', 'in:30,90,180,360'],
             "description" => ['string', 'nullable', 'max:1000'],
         ];

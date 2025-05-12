@@ -6,6 +6,7 @@ use Illuminate\Support\Carbon;
 use App\Modules\Base\DTO\BaseDTO;
 use App\Modules\Base\Money\Money;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Base\Error\GraphQLBusinessException;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
@@ -17,7 +18,6 @@ use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
 use App\Modules\Subscription\App\Data\DTO\SetTariffWorkspaceDTO;
 use App\Modules\Subscription\App\Data\ValueObject\SubscriptionVO;
 use App\Modules\Subscription\Domain\Actions\Subscription\UpdateSubscriptionAction;
-use Illuminate\Support\Facades\Gate;
 
 class SetTariffPackegeInteractor extends BaseInteractor
 {

@@ -7,6 +7,7 @@ use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
 use App\Modules\Subscription\App\Data\DTO\SetTariffWorkspaceDTO;
 use App\Modules\Subscription\Domain\Interface\Service\ITariffService;
 use App\Modules\Subscription\App\Data\DTO\PriceTariffWorkspaceCalculationDTO;
+use App\Modules\Subscription\App\Data\Entity\CalculateTariffWorkspaceEntity;
 use App\Modules\Subscription\Domain\Interactor\Workspace\SetTariffWorkspaceInteractor;
 use App\Modules\Subscription\Domain\Interactor\Workspace\PriceTariffWorkspaceCalculationInteractor;
 
@@ -32,9 +33,9 @@ class TariffWorkspaceService implements ITariffService
     /**
      * @param PriceTariffWorkspaceCalculationDTO $dto
      *
-     * @return array
+     * @return CalculateTariffWorkspaceEntity
     */
-    public function priceTariffWorkspaceCalculation(BaseDTO $dto) : array
+    public function priceTariffWorkspaceCalculation(BaseDTO $dto) : CalculateTariffWorkspaceEntity
     {
         return $this->priceTariffWorkspaceCalculationInteractor->execute($dto);
     }
