@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -14,11 +15,13 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->decimal('balance', 10, 2);
-            $table->check('balance >= 0'); //баланс не может быть меньше 0
 
             $table->timestamps();
 
         });
+
+        // Добавляем CHECK-констрейнт к колонке balance
+        DB::statement('ALTER TABLE personal_areas ADD CONSTRAINT balance_check CHECK (balance >= 0)');
     }
 
 
