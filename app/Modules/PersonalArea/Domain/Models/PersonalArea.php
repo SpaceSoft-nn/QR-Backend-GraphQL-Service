@@ -13,13 +13,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Modules\Subscription\Domain\Models\SubscriptionPlan;
+use App\Modules\PersonalArea\App\Data\Enums\OperationBalanceEnum;
 use App\Modules\PersonalArea\Domain\Factories\PersonalAreaFactory;
 use App\Modules\PersonalArea\Domain\Observers\PersonalAreaObserver;
+
 
 #[ObservedBy([PersonalAreaObserver::class])]
 class PersonalArea extends Model
 {
     use HasFactory, HasUuids;
+
+    /**
+     * Это свойство нужно для того, что бы в observer при логировании указать тип операции
+     * @var OperationBalanceEnum
+     */
+    public OperationBalanceEnum $operationType;
+
 
     protected static function newFactory()
     {

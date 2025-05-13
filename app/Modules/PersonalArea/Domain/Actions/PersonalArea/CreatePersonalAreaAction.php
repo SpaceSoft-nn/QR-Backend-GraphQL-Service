@@ -17,6 +17,8 @@ class CreatePersonalAreaAction
     private function run(PersonalAreaVO $vo) : PersonalArea
     {
 
+        // $model = PersonalArea::query()->create($vo->toArrayNotNull());
+
         try {
 
             $model = PersonalArea::query()->create($vo->toArrayNotNull());

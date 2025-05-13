@@ -10,6 +10,7 @@ use App\Modules\Base\Error\GraphQLBusinessException;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
 use App\Modules\Drivers\Domain\Exceptions\TochkaBank\QrBusinessException;
+use App\Modules\PersonalArea\App\Data\Enums\OperationBalanceEnum;
 use App\Modules\PersonalArea\Domain\Actions\BalanceLog\UpdateBalancePersonalAreaAction;
 
 class WithdrawalBalancePersonalAreaInteractor extends BaseInteractor
@@ -44,7 +45,7 @@ class WithdrawalBalancePersonalAreaInteractor extends BaseInteractor
             $depositBefore = $this->withdrawalBalance($moneyActual, $dto->moneyDeposit);
 
             /** @var bool  */
-            $status = $this->updateBalancePersonalAreaAction($dto->personalArea, $depositBefore);
+            $status = $this->updateBalancePersonalAreaAction($dto->personalArea, $depositBefore, OperationBalanceEnum::WITHDRAWAL);
 
             return $status;
         });
@@ -52,9 +53,9 @@ class WithdrawalBalancePersonalAreaInteractor extends BaseInteractor
         return $status;
     }
 
-    private function updateBalancePersonalAreaAction(PersonalArea $personalArea, Money $balance) : bool
+    private function updateBalancePersonalAreaAction(PersonalArea $personalArea, Money $balance, OperationBalanceEnum $operationBalanceEnum) : bool
     {
-        return UpdateBalancePersonalAreaAction::make($personalArea, $balance);
+        return UpdateBalancePersonalAreaAction::make($personalArea, $balance, $operationBalanceEnum);
     }
 
     private function withdrawalBalance(Money $moneyActual, Money $moneyDeposit) : Money

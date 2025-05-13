@@ -1,4 +1,6 @@
 
+
+
 type BalanceLog @model(class: "App\\Modules\\PersonalArea\\Domain\\Models\\BalanceLog") {
 
     id: ID!

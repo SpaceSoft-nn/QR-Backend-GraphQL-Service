@@ -4,10 +4,13 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Modules\Base\Money\Money;
+use App\Modules\PersonalArea\App\Data\DTO\CreatePersonalAreaDTO;
 use App\Modules\User\Domain\Models\User;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\PersonalArea\Domain\Services\BalanceService;
 use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
+use App\Modules\PersonalArea\App\Data\ValueObject\PersonalAreaVO;
+use App\Modules\PersonalArea\Domain\Services\PersonalAreaService;
 
 class GoCommand extends Command
 {
@@ -17,14 +20,29 @@ class GoCommand extends Command
     protected $description = 'Тестовый запуск';
 
 
-    public function handle(BalanceService $balanceService)
+    public function handle(BalanceService $balanceService, PersonalAreaService $personalAreaService)
     {
 
         $status = $balanceService->withdrawal(WithdrawalBalanceDTO::make(
-            moneyDeposit: new Money(124),
-            personalArea: PersonalArea::find("0196c945-9302-701a-9f54-24651a66a68e"),
-            user: User::find("0196c945-91e0-704d-945c-075fff9a343c"),
+            moneyDeposit: new Money(2),
+            personalArea: PersonalArea::find("0196caaf-f3c6-71ef-afd5-960ae5f8b2cd"),
+            user: User::find("0196caaf-f24c-7162-8d8b-575d8ccea584"),
         ));
+
+        dd($status);
+
+        // $user = User::factory()->create();
+
+        // $status = $personalAreaService->createPersonalArea(CreatePersonalAreaDTO::make(
+        //     personalAreaVO: PersonalAreaVO::make(
+        //         owner_id: $user->id,
+        //         balance: 0,
+        //     ),
+        //     user: $user,
+        // ));
+
+        // dd(90);
+
 
     }
 

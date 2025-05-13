@@ -29,8 +29,12 @@ class AuthConfig
 
     ) : self {
 
-        if(is_null($timeExpAccessToken)) { $timeExpAccessToken = $timeExpAccessToken ?? env("TIME_EXP_ACCESS_TOKEN" , 60); }
-        if(is_null($timeExpRefreshToken)) { $timeExpRefreshToken = $timeExpRefreshToken ?? env("TIME_EXP_REFRESH_TOKEN" , 432000); }
+        $defaultTimeExpAccessToken = empty(env("TIME_EXP_ACCESS_TOKEN" , 60)) ? 60 : env("TIME_EXP_ACCESS_TOKEN" , 60);
+        $defaultTimeExpRefreshToken = empty(env("TIME_EXP_REFRESH_TOKEN" , 432000)) ? 432000 : env("TIME_EXP_REFRESH_TOKEN" , 432000);
+
+        if(is_null($timeExpAccessToken)) { $timeExpAccessToken = $defaultTimeExpAccessToken; }
+        if(is_null($timeExpRefreshToken)) { $timeExpRefreshToken = $defaultTimeExpRefreshToken; }
+
 
         return new self(
             guard: $guard,

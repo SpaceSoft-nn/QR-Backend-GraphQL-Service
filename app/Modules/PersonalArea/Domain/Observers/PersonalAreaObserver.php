@@ -46,13 +46,15 @@ class PersonalAreaObserver
     }
 
 
-    public function saved(PersonalArea $personalArea): void
+    public function updated(PersonalArea $personalArea): void
     {
+
         try {
 
-            if(!app()->runningInConsole() && $personalArea->isDirty('balance'))
+            //сохраняем логирование баланса
+            if($personalArea->isDirty('balance'))
             {
-
+                #TODO Вынести в очереди Логику
 
                 /** @var Money */
                 $oldBalance = $personalArea->getOriginal('balance');
@@ -68,7 +70,7 @@ class PersonalAreaObserver
                         balance_before: $oldBalance,
                         balance_after: $newBalance,
                         amount: trim($oldBalance->sub($newBalance), '-'),
-                        operation: $status->gte(0) ? OperationBalanceEnum::WITHDRAWAL : OperationBalanceEnum::DEPOSIT,
+                        operation: $personalArea->operationType,
                     )
                 );
             }

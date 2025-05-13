@@ -4,6 +4,7 @@ namespace App\Modules\PersonalArea\Domain\Actions\BalanceLog;
 
 use function App\Helpers\Mylog;
 use App\Modules\Base\Money\Money;
+use App\Modules\PersonalArea\App\Data\Enums\OperationBalanceEnum;
 use App\Modules\PersonalArea\Domain\Exceptions\PersonalArea\UpdateBalancePersonalAreaActionException;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 
@@ -15,9 +16,9 @@ class UpdateBalancePersonalAreaAction
      *
      * @return bool
      */
-    public static function make(PersonalArea $personalArea, Money $balance) : bool
+    public static function make(PersonalArea $personalArea, Money $balance, OperationBalanceEnum $operationBalanceEnum) : bool
     {
-       return (new self())->run($personalArea, $balance);
+       return (new self())->run($personalArea, $balance, $operationBalanceEnum);
     }
 
     /**
@@ -26,7 +27,7 @@ class UpdateBalancePersonalAreaAction
      *
      * @return bool
      */
-    private function run(PersonalArea $personalArea, Money $balance) : bool
+    private function run(PersonalArea $personalArea, Money $balance, OperationBalanceEnum $operationBalanceEnum) : bool
     {
         try {
 
@@ -38,6 +39,7 @@ class UpdateBalancePersonalAreaAction
             $personalAreaFresh = PersonalArea::where('id', $personalArea->id)->lockForUpdate()->first();
 
             $personalAreaFresh->balance = $balance;
+            $personalAreaFresh->operationType = $operationBalanceEnum;
 
             $status = $personalAreaFresh->save();
 
