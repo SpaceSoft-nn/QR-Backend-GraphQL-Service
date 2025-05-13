@@ -21,9 +21,9 @@ class GoCommand extends Command
     {
 
         $status = $balanceService->withdrawal(WithdrawalBalanceDTO::make(
-            moneyDeposit: new Money(50.5),
-            personalArea: PersonalArea::find("0196b626-7acb-708c-87b7-1efbaf44be78"),
-            user: User::find("0196b626-7a0a-7175-9be0-ebd468ac6e3b"),
+            moneyDeposit: new Money(124),
+            personalArea: PersonalArea::find("0196c945-9302-701a-9f54-24651a66a68e"),
+            user: User::find("0196c945-91e0-704d-945c-075fff9a343c"),
         ));
 
     }

@@ -2,22 +2,32 @@
 
 namespace App\Modules\PersonalArea\Domain\Actions\BalanceLog;
 
-use Exception;
 use function App\Helpers\Mylog;
 use App\Modules\Base\Money\Money;
-use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\PersonalArea\Domain\Exceptions\PersonalArea\UpdateBalancePersonalAreaActionException;
+use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 
 class UpdateBalancePersonalAreaAction
 {
-    public static function make(PersonalArea $personalArea, Money $balance) : true
+    /**
+     * @param PersonalArea $personalArea
+     * @param Money $balance
+     *
+     * @return bool
+     */
+    public static function make(PersonalArea $personalArea, Money $balance) : bool
     {
        return (new self())->run($personalArea, $balance);
     }
 
-    private function run(PersonalArea $personalArea, Money $balance) : true
+    /**
+     * @param PersonalArea $personalArea
+     * @param Money $balance
+     *
+     * @return bool
+     */
+    private function run(PersonalArea $personalArea, Money $balance) : bool
     {
-
         try {
 
             /**

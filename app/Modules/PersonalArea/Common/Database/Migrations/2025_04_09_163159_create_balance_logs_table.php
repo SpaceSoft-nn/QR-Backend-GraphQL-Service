@@ -17,6 +17,8 @@ return new class extends Migration
 
             $table->decimal('balance_before', 10, 2)->comment('баланс до совершения операции');
             $table->decimal('balance_after', 10, 2)->comment('баланс после совершения операции');
+
+
             $table->decimal('amount', 10, 2)->comment('величина изменения (можно вычислять как разницу между balance_after и balance_before, для удобства)');
 
             $table->string('operation')->comment('тип операции (например, пополнение, списание, корректировка, установка первого баланса) ');

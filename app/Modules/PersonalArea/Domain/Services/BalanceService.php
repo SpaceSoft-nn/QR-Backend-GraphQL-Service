@@ -3,9 +3,12 @@
 namespace App\Modules\PersonalArea\Domain\Services;
 
 use App\Modules\Base\DTO\BaseDTO;
+use App\Modules\PersonalArea\Domain\Models\BalanceLog;
 use App\Modules\PersonalArea\App\Data\DTO\DepositBalanceDTO;
 use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
 use App\Modules\PersonalArea\Domain\Interface\Service\IBalanceService;
+use App\Modules\PersonalArea\App\Data\ValueObject\BalanceLog\BalanceLogVO;
+use App\Modules\PersonalArea\Domain\Actions\BalanceLog\CreateBalanceLogAction;
 use App\Modules\PersonalArea\Domain\Interactor\Balance\DepositBalancePersonalAreaInteractor;
 use App\Modules\PersonalArea\Domain\Interactor\Balance\WithdrawalBalancePersonalAreaInteractor;
 
@@ -47,6 +50,11 @@ final class BalanceService implements IBalanceService
     public function adjustment(BaseDTO $dto) : bool
     {
         return true;
+    }
+
+    public function logBalance(BalanceLogVO $vo) : BalanceLog
+    {
+        return CreateBalanceLogAction::make($vo);
     }
 
 }

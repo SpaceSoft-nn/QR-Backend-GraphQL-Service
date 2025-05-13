@@ -21,6 +21,7 @@ class PaymentSeed extends Seeder
             "name" => "Банки"
         ]);
 
+
         // number_id - 1
         $tochkaBank = PaymentMethod::factory()
             ->withPayment($payment)
@@ -28,6 +29,7 @@ class PaymentSeed extends Seeder
                 "driver_name" => "Точка Банк",
                 "png_url" => "https://static.tildacdn.com/tild3033-3137-4838-b139-343161653937/tochka_bank_300.png",
             ]);
+
     }
 
 }
