@@ -45,14 +45,19 @@ class InteractorSendNotification
     }
 
     /**
-     * Создание записи в таблицах email и проверка на уникальность
+     * Создание/поиск записи в таблицах email и проверка на уникальность
+     * P.S - Изменили только на поиск записи
+     *
      * @param string $data
      *
      * @return ?EmailList
      */
     private function EntityNotifyEmail(string $data) : ?EmailList
     {
-        return EntityNotificationEmailInteractor::make($data);
+        /** @var ?EmailList */
+        $model = EntityNotificationEmailInteractor::make($data);
+
+        return $model;
     }
 
     /**
@@ -103,9 +108,9 @@ class InteractorSendNotification
         return DB::transaction(function ($connect) use ($dto) {
             $driver = $dto->driver->value;
 
-            //создание list
+            //Поиска list
+            /** @var ?EmaiList */
             $model = $this->EntityNotifyEmail($dto->value);
-
 
             //проверяем может ли пользователь повторно отправить код
             if($this->not_block_send_email($model->id))

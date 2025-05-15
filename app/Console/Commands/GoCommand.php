@@ -3,10 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Modules\Notification\Domain\Services\Notification\NotificationService;
-use App\Modules\Notification\App\Data\DTO\Service\Notification\Confirm\ConfirmDTO;
 use App\Modules\Notification\App\Data\DTO\Service\SendNotificationDTO;
-use App\Modules\Notification\App\Data\Enums\MethodNotificationEnum;
+use App\Modules\Notification\Domain\Services\Notification\NotificationService;
 
 class GoCommand extends Command
 {
@@ -21,7 +19,7 @@ class GoCommand extends Command
 
         $status = $notificationService->runNotification(SendNotificationDTO::make(
             driver: "smtp",
-            value: "test3@mail.ru",
+            value: "test6@mail.ru",
         ));
 
         // $status = $notificationService->confirmNotification(ConfirmDTO::make(

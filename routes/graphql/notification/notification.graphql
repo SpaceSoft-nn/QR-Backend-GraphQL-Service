@@ -1,4 +1,21 @@
+extend type Mutation {
 
+    "Отправляем код нотификации на почту"
+    sendNotification(email: String! @rules(apply: ["required", "email"])): StatusSend! @field(resolver: "App\\Modules\\Notification\\Presentation\\HTTP\\Graphql\\Response\\NotificationResolver@sendNotification")
+}
+
+type StatusSend {
+
+    "uuid - запись отправки - если поле есть, значит отправка успешна"
+    uuid_send: String
+
+    "Сообщение об отправке"
+    message: String!
+
+    "Драйвер отправки"
+    status: Boolean!
+
+}
 
 type PhoneList @model(class: "App\\Modules\\Notification\\Domain\\Models\\PhoneList") {
 

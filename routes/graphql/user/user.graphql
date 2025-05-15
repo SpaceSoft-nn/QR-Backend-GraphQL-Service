@@ -3,8 +3,6 @@ extend type Mutation {
     userCreate(input: UserCreateInput! @spread): User! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@store") @guard
     updateUser(input: UpdateUserInput! @spread): User! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@update") @guard
 
-    "Отправляем код для сброса пароля"
-    sendCodePasswordReset(email: !String @rules(apply: ["required", "email"])): SendNotification! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@resetPassword")
 }
 
 
@@ -50,21 +48,6 @@ input UserCreateInput  {
 
     "ID организации, куда будет добавлен пользователь"
     organization_id: ID!
-
-}
-
-type SendNotification {
-
-    id: ID!
-
-    "uuid - email или phone"
-    uuid_list: String!
-
-    "Драйвер отправки"
-    driver: DriverTypeNotification!
-
-    "Значение email/phone"
-    value: String!
 
 }
 

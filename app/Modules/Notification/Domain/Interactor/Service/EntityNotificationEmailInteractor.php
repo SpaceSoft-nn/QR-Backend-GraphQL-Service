@@ -34,7 +34,7 @@ class EntityNotificationEmailInteractor
      * Логика на проверку существование такой записи при подтверждении по коду
      * @param string $data
      *
-     * @return EmailList|null
+     * @return ?EmailList
      */
     public function run() : ?EmailList
     {
