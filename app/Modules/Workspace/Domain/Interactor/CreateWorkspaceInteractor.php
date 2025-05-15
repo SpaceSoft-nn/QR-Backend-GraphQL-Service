@@ -64,6 +64,7 @@ class CreateWorkspaceInteractor extends BaseInteractor
 
             DB::afterCommit(function () use ($workspace) {
 
+                #TODO Выносить в очереди
                 //декрементируем максимальное количество созданных АРМ у subscription
                 $status = $this->subscriptionService->decrementWorkspaceCount($this->sub);
 
