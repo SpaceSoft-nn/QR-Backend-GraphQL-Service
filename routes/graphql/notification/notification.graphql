@@ -1,8 +1,9 @@
 extend type Mutation {
 
-    "Отправляем код нотификации на почту"
+    "Отправляем код нотификации на почту - если такой почты нет в системе будет выдана ошибка, так же есть лимит во времени при повторной отправки кода"
     sendNotification(email: String! @rules(apply: ["required", "email"])): StatusSend! @field(resolver: "App\\Modules\\Notification\\Presentation\\HTTP\\Graphql\\Response\\NotificationResolver@sendNotification")
 }
+
 
 type StatusSend {
 

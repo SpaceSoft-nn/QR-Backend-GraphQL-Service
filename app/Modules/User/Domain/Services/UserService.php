@@ -10,10 +10,12 @@ use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\Notification\Domain\Models\PhoneList;
 use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 use App\Modules\User\App\Data\DTO\User\UpdateUserDTO;
+use App\Modules\User\App\Data\DTO\User\ResetPasswordDTO;
 use App\Modules\User\App\Data\DTO\User\RegistrationUserDTO;
 use App\Modules\User\Domain\Interactor\RegistrationInteractor;
 use App\Modules\User\Domain\Interactor\User\CreateUserInteractor;
 use App\Modules\User\Domain\Interactor\User\UpdateUserInteractor;
+use App\Modules\User\Domain\Interactor\User\ResetPasswordInteractor;
 use App\Modules\User\Domain\Interface\Repository\Service\IUserService;
 
 final class UserService implements IUserService
@@ -23,6 +25,7 @@ final class UserService implements IUserService
         private RegistrationInteractor $registrationInteractor,
         private CreateUserInteractor $createUserInteractor,
         private UpdateUserInteractor $updateUserInteractor,
+        private ResetPasswordInteractor $resetPasswordInteractor,
     ) { }
 
 
@@ -78,6 +81,11 @@ final class UserService implements IUserService
     public function updateUser(UpdateUserDTO $dto) : User
     {
         return $this->updateUserInteractor->execute($dto);
+    }
+
+    public function resetPassword(ResetPasswordDTO $dto) : User
+    {
+        return $this->resetPasswordInteractor->execute($dto);
     }
 
 }

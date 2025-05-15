@@ -10,18 +10,18 @@ use App\Modules\User\App\Data\ValueObject\UserVO;
 
 class UpdateUserAction
 {
-    public static function make(User $model, UserVO $dto) : User
+    public static function make(User $model, UserVO $vo) : User
     {
-        return app(self::class)->run($model, $dto);
+        return app(self::class)->run($model, $vo);
     }
 
-    private function run(User $model, UserVO $dto) : User
+    private function run(User $model, UserVO $vo) : User
     {
 
         try {
 
             //обновляем атрибуты модели через fill
-            $model->fill($dto->toArrayNotNull());
+            $model->fill($vo->toArrayNotNull());
 
             //проверяем данные на 'грязь' - если данные отличаются от старого состояние модели, то обновляем сущность
             if ($model->isDirty()) { $model->save(); $model->refresh(); }

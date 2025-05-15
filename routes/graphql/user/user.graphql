@@ -3,9 +3,34 @@ extend type Mutation {
     userCreate(input: UserCreateInput! @spread): User! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@store") @guard
     updateUser(input: UpdateUserInput! @spread): User! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@update") @guard
 
+    resetPassword(input: ResetPasswordInput! @spread): StatusResetPassword! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@resetPassword")
+
 }
 
 
+type StatusResetPassword {
+
+    "Информация токена входа"
+    authToken: AuthToken
+
+    message: String!
+
+    status: Boolean!
+
+}
+
+input ResetPasswordInput {
+
+    "Код для подтврждения нотификации"
+    code: Int! @rules(apply: ["required", "integer"])
+
+    "uuid отправки кода"
+    uuid_send: String! @rules(apply: ["required", "uuid", "exists:send_email_notification,id"])
+
+    "Пароль для изменения, *повторный пароль проверить на фронте"
+    password: String! @rules(apply: ["required", "string"])
+
+}
 
 input UpdateUserInput @validator(class: "App\\Modules\\User\\Domain\\Validators\\СhangeRoleUserValidation") {
 

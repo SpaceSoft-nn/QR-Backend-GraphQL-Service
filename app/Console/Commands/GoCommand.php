@@ -19,7 +19,7 @@ class GoCommand extends Command
 
         $status = $notificationService->runNotification(SendNotificationDTO::make(
             driver: "smtp",
-            value: "test6@mail.ru",
+            value: "test@mail.ru",
         ));
 
         // $status = $notificationService->confirmNotification(ConfirmDTO::make(

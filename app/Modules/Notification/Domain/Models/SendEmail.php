@@ -2,13 +2,17 @@
 
 namespace App\Modules\Notification\Domain\Models;
 
+use App\Modules\User\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
- * 
+ *
  *
  * @property string $id
  * @property string $uuid_list
@@ -44,5 +48,20 @@ class SendEmail extends Model
     {
         return $this->hasMany(ConfirmEmail::class)->chaperone();
     }
+
+    public function emailList(): BelongsTo
+    {
+        return $this->belongsTo(EmailList::class, 'uuid_list', 'id');
+    }
+
+    /**
+     * @return HasOneThrough
+    */
+    public function user(): HasOne
+    {
+        return $this->emailList->user();
+    }
+
+
 
 }

@@ -2,15 +2,20 @@
 
 namespace App\Modules\User\Presentation\HTTP\Graphql\Response;
 
+use App\Modules\Auth\App\Data\Entity\TokeJwtEntity;
 use App\Modules\User\Domain\Models\User;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use App\Modules\Auth\Domain\Services\AuthService;
 use App\Modules\User\Domain\Services\UserService;
+use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\User\App\Data\DTO\User\CreateUserDTO;
 use App\Modules\User\App\Data\DTO\User\UpdateUserDTO;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use App\Modules\User\App\Data\DTO\User\ResetPasswordDTO;
 use App\Modules\User\Domain\Validators\CreateUserValidator;
-
+use App\Modules\Notification\Domain\Services\Notification\NotificationService;
+use App\Modules\Notification\App\Data\DTO\Service\Notification\Confirm\ConfirmDTO;
+use App\Modules\Notification\Domain\Models\SendEmail;
 
 class UserResolver
 {
@@ -19,6 +24,7 @@ class UserResolver
         private CreateUserValidator $userValidator,
         private UserService $userService,
         private AuthService $authService,
+        private NotificationService $notificationService,
     ) {}
 
 
@@ -75,7 +81,7 @@ class UserResolver
     }
 
     /**
-     * Отправка кода для восстановления пароля
+     * Восстановление пароля - после проверки кода
      * @param mixed $root
      * @param array $args
      * @param GraphQLContext $context
@@ -87,8 +93,33 @@ class UserResolver
     {
 
 
+        #TODO Временно делаем восстановление по почте
 
-        return 1;
+        /** @var array */
+        $status = $this->notificationService->confirmNotification(ConfirmDTO::make(
+            code: $args['code'],
+            uuid: $args['uuid_send'],
+            type: 'email',
+        ));
+
+
+        //Если возникает какая-либо ошибка - отвечаме на фронт
+        if(!$status['status']) { return $status; }
+
+        /** @var User */
+        $user = $this->userService->resetPassword(ResetPasswordDTO::make(
+            password: $args['password'],
+            sendEmail: SendEmail::find($args['uuid_send']),
+        ));
+
+        /** @var TokeJwtEntity */
+        $auth = $this->authService->loginUser($user);
+
+        return [
+            "authToken" => $auth,
+            "message" => "Пароль успешно изменён.",
+            "status" => true,
+        ];
     }
 
 }

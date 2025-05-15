@@ -56,6 +56,21 @@ readonly class UserVO implements Arrayable
         );
     }
 
+    public function setPassword(string $password) : self
+    {
+
+        return $this->make(
+            first_name: $this->first_name,
+            last_name: $this->last_name,
+            father_name: $this->father_name,
+            password: $password,
+            role: $this->role,
+            email_id: $this->email_id,
+            phone_id: $this->phone_id,
+            active: $this->active,
+        );
+    }
+
     public function setRole(UserRoleEnum $role)
     {
         return $this->make(
