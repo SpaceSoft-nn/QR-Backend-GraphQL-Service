@@ -14,7 +14,7 @@ trait TraitConfirm
     *
     * @return bool Возвращает true, когда можно отправить notification спустя время указанного из config
     */
-    public function not_block_send(?string $uuid, int $time = null) : bool
+    public function not_block_send(?string $uuid, ?int $time = null) : bool
     {
 
         if(is_null($time))

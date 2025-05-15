@@ -74,5 +74,41 @@ class UserResolver
 
     }
 
+    /**
+     * Восстановление пароля
+     * @param mixed $root
+     * @param array $args
+     * @param GraphQLContext $context
+     * @param ResolveInfo $resolveInfo
+     *
+     * @return User
+     */
+    public function resetPassword(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)  : User
+    {
+
+        dd(1);
+
+        /**
+         * Получаем User по токену
+         * @var User
+         *
+        */
+        $user = $this->authService->getUserAuth();
+
+        /** @var UpdateUserDTO */
+        $updateUserDTO = UpdateUserDTO::make(
+            user: User::findOrFail($args['user_id']),
+            userOwner: $user,
+            role: $args['role'],
+            active: $args['active'],
+        );
+
+        /** @var User */
+        $user = $this->userService->updateUser($updateUserDTO);
+
+        return $user;
+
+    }
+
 }
 

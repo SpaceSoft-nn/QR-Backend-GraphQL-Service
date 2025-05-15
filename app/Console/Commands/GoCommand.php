@@ -3,11 +3,10 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Modules\Base\Money\Money;
-use App\Modules\User\Domain\Models\User;
-use App\Modules\PersonalArea\Domain\Models\PersonalArea;
-use App\Modules\PersonalArea\Domain\Services\BalanceService;
-use App\Modules\PersonalArea\App\Data\DTO\WithdrawalBalanceDTO;
+use App\Modules\Notification\Domain\Services\Notification\NotificationService;
+use App\Modules\Notification\App\Data\DTO\Service\Notification\Confirm\ConfirmDTO;
+use App\Modules\Notification\App\Data\DTO\Service\SendNotificationDTO;
+use App\Modules\Notification\App\Data\Enums\MethodNotificationEnum;
 
 class GoCommand extends Command
 {
@@ -17,14 +16,21 @@ class GoCommand extends Command
     protected $description = 'Тестовый запуск';
 
 
-    public function handle(BalanceService $balanceService)
+    public function handle(NotificationService $notificationService)
     {
 
-        $status = $balanceService->withdrawal(WithdrawalBalanceDTO::make(
-            moneyDeposit: new Money(50.5),
-            personalArea: PersonalArea::find("0196b626-7acb-708c-87b7-1efbaf44be78"),
-            user: User::find("0196b626-7a0a-7175-9be0-ebd468ac6e3b"),
+        $status = $notificationService->runNotification(SendNotificationDTO::make(
+            driver: "smtp",
+            value: "test3@mail.ru",
         ));
+
+        // $status = $notificationService->confirmNotification(ConfirmDTO::make(
+        //     code: 981066,
+        //     uuid: "0196d49b-6514-7246-80a7-9629f31a8c93",
+        //     type: 'email',
+        // ));
+
+        dd($status);
 
     }
 

@@ -20,5 +20,10 @@ type EmailList @model(class: "App\\Modules\\Notification\\Domain\\Models\\EmailL
 
 }
 
+enum DriverTypeNotification {
+    smtp
+    aero,
+}
+
 
 

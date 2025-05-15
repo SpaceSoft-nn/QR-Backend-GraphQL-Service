@@ -48,7 +48,7 @@ return new class extends Migration
                     WHERE code = NEW.code AND id = NEW.uuid_send
                     LIMIT 1;
 
-                    UPDATE email_list
+                    UPDATE email_lists
                     SET status = true
                     WHERE id = emailList_uuid;
                 END IF;

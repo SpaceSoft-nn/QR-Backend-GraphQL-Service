@@ -21,7 +21,7 @@ class SendNotificationDTO extends BaseDTO
     public readonly string $value;
     public readonly ?int $code;
 
-    public function __construct(string $driver, string $value, int $code = null)
+    public function __construct(string $driver, string $value, ?int $code = null)
     {
         $this->driver = NotificationDriverEnum::objectByName($driver);
         $this->value = $value;
@@ -29,7 +29,7 @@ class SendNotificationDTO extends BaseDTO
     }
 
 
-    public static function make(string $driver, string $value, $code = null) : self
+    public static function make(string $driver, string $value, ?int $code = null) : self
     {
         //Проверяем что значение при определённым driver подходят к конкретному drivers smtp => почта (mail), phone => телефон (phone)
         switch($driver)

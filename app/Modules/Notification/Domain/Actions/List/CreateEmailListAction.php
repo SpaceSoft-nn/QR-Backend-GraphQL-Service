@@ -21,11 +21,20 @@ class CreateEmailListAction
 
         try {
 
+
+            // $model = EmailList::query()
+            //     ->create([
+            //         'value' => $email,
+            //         'status' => $status ?? false
+            //     ]);
+
             $model = EmailList::query()
-            ->create([
-                'value' => $email,
-                'status' => $status ?? null
-            ]);
+                ->firstOrCreate(
+                    [
+                        'value' => $email,
+                    ],
+                    [$status && 'status' => $status]
+                );
 
         } catch (UniqueConstraintViolationException $exc) {
 

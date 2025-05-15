@@ -4,21 +4,21 @@ namespace App\Modules\User\Domain\Models;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use App\Modules\Payment\Domain\Models\DriverInfo;
 use App\Modules\User\App\Data\Enums\UserRoleEnum;
 use App\Modules\User\Domain\Factories\UserFactory;
 use App\Modules\Workspace\Domain\Models\Workspace;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\Notification\Domain\Models\PhoneList;
+use App\Modules\Pivot\Domain\Models\UserOrganization;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Modules\Organization\Domain\Models\Organization;
-use App\Modules\Payment\Domain\Models\DriverInfo;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
-use App\Modules\Pivot\Domain\Models\UserOrganization;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class User extends Authenticatable implements JWTSubject

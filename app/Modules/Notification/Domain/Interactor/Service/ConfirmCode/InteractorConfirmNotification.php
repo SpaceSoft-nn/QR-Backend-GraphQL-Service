@@ -39,9 +39,11 @@ class InteractorConfirmNotification
 
     private function confirmCodeEmail(int $code, string $uuid)
     {
-        //проверяем на количесвто попыток подтверждения
+
+        //проверяем на количество попыток подтверждения
         if($this->repEmail->checkCountConfirm($uuid))
         {
+
             $model = $this->CreateConfirmEmail($code, $uuid);
 
             if(is_null($model)) { throw new ModelNotFoundException('Ошибка создание модели {confirmEmail}'); }

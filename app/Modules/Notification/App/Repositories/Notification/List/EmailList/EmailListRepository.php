@@ -50,7 +50,7 @@ class EmailListRepository extends CoreRepository //implements IRepository
     }
 
      /**
-     * Вернуть true, если phone существует и равен status:true - авторизирован
+     * Вернуть true, если email существует и равен status:true - авторизирован
      * @param string $data
      *
      * @return ?Model

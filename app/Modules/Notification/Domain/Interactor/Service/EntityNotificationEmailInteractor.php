@@ -1,12 +1,12 @@
 <?php
 namespace App\Modules\Notification\Domain\Interactor\Service;
 
-use App\Modules\Notification\App\Repositories\Notification\List\EmailList\EmailListRepository;
-use App\Modules\Notification\Domain\Actions\List\CreateEmailListAction;
-use App\Modules\Notification\Domain\Models\EmailList;
-use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\Validator;
+use App\Modules\Notification\Domain\Models\EmailList;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Modules\Notification\Domain\Actions\List\CreateEmailListAction;
+use App\Modules\Notification\App\Repositories\Notification\List\EmailList\EmailListRepository;
 
 class EntityNotificationEmailInteractor
 {
@@ -38,15 +38,21 @@ class EntityNotificationEmailInteractor
      */
     public function run() : ?EmailList
     {
-        if($this->logicIf($this->email))
-        {
-            //создаём запись в бд
-            $model = CreateEmailListAction::make($this->email);
-            return $model;
 
-        } else {
-            throw new HttpException(409, "Данные: {$this->email} уже зарегистрированы.");
-        }
+        //Временнор убрал логику, что бы у нас создавала запись или возвращало - это нужно для нотификации (а не только для регистрации)
+        // if($this->logicIf($this->email))
+        // {
+        //     //создаём запись в бд
+        //     $model = CreateEmailListAction::make($this->email);
+        //     return $model;
+
+        // } else {
+        //     throw new HttpException(409, "Данные: {$this->email} уже зарегистрированы.");
+        // }
+
+        //создаём запись или возвращаем запись из БД
+        $model = CreateEmailListAction::make($this->email);
+        return $model;
     }
 
 

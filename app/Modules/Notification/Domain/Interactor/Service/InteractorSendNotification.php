@@ -1,17 +1,17 @@
 <?php
 namespace App\Modules\Notification\Domain\Interactor\Service;
 
-use App\Modules\Notification\App\Data\DTO\Service\CreateSendAction\CreateSendDTO;
-use App\Modules\Notification\App\Data\DTO\Service\SendNotificationDTO;
-use App\Modules\Notification\App\Repositories\Notification\Send\SendEmailRepository;
-use App\Modules\Notification\App\Repositories\Notification\Send\SendPhoneRepository;
-use App\Modules\Notification\Domain\Actions\SendAndConfirm\Send\CreateSendEmailAction;
-use App\Modules\Notification\Domain\Actions\SendAndConfirm\Send\CreateSendPhoneAction;
+use Illuminate\Support\Facades\DB;
 use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\Notification\Domain\Models\PhoneList;
 use App\Modules\Notification\Domain\Models\SendEmail;
 use App\Modules\Notification\Domain\Models\SendPhone;
-use Illuminate\Support\Facades\DB;
+use App\Modules\Notification\App\Data\DTO\Service\SendNotificationDTO;
+use App\Modules\Notification\App\Data\DTO\Service\CreateSendAction\CreateSendDTO;
+use App\Modules\Notification\App\Repositories\Notification\Send\SendEmailRepository;
+use App\Modules\Notification\App\Repositories\Notification\Send\SendPhoneRepository;
+use App\Modules\Notification\Domain\Actions\SendAndConfirm\Send\CreateSendEmailAction;
+use App\Modules\Notification\Domain\Actions\SendAndConfirm\Send\CreateSendPhoneAction;
 
 class InteractorSendNotification
 {
@@ -34,7 +34,7 @@ class InteractorSendNotification
     }
 
     /**
-    * Метод проверки на возможность отправки кода зрщту
+    * Метод проверки на возможность отправки кода phone
     * @param string $uuid
     *
     * @return bool - true отправка кода доступна
@@ -86,13 +86,14 @@ class InteractorSendNotification
         return CreateSendPhoneAction::make($data);
     }
 
-    private function arrayResponse(bool $status , string $uuid = null, int $code = null) : array
+    private function arrayResponse(bool $status , ?string $uuid = null, ?int $code = null) : array
     {
         //лучше в будущем сделать DTO
         return [
             'uuid' => $uuid,
             'status' => $status,
             'code' => $code
+            #TODO В идеале тут присылать время сколько подождать человеку перед отправкой.
         ];
     }
 
@@ -104,6 +105,7 @@ class InteractorSendNotification
 
             //создание list
             $model = $this->EntityNotifyEmail($dto->value);
+
 
             //проверяем может ли пользователь повторно отправить код
             if($this->not_block_send_email($model->id))

@@ -2,19 +2,19 @@
 
 namespace App\Modules\Notification\Domain\Services\NotificationChannel;
 
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Model;
 use App\Modules\Notification\App\Data\DTO\Base\BaseDTO;
-use App\Modules\Notification\App\Data\DTO\Service\Notification\Confirm\ConfirmDTO;
 use App\Modules\Notification\App\Data\DTO\Service\SendNotificationDTO;
+use App\Modules\Notification\Domain\Interface\Service\INotificationChannel;
+use App\Modules\Notification\App\Data\DTO\Service\Notification\Confirm\ConfirmDTO;
+use App\Modules\Notification\Domain\Interactor\Service\InteractorSendNotification;
+use App\Modules\Notification\Domain\Services\NotificationSend\NotificationSendService;
 use App\Modules\Notification\App\Repositories\Notification\List\EmailList\EmailListRepository;
 use App\Modules\Notification\App\Repositories\Notification\List\PhoneList\PhoneListRepository;
 use App\Modules\Notification\Domain\Interactor\Service\ConfirmCode\InteractorConfirmNotification;
-use App\Modules\Notification\Domain\Interactor\Service\InteractorSendNotification;
-use App\Modules\Notification\Domain\Interface\Service\INotificationChannel;
-use App\Modules\Notification\Domain\Services\NotificationSend\NotificationSendService;
-use Exception;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class NotificationChannelService implements INotificationChannel
 {
@@ -37,12 +37,12 @@ class NotificationChannelService implements INotificationChannel
     }
 
 
-     /**
+    /**
      * Объединение логики создание записи email + создания/отправки кода
      * @param SendNotificationDTO $dto
      *
      * @return array
-     */
+    */
     private function InteractorSendEmail(SendNotificationDTO $dto) : array
     {
         /** @var array */
@@ -51,6 +51,7 @@ class NotificationChannelService implements INotificationChannel
             //объединение логики создание записей в интерактор send+list table
             $interactor = app(InteractorSendNotification::class);
             $status = $interactor->runSendEmail($dto);
+
 
             if($status['status'])
             {
@@ -66,8 +67,6 @@ class NotificationChannelService implements INotificationChannel
 
 
             }
-
-
 
             return [
                 'message' => 'Повторная отправка возможна через несколько минут.',
