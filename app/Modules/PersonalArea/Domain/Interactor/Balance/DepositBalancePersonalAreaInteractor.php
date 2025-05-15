@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\PersonalArea\App\Data\DTO\DepositBalanceDTO;
+use App\Modules\PersonalArea\App\Data\Enums\OperationBalanceEnum;
 use App\Modules\PersonalArea\Domain\Actions\BalanceLog\UpdateBalancePersonalAreaAction;
 
 class DepositBalancePersonalAreaInteractor extends BaseInteractor
@@ -42,7 +43,7 @@ class DepositBalancePersonalAreaInteractor extends BaseInteractor
             $depositBefore = $this->depositBalance($moneyActual, $dto->moneyDeposit);
 
             /** @var bool  */
-            $personalArea = $this->updateBalancePersonalAreaAction($dto->personalArea, $depositBefore);
+            $personalArea = $this->updateBalancePersonalAreaAction($dto->personalArea, $depositBefore, OperationBalanceEnum::DEPOSIT);
 
             return $personalArea;
         });
@@ -50,9 +51,9 @@ class DepositBalancePersonalAreaInteractor extends BaseInteractor
         return $status;
     }
 
-    private function updateBalancePersonalAreaAction(PersonalArea $personalArea, Money $balance) : bool
+    private function updateBalancePersonalAreaAction(PersonalArea $personalArea, Money $balance, OperationBalanceEnum $operationBalanceEnum) : bool
     {
-        return UpdateBalancePersonalAreaAction::make($personalArea, $balance);
+        return UpdateBalancePersonalAreaAction::make($personalArea, $balance, $operationBalanceEnum);
     }
 
     private function depositBalance(Money $moneyActual, Money $moneyDeposit) : Money

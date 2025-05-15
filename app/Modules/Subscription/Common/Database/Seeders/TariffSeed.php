@@ -15,7 +15,7 @@ final class TariffSeed extends Seeder
     }
 
     private function createDriverInfo()
-    {
+    {   
 
         $status = TariffPackage::factory()->create([
             "name_tariff" => "package",

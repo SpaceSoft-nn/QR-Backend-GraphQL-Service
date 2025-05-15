@@ -33,6 +33,7 @@ class AuthJwt implements AuthInterface
         JWTAuth::factory()->setTTL($this->config->timeExpAccessToken);
         $accessToken = JWTAuth::fromUser($model);
 
+
         $accessRefresh = $this->createRefreshToken($accessToken);
 
         return $this->respondWithToken($accessToken, $accessRefresh);

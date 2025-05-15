@@ -1,3 +1,8 @@
+extend type Mutation {
+   "Временный мутатор для установки баланса личному кабинету (Тест)"
+    setBalance(personal_area_id: ID! @rules(apply: ["exists:personal_areas,id"]), amount: Float!): Boolean! @field(resolver: "App\\Modules\\PersonalArea\\Presentation\\HTTP\\Graphql\\Response\\PersonalAreaResolver@setBalance") @guard
+}
+
 
 type PersonalArea @model(class: "App\\Modules\\PersonalArea\\Domain\\Models\\PersonalArea") {
 
@@ -14,3 +19,4 @@ type PersonalArea @model(class: "App\\Modules\\PersonalArea\\Domain\\Models\\Per
     updated_at: Date!
 
 }
+

@@ -45,10 +45,10 @@ type AuthToken {
     token_type: String
 
     "Время сущестования Access токена в минутах"
-    expires_in_access: String
+    expires_in_access: Int
 
     "Время сущестования Refresh токена в минутах"
-    expires_in_refresh: String
+    expires_in_refresh: Int
 
 }
 
