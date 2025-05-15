@@ -20,6 +20,9 @@ return new class extends Migration
             $table->foreignId('user_organization_id')->index()
                 ->constrained('user_organization')->noActionOnDelete(); // делается для того, что бы знать какая организация и user в этой орагнизации создали workspace
 
+            $table->foreignUuid('personal_area_id')->index()
+                ->constrained('personal_areas')->noActionOnDelete();
+
             $table->string('name', 255)->unique()->index()->comment('Название workspace');
             $table->text('description')->nullable();
             $table->boolean('is_active');
@@ -32,7 +35,7 @@ return new class extends Migration
 
         });
     }
-    
+
     /**
      * Reverse the migrations.
      */

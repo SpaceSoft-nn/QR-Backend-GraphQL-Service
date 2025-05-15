@@ -21,6 +21,7 @@ class TariffWorkspaceService implements ITariffService
 
 
     /**
+     * Устанавливаем тариф
      * @param SetTariffWorkspaceDTO $dto
      *
      * @return SubscriptionPlan
@@ -31,6 +32,7 @@ class TariffWorkspaceService implements ITariffService
     }
 
     /**
+     * Подсчет стоимости тарифа от параметров
      * @param PriceTariffWorkspaceCalculationDTO $dto
      *
      * @return CalculateTariffWorkspaceEntity

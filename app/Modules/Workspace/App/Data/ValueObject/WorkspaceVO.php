@@ -3,10 +3,10 @@
 namespace App\Modules\Workspace\App\Data\ValueObject;
 
 use Illuminate\Support\Arr;
+use App\Modules\User\Domain\Models\User;
 use Illuminate\Contracts\Support\Arrayable;
 use App\Modules\Base\Traits\FilterArrayTrait;
 use App\Modules\Pivot\Domain\Models\UserOrganization;
-use App\Modules\User\Domain\Models\User;
 
 readonly class WorkspaceVO implements Arrayable
 {
@@ -15,6 +15,7 @@ readonly class WorkspaceVO implements Arrayable
     public function __construct(
 
         public int $user_organization_id,
+        public string $personal_area_id,
         public string $name,
         public ?bool $is_active,
         public ?string $payment_method_id,
@@ -26,6 +27,7 @@ readonly class WorkspaceVO implements Arrayable
     public static function make(
 
         int $user_organization_id,
+        string $personal_area_id,
         string $name,
         ?bool $is_active = false,
         ?string $payment_method_id = null,
@@ -36,6 +38,7 @@ readonly class WorkspaceVO implements Arrayable
 
         return new self(
             user_organization_id: $user_organization_id,
+            personal_area_id: $personal_area_id,
             name: $name,
             description: $description,
             is_active: $is_active,
@@ -48,6 +51,7 @@ readonly class WorkspaceVO implements Arrayable
     {
         return [
             "user_organization_id" => $this->user_organization_id,
+            "personal_area_id" => $this->personal_area_id,
             "name"  => $this->name,
             "description"  => $this->description,
             "is_active"  => $this->is_active,
@@ -62,6 +66,8 @@ readonly class WorkspaceVO implements Arrayable
 
         $user_organization_id = UserOrganization::query()->where('organization_id', $organization_id)->where('user_id', $user->id)->first()->id;
 
+        $personal_area_id = Arr::get($data, 'personal_area_id');
+
         $name = Arr::get($data, 'name');
         $description = Arr::get($data, 'description', null);
         $is_active = Arr::get($data, 'is_active', false);
@@ -70,6 +76,7 @@ readonly class WorkspaceVO implements Arrayable
 
         return new self(
             user_organization_id: $user_organization_id,
+            personal_area_id: $personal_area_id,
             name: $name,
             description: $description,
             is_active: $is_active,

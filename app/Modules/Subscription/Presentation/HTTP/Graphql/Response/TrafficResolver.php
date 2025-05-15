@@ -58,6 +58,7 @@ class TrafficResolver
 
     public function setTariffWorkspace(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : SubscriptionPlan
     {
+
         /**
          * Получаем User по токену
          * @var User
@@ -70,7 +71,7 @@ class TrafficResolver
 
         /**
          * Подсчет цены с учетом скидки + скидка
-         * @var array
+         * @var CalculateTariffWorkspaceEntity
          *
         */
         $arrayCalculate = $service->priceTariffWorkspaceCalculation(PriceTariffWorkspaceCalculationDTO::make(
@@ -81,13 +82,14 @@ class TrafficResolver
 
         /** @var TariffWorkspaceVO */
         $tariffWorkspaceVO = TariffWorkspaceVO::make(
-            price: $arrayCalculate['price'],
-            price_discount: $arrayCalculate['price_discount'],
+            price: $arrayCalculate->price,
+            price_discount: $arrayCalculate->price_discount,
             count_workspace: $args['count_workspace'],
             period: $args['period'],
             description: $args['description'],
-            discount: $arrayCalculate['discount'],
+            discount: $arrayCalculate->discount,
         );
+
 
         /** @var SubscriptionPlan*/
         $model = $service->setTariff(SetTariffWorkspaceDTO::make(

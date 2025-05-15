@@ -10,6 +10,7 @@ final class CreateWorkspaceValidator extends Validator
     {
         return [
             "organization_id" => ['required', 'uuid', "exists:organizations,id"],
+            "personal_area_id" => ['required', 'uuid', "exists:personal_areas,id"],
             "name" => ['required', 'string', 'min:2', 'max:255'],
             "description" => ['nullable', 'string', 'max:65535'],
             "is_active" => ['nullable', 'boolean'],

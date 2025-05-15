@@ -83,6 +83,7 @@ class DatabaseSeeder extends Seeder
                     $workspaces = Workspace::factory()
                         ->count(30)
                         ->withUserOrganization($user)
+                        ->withPersonalArea($personalArea)
                         ->create([
                             "payment_method_id" => PaymentMethod::inRandomOrder()->first()->id,
                         ]);

@@ -72,8 +72,8 @@ class CreatePersonalAreaInteractor extends BaseInteractor
                 plan_name: null,
                 subscriptionable_id: null,
                 subscriptionable_type: null,
-                count_workspace: null,
-                payment_limit: null,
+                count_workspace: 5,
+                payment_limit: 50,
                 expires_at: null,
             ));
 

@@ -17,7 +17,6 @@ class CreateWorkspaceAction
 
     private function run(WorkspaceVO $vo) : Workspace
     {
-
         try {
 
             $model = Workspace::query()->create($vo->toArrayNotNull());

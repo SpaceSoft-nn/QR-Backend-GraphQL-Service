@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Modules\Transaction\Domain\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Modules\Organization\Domain\Models\Organization;
+use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use App\Modules\Workspace\Domain\Factories\WorkspaceFactory;
@@ -30,6 +31,7 @@ class Workspace extends Model
     protected $fillable = [
 
         "user_organization_id",
+        "personal_area_id",
         "name",
         "description",
         "is_active",
@@ -63,6 +65,11 @@ class Workspace extends Model
             'active_user',
             'is_owner',
         ]);
+    }
+
+    public function personalArea() : BelongsTo
+    {
+        return $this->belongsTo(PersonalArea::class, 'personal_area_id', 'id');
     }
 
     public function organization() : HasOneThrough

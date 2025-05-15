@@ -61,7 +61,7 @@ class DeleteUserWorkspaceInteractor extends BaseInteractor
     }
 
     /**
-     * Проверяем относистя ли пользователь к данному workspace
+     * Проверяем относится ли пользователь к данному workspace
      * @param DeleteUserWorkspaceDTO $dto
      *
      * @return void

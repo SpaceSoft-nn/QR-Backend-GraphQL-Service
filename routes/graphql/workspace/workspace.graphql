@@ -49,6 +49,8 @@ input WorkspaceCreateInput @validator(class: "App\\Modules\\Workspace\\Domain\\V
 
     organization_id: String!
 
+    personal_area_id: String!
+
     name: String!
 
     description: String
