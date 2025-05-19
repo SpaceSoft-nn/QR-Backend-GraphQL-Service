@@ -1,9 +1,9 @@
 <?php
 namespace App\Modules\Notification\Domain\Actions\List;
 
-use App\Modules\Base\Error\GraphQLBusinessException;
 use Exception;
 use function App\Helpers\Mylog;
+use App\Modules\Base\Error\GraphQLBusinessException;
 
 use App\Modules\Notification\Domain\Models\EmailList;
 

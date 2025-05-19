@@ -17,19 +17,61 @@ class GoCommand extends Command
     public function handle(NotificationService $notificationService)
     {
 
-        $status = $notificationService->runNotification(SendNotificationDTO::make(
-            driver: "smtp",
-            value: "test@mail.ru",
-        ));
+        $a = 3;
+        $b = 2;
 
-        // $status = $notificationService->confirmNotification(ConfirmDTO::make(
-        //     code: 981066,
-        //     uuid: "0196d49b-6514-7246-80a7-9629f31a8c93",
-        //     type: 'email',
-        // ));
+        dd( (int) 'x52' );
 
-        dd($status);
+        $s = "IV";
 
+        $mapHash = [
+            "I" => 1,
+            "V" => 5,
+            "X" => 10,
+            "L" => 50,
+            "C" => 100,
+            "D" => 500,
+            "M" => 1000,
+
+            "IV" => 4,
+            "IX" => 9,
+
+            "XL" => 40,
+            "XC" => 90,
+
+            "CD" => 400,
+            "CM" => 900,
+        ];
+
+
+        // dd(1000 + 1000 + 1000 + 400 + 90) = 3490;
+
+        $count = 0;
+
+        for($i = strlen($s) - 1; $i >= 0; $i--)
+        {
+
+            $mapString = "";
+            if( array_key_exists($s[$i], $mapHash) )
+            {
+                $check = $i - 1;
+                $mapString = $s[$check] . "" . $s[$i];
+
+                if(array_key_exists($mapString, $mapHash) && $check >= 0)
+                {
+
+                    $count = $count + $mapHash[$mapString];
+                    $i--;
+
+                } else {
+
+                    $count = $count + $mapHash[$s[$i]];
+                }
+
+            }
+        }
+
+        dd($count);
     }
 
 

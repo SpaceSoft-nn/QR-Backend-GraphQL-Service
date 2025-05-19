@@ -6,6 +6,7 @@ use App\Modules\Base\DTO\BaseDTO;
 use Illuminate\Support\Facades\DB;
 use App\Modules\User\Domain\Models\User;
 use App\Modules\Base\Interactor\BaseInteractor;
+use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\User\App\Data\ValueObject\UserVO;
 use App\Modules\PersonalArea\Domain\Models\PersonalArea;
 use App\Modules\User\Domain\Actions\User\CreateUserAction;
@@ -46,12 +47,19 @@ class RegistrationInteractor extends BaseInteractor
             /** @var User */
             $user = $this->createUser($dto->userVO);
 
+
             //устанавливаем emailList/phoneList - временно без нотификации
-            $user = $this->notificationInteractor->execute(CreateNotificationDTO::make(
-                user: $user,
-                email: $dto->email,
-                phone: $dto->phone,
-            ));
+            // $this->notificationInteractor->execute(CreateNotificationDTO::make(
+            //     user: $user,
+            //     email: $dto->email,
+            //     phone: $dto->phone,
+            // ));
+
+            #TODO Исправить логику нотификации
+            $model = EmailList::create([
+                'value' => $dto->email,
+                'status' => true,
+            ]);
 
             /**
              * Создаём личный кабинет для пользователя
@@ -75,7 +83,5 @@ class RegistrationInteractor extends BaseInteractor
     {
         return CreateUserAction::make($userVO);
     }
-
-
 
 }
