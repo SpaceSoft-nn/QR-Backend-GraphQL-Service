@@ -15,8 +15,8 @@ class RegistrationValidator extends BaseValidator
     public function rules() : array
     {
         return [
-            'email' => (new EmailRule)->toArray(),
-            'phone' => (new PhoneRule)->toArray(),
+            'email' => (new EmailRule)->addRule('unique:email_lists,value')->toArray(),
+            'phone' => (new PhoneRule)->addRule('unique:phone_lists,value')->toArray(),
             'password' => ['required', 'string', Password::defaults(), 'confirmed'],
             'first_name' => ['required', 'string', "max:130", 'min:2', 'alpha'],
             'last_name' => ['required', 'string', "max:130", 'min:2', 'alpha'],

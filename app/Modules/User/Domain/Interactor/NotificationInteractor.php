@@ -9,8 +9,7 @@ use App\Modules\Base\Interactor\BaseInteractor;
 use App\Modules\Notification\Domain\Models\EmailList;
 use App\Modules\Notification\Domain\Models\PhoneList;
 use App\Modules\User\App\Data\DTO\Notification\CreateNotificationDTO;
-use App\Modules\Notification\Domain\Actions\List\CreateEmailListAction;
-use App\Modules\Notification\Domain\Actions\List\CreatePhoneListAction;
+
 
 class NotificationInteractor extends BaseInteractor
 {
@@ -63,14 +62,20 @@ class NotificationInteractor extends BaseInteractor
         return $user;
     }
 
-    public function createEmailList(CreateNotificationDTO $dto)
+    public function createEmailList(CreateNotificationDTO $dto) : EmailList
     {
-        return CreateEmailListAction::make($dto->email, true);
+        return EmailList::create([
+            'value' => $dto->email,
+            'status' => true,
+        ]);
     }
 
-    public function createPhoneList(CreateNotificationDTO $dto)
+    public function createPhoneList(CreateNotificationDTO $dto) : PhoneList
     {
-        return CreatePhoneListAction::make($dto->phone, true);
+        return PhoneList::create([
+            'value' => $dto->phone,
+            'status' => true,
+        ]);
     }
 
 

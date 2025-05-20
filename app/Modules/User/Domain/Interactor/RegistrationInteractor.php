@@ -49,17 +49,13 @@ class RegistrationInteractor extends BaseInteractor
 
 
             //устанавливаем emailList/phoneList - временно без нотификации
-            // $this->notificationInteractor->execute(CreateNotificationDTO::make(
-            //     user: $user,
-            //     email: $dto->email,
-            //     phone: $dto->phone,
-            // ));
+            #TODO Доделать логику нотификации для регистрации
+            $this->notificationInteractor->execute(CreateNotificationDTO::make(
+                user: $user,
+                email: $dto->email,
+                phone: $dto->phone,
+            ));
 
-            #TODO Исправить логику нотификации
-            $model = EmailList::create([
-                'value' => $dto->email,
-                'status' => true,
-            ]);
 
             /**
              * Создаём личный кабинет для пользователя
