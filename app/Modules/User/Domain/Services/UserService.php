@@ -15,8 +15,10 @@ use App\Modules\User\App\Data\DTO\User\RegistrationUserDTO;
 use App\Modules\User\Domain\Interactor\RegistrationInteractor;
 use App\Modules\User\Domain\Interactor\User\CreateUserInteractor;
 use App\Modules\User\Domain\Interactor\User\UpdateUserInteractor;
+use App\Modules\User\App\Data\DTO\User\RegistrationСonfirmationDTO;
 use App\Modules\User\Domain\Interactor\User\ResetPasswordInteractor;
 use App\Modules\User\Domain\Interface\Repository\Service\IUserService;
+use App\Modules\User\Domain\Interactor\User\RegistrationСonfirmationInteractor;
 
 final class UserService implements IUserService
 {
@@ -26,12 +28,25 @@ final class UserService implements IUserService
         private CreateUserInteractor $createUserInteractor,
         private UpdateUserInteractor $updateUserInteractor,
         private ResetPasswordInteractor $resetPasswordInteractor,
+        private RegistrationСonfirmationInteractor $registrationСonfirmationInteractor,
     ) { }
 
 
     public function registrationUser(RegistrationUserDTO $dto) : User
     {
         return $this->registrationInteractor->execute($dto);
+    }
+
+    /**
+     * Подтвреждения регистрации аккаунта после нотификации кода
+     *
+     * @param RegistrationСonfirmationDTO $dto
+     *
+     * @return User
+    */
+    public function registrationСonfirmation(RegistrationСonfirmationDTO $dto) : User
+    {
+        return $this->registrationСonfirmationInteractor->execute($dto);
     }
 
     public function loginUser(LoginUserDTO $loginUserDTO) : User

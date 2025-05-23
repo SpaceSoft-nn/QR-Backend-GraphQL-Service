@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
 
         $email = EmailList::factory()->create([
-            'value' => 'test@mail.ru',
+            'value' => 'qjq3@mail.ru',
             'status' => true,
         ]);
 

@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Modules\Notification\App\Data\DTO\Service\SendNotificationDTO;
 use App\Modules\Notification\Domain\Services\Notification\NotificationService;
+
 
 class GoCommand extends Command
 {
@@ -16,62 +16,15 @@ class GoCommand extends Command
 
     public function handle(NotificationService $notificationService)
     {
+        $arr = ["d","b","c","b","c","a"];
+        $counts = array_count_values($arr);
 
-        $a = 3;
-        $b = 2;
+        $unique = array_filter($arr, function($key) use ($counts) {
+            return $counts[$key] === 1;
+        });
 
-        dd( (int) 'x52' );
+        // return $arrUnique;
 
-        $s = "IV";
-
-        $mapHash = [
-            "I" => 1,
-            "V" => 5,
-            "X" => 10,
-            "L" => 50,
-            "C" => 100,
-            "D" => 500,
-            "M" => 1000,
-
-            "IV" => 4,
-            "IX" => 9,
-
-            "XL" => 40,
-            "XC" => 90,
-
-            "CD" => 400,
-            "CM" => 900,
-        ];
-
-
-        // dd(1000 + 1000 + 1000 + 400 + 90) = 3490;
-
-        $count = 0;
-
-        for($i = strlen($s) - 1; $i >= 0; $i--)
-        {
-
-            $mapString = "";
-            if( array_key_exists($s[$i], $mapHash) )
-            {
-                $check = $i - 1;
-                $mapString = $s[$check] . "" . $s[$i];
-
-                if(array_key_exists($mapString, $mapHash) && $check >= 0)
-                {
-
-                    $count = $count + $mapHash[$mapString];
-                    $i--;
-
-                } else {
-
-                    $count = $count + $mapHash[$s[$i]];
-                }
-
-            }
-        }
-
-        dd($count);
     }
 
 

@@ -21,10 +21,11 @@ class AuthResolver
         private RegistrationValidator $userValidator,
         private UserService $userService,
         private AuthService $authService,
-    ) {}
+    ) { }
 
     public function registration(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) : array
     {
+
         //Валидируем
         $date = $this->userValidator->validate($args);
 

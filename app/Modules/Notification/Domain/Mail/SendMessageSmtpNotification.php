@@ -23,7 +23,8 @@ class SendMessageSmtpNotification extends Mailable implements ShouldQueue
     {
         // $viewPath = base_path('app\Modules\Notification\Common\View\Mail\email_code.blade.php');
 
-        return $this->subject('Subject of the email')
+
+        return $this->subject('Ваш код подтверждения...')
             ->view('email_code') // Используйте только название файла без расширения и пути
             ->with([
                 'message' => $this->data,

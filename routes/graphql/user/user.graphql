@@ -3,12 +3,16 @@ extend type Mutation {
     userCreate(input: UserCreateInput! @spread): User! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@store") @guard
     updateUser(input: UpdateUserInput! @spread): User! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@update") @guard
 
-    resetPassword(input: ResetPasswordInput! @spread): StatusResetPassword! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@resetPassword")
+    "Восстановление пароля по коду"
+    resetPassword(input: ResetPasswordInput! @spread): UserStatusMutationResponse! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@resetPassword")
+
+    "Подтврждения регистрации по коду"
+    registrationConfirmation(input: RegistrationConfirmationInput! @spread): UserStatusMutationResponse! @field(resolver: "App\\Modules\\User\\Presentation\\HTTP\\Graphql\\Response\\UserResolver@registrationСonfirmation")
 
 }
 
 
-type StatusResetPassword {
+type UserStatusMutationResponse {
 
     "Информация токена входа"
     authToken: AuthToken
@@ -29,6 +33,16 @@ input ResetPasswordInput {
 
     "Пароль для изменения, *повторный пароль проверить на фронте"
     password: String! @rules(apply: ["required", "string"])
+
+}
+
+input RegistrationConfirmationInput {
+
+    "Код для подтврждения нотификации"
+    code: Int! @rules(apply: ["required", "integer"])
+
+    "uuid отправки кода"
+    uuid_send: String! @rules(apply: ["required", "uuid", "exists:send_email_notification,id"])
 
 }
 

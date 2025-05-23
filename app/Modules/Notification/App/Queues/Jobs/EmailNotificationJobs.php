@@ -30,7 +30,8 @@ class EmailNotificationJobs implements ShouldQueue
      */
     public function handle(): void
     {
+
         // Отправка уведомления
-        Mail::to($this->email)->send(new SendMessageSmtpNotification('test'));
+        Mail::to($this->email)->send(new SendMessageSmtpNotification($this->dto->code));
     }
 }
