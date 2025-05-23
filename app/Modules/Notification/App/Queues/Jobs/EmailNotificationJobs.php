@@ -8,7 +8,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class EmailNotificationJobs implements ShouldQueue
+class EmailNotificationJobs
 {
     use Queueable;
 
