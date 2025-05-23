@@ -1,14 +1,14 @@
 <?php
 namespace App\Modules\Notification\App\Queues\Jobs;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Modules\Notification\App\Data\DTO\SmtpDTO;
 use App\Modules\Notification\Domain\Mail\SendMessageSmtpNotification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 
-class EmailNotificationJobs
+class EmailNotificationJobs implements ShouldQueue
 {
     use Queueable;
 
