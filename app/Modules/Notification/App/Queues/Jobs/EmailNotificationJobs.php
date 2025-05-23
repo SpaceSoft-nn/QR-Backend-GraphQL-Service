@@ -6,7 +6,10 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Modules\Notification\App\Data\DTO\SmtpDTO;
+use App\Modules\Notification\Domain\Exceptions\Mail\ExceptionSendEmail;
 use App\Modules\Notification\Domain\Mail\SendMessageSmtpNotification;
+
+use function App\Helpers\Mylog;
 
 class EmailNotificationJobs implements ShouldQueue
 {
@@ -30,8 +33,21 @@ class EmailNotificationJobs implements ShouldQueue
      */
     public function handle(): void
     {
+        try {
 
-        // Отправка уведомления
-        Mail::to($this->email)->send(new SendMessageSmtpNotification($this->dto->code));
+            // Отправка уведомления
+            Mail::to($this->email)->send(new SendMessageSmtpNotification($this->dto->code));
+
+        } catch (\Throwable $th) {
+
+            $nameClass = self::class;
+
+            Mylog("Ошибка в {$nameClass} при создании записи: " . $th);
+            throw new ExceptionSendEmail('Ошибка в классе: ' . $nameClass, 500);
+
+        }
+
+
+
     }
 }
