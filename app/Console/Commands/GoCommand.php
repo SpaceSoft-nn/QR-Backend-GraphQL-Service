@@ -23,6 +23,7 @@ class GoCommand extends Command
             });
 
 
+        $this->info("Письмо отправлено!");
 
     }
 
