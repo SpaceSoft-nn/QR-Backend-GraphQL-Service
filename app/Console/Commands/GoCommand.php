@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Modules\Notification\Domain\Services\Notification\NotificationService;
+use Illuminate\Support\Facades\Mail;
 
 
 class GoCommand extends Command
@@ -16,14 +17,12 @@ class GoCommand extends Command
 
     public function handle(NotificationService $notificationService)
     {
-        $arr = ["d","b","c","b","c","a"];
-        $counts = array_count_values($arr);
+        Mail::raw('Тестовое письмо от Laravel', function ($message) {
+            $message->to('qjq3@mail.ru')
+                ->subject('Проверка SMTP с сервера');
+            });
 
-        $unique = array_filter($arr, function($key) use ($counts) {
-            return $counts[$key] === 1;
-        });
 
-        // return $arrUnique;
 
     }
 
