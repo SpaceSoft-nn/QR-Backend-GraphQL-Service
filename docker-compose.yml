@@ -13,7 +13,7 @@ services:
     container_name: qr_nginx
 
   app:
-    network_mode: "host"
+    # network_mode: "host"
     build:
       context: .
       dockerfile: _docker/app/DockerFile
