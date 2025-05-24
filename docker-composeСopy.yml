@@ -1,0 +1,54 @@
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - /etc/letsencrypt/:/etc/letsencrypt/
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    container_name: qr_nginx
+
+  app:
+    # network_mode: "host"
+    build:
+      context: .
+      dockerfile: _docker/app/DockerFile
+    volumes:
+      - ./:/var/www
+    container_name: qr_laravel
+    depends_on:
+      - db
+      - redis
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+    - "6379:6379"
+    command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
+    volumes:
+    - ./tmp/redis:/data
+    container_name: qr_redis
+
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: lardocker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Указываем volume для хранения данных
+    ports:
+      - 8101:5432
+    container_name: qr_postgres
+
+volumes:
+  db_data: {}
+
+

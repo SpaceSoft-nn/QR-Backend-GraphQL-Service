@@ -11,9 +11,10 @@ services:
     depends_on:
       - app
     container_name: qr_nginx
+    networks:
+      - app_network
 
   app:
-    # network_mode: "host"
     build:
       context: .
       dockerfile: _docker/app/DockerFile
@@ -23,17 +24,29 @@ services:
     depends_on:
       - db
       - redis
+    # Добавляем DNS и другие важные настройки для решения проблемы с SMTP
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    # Добавляем переменную окружения для принудительного использования IPv4
+    environment:
+      - DISABLE_IPV6=true
+    networks:
+      - app_network
+    extra_hosts:
+      - "smtp.mail.ru:94.100.180.160"  # Принудительно IPv4
 
   redis:
     image: redis:latest
     restart: always
     ports:
-    - "6379:6379"
+      - "6379:6379"
     command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
     volumes:
-    - ./tmp/redis:/data
+      - ./tmp/redis:/data
     container_name: qr_redis
-
+    networks:
+      - app_network
 
   db:
     image: postgres:latest
@@ -43,12 +56,24 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
     volumes:
-      - db_data:/var/lib/postgresql/data  # Указываем volume для хранения данных
+      - db_data:/var/lib/postgresql/data
     ports:
       - 8101:5432
     container_name: qr_postgres
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+    # Настраиваем DNS для всей сети
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/16
+          gateway: 172.30.0.1
 
 volumes:
   db_data: {}
-
-
